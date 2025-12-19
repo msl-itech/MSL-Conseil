@@ -17,6 +17,7 @@ const NAV_LINKS = [
     { label: "Ressources", href: "/ressources" },
     { label: "Méthode", href: "/methode" },
     { label: "FAQ", href: "/faq" },
+    { label: "Bootcamp", href: "/bootcamp" },
     { label: "Contact", href: "/contact" }
 ];
 
