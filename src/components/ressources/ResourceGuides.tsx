@@ -16,7 +16,7 @@ const GUIDES = [
         image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop"
     },
     {
-        title: "Tutoriels pas-à-pas pour configurer Odoo Finance",
+        title: "Tutoriels pas-à-pas pour configurer Odoo Finances",
         category: "Tutoriels",
         desc: "De la théorie à la pratique, sans friction.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2070&auto=format&fit=crop"
@@ -53,7 +53,7 @@ export default function ResourceGuides() {
             <div className="max-w-7xl mx-auto">
                 <div className="mb-16 text-center">
                     <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">Guides Pratiques</h2>
-                    <p className="text-gray-500 max-w-2xl mx-auto">Des ressources actionnables pour maîtriser Odoo Finance.</p>
+                    <p className="text-gray-500 max-w-2xl mx-auto">Des ressources actionnables pour maîtriser Odoo Finances.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">

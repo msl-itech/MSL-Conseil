@@ -15,11 +15,11 @@ const WHAT_WE_DONT = [
 ];
 
 const EXPERTISE_AREAS = [
-    { title: "Finance d'entreprise", suffix: "Core" },
+    { title: "finances d'entreprise", suffix: "Core" },
     { title: "Contrôle de gestion", suffix: "Pilotage" },
     { title: "Automatisation des flux", suffix: "Scale" },
     { title: "Structuration des processus", suffix: "BPM" },
-    { title: "Usage avancé d'Odoo Finance", suffix: "Expert" },
+    { title: "Usage avancé d'Odoo Finances", suffix: "Expert" },
 ];
 
 export default function BootcampDifference() {

@@ -122,7 +122,7 @@ export default function BootcampPhilosophy() {
                             <div className="border-t border-primary/10 pt-8">
                                 <span className="text-primary/40 text-xs font-bold uppercase tracking-widest block mb-6">02. La Méthode</span>
                                 <p className="text-xl md:text-2xl leading-relaxed text-primary/80 font-medium">
-                                    C’est un outil de transformation opérationnelle, centré sur la <span className="text-primary font-bold">finance</span>, la <span className="text-primary font-bold">gestion</span> et la <span className="text-primary font-bold">digitalisation</span> dans Odoo.
+                                    C’est un outil de transformation opérationnelle, centré sur la <span className="text-primary font-bold">finances</span>, la <span className="text-primary font-bold">gestion</span> et la <span className="text-primary font-bold">digitalisation</span> dans Odoo.
                                 </p>
                             </div>
                         </div>

@@ -8,7 +8,7 @@ import Image from "next/image";
 gsap.registerPlugin(ScrollTrigger);
 
 const DIFFERENTIATORS = [
-    "Vision 360° : finance + processus + Odoo",
+    "Vision 360° : finances + processus + Odoo",
     "Expertise terrain PME belges & marocaines",
     "Méthode simple et orientée résultats",
     "Livrables concrets à chaque étape",
@@ -131,7 +131,7 @@ export default function AboutValues() {
                             "Nous parlons le langage des dirigeants, pas celui des techniciens."
                         </p>
                         <p className="text-white/50 text-sm">
-                            Une équipe belgo-marocaine d'experts en finance, contrôle de gestion, Odoo et transformation digitale.
+                            Une équipe belgo-marocaine d'experts en finances, contrôle de gestion, Odoo et transformation digitale.
                         </p>
                     </div>
 

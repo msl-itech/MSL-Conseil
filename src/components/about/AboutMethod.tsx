@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const METHOD_STEPS = [
     { letter: "P", label: "Planifier", desc: "Analyser vos flux" },
-    { letter: "I", label: "Installer", desc: "Configurer Odoo Finance sur mesure" },
+    { letter: "I", label: "Installer", desc: "Configurer Odoo Finances sur mesure" },
     { letter: "L", label: "Libérer", desc: "Automatiser et sécuriser vos processus" },
     { letter: "O", label: "Observer", desc: "Mettre en place le contrôle de gestion" },
     { letter: "T", label: "Transmettre", desc: "Former vos équipes" },

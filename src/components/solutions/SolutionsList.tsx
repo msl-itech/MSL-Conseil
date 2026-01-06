@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const SOLUTIONS = [
     {
         num: "01",
-        title: "Odoo Finance",
+        title: "Odoo Finances",
         subtitle: "Mise en place & optimisation",
         description: "Nous structurons vos processus financiers dans Odoo pour vous donner des chiffres fiables, centralisés et directement exploitables.",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop", // Dashboard data
@@ -72,7 +72,7 @@ const SOLUTIONS = [
         num: "07",
         title: "Digitalisation",
         subtitle: "Connexion des départements",
-        description: "Nous connectons vos processus internes pour que la finance devienne un moteur, pas un frein.",
+        description: "Nous connectons vos processus internes pour que la finances devienne un moteur, pas un frein.",
         image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop", // Connected office
         before: ["Départements isolés", "Manque coord.", "Silos"],
         after: ["Flux intégrés", "Données synchro", "Transparence"],

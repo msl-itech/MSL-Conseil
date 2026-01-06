@@ -10,16 +10,16 @@ import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = generateSEOMetadata({
-    title: "Bootcamps MSL Conseils | Formation Odoo Finance Intensive",
-    description: "Se former vite. Appliquer immédiatement. Performer durablement. Découvrez nos bootcamps intensifs pour maîtriser Odoo Finance et transformer votre gestion financière.",
+    title: "Bootcamps MSL Conseils | Formation Odoo Finances Intensive",
+    description: "Se former vite. Appliquer immédiatement. Performer durablement. Découvrez nos bootcamps intensifs pour maîtriser Odoo Finances et transformer votre gestion financière.",
     url: "/bootcamp",
     keywords: [
         "Bootcamp Odoo",
-        "Formation Odoo Finance",
+        "Formation Odoo Finances",
         "Formation intensive Odoo",
-        "Odoo Finance Belgique",
-        "Odoo Finance Maroc",
-        "Formation finance entreprise",
+        "Odoo Finances Belgique",
+        "Odoo Finances Maroc",
+        "Formation finances entreprise",
         "Contrôle de gestion Odoo",
         "Automatisation financière",
     ],
@@ -30,7 +30,7 @@ const bootcampSchema = {
     "@context": "https://schema.org",
     "@type": "Course",
     name: "Bootcamps MSL Conseils",
-    description: "Formation courte, intensive et immersive pour acquérir rapidement des compétences pratiques sur Odoo Finance.",
+    description: "Formation courte, intensive et immersive pour acquérir rapidement des compétences pratiques sur Odoo Finances.",
     provider: {
         "@type": "Organization",
         name: "MSL Conseils",

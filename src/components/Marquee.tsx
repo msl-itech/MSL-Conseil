@@ -6,7 +6,7 @@ import { useRef } from "react";
 
 const TEXT_BEFORE = "Un bon outil ne suffit pas. Il faut une méthode claire, un cadre sécurisant et un regard extérieur pour avancer sereinement. Avec ";
 const TEXT_BRAND = "MSL Conseils";
-const TEXT_AFTER = ", Odoo Finance devient un levier sur mesure, adapté à votre réalité et à votre rythme  ";
+const TEXT_AFTER = ", Odoo Finances devient un levier sur mesure, adapté à votre réalité et à votre rythme  ";
 const TEXT_LOCATION = "• Belgique & Maroc •";
 
 export default function Marquee() {

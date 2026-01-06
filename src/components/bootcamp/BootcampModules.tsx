@@ -13,7 +13,7 @@ const MODULES = [
     {
         id: 1,
         number: "01",
-        title: "Structuration Odoo Finance",
+        title: "Structuration Odoo Finances",
         duration: "3 à 5 jours",
         target: "Entreprises utilisant Odoo sans cadre financier clair ou en phase de structuration.",
         objective: "Mettre en place une architecture financière cohérente dans Odoo.",
@@ -24,7 +24,7 @@ const MODULES = [
             "Bonnes pratiques d'automatisation",
         ],
         result: "Une base financière propre, fiable et exploitable.",
-        cta: "Structurer notre Odoo Finance",
+        cta: "Structurer notre Odoo Finances",
         color: "from-primary to-[#016b45]",
         image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop"
     },
@@ -69,11 +69,11 @@ const MODULES = [
         number: "04",
         title: "Digitalisation des départements connectés",
         duration: "3 à 5 jours",
-        target: "Entreprises souhaitant aligner finance, opérations et organisation.",
+        target: "Entreprises souhaitant aligner finances, opérations et organisation.",
         objective: "Connecter les départements à une logique financière commune.",
         content: [
             "Analyse inter-départements",
-            "Connexion des flux opérationnels à la finance",
+            "Connexion des flux opérationnels à la finances",
             "Logique transverse de pilotage",
             "Alignement outils / processus / objectifs",
         ],

@@ -21,7 +21,7 @@ const BENEFITS = [
     {
         id: 2,
         tag: "Autonomie",
-        title: "Une équipe autonome sur Odoo Finance",
+        title: "Une équipe autonome sur Odoo Finances",
         subtitle: "Votre personnel n’est pas remplacé — il est renforcé.",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
     },
@@ -77,7 +77,7 @@ export default function BenefitsGrid() {
                     Découvrez ce que vous gagnez immédiatement
                 </h2>
                 <p className="text-white/60 text-lg">
-                    Des finances claires, des tâches automatisées, un pilotage sans stress grâce à Odoo.
+                    Des financess claires, des tâches automatisées, un pilotage sans stress grâce à Odoo.
                 </p>
             </div>
 
@@ -122,7 +122,7 @@ export default function BenefitsGrid() {
             {/* CTA Button */}
             <div className="mt-20 text-center">
                 <Link href="/solutions" className="inline-flex items-center justify-center gap-2 bg-primary text-white px-10 py-4 rounded-sm font-medium uppercase tracking-widest text-sm hover:bg-primary/90 transition-colors">
-                    Découvrez comment Odoo Finance peut transformer votre gestion
+                    Découvrez comment Odoo Finances peut transformer votre gestion
                 </Link>
             </div>
         </section>

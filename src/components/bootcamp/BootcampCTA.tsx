@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const GOALS = [
     "Renforcer les compétences de vos équipes",
     "Mieux exploiter Odoo",
-    "Structurer et automatiser votre finance",
+    "Structurer et automatiser votre finances",
     "Gagner en autonomie et en fiabilité",
 ];
 
