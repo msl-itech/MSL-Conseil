@@ -47,7 +47,7 @@ const CHAPTERS = [
                                 {[
                                     ["Création d'une facture client", "Génération écriture comptable + relance automatique"],
                                     ["Réception d'un relevé bancaire", "Rapprochement automatique avec facture/encaissement"],
-                                    ["Achat fournisseur (PDF ou e-mail)", "Lecture OCR + pré-enregistrement comptable"],
+                                    ["Gestion des achats", "Maîtrise des dépenses et validation des factures"],
                                     ["Paiement fournisseur", "Génération écriture + lettrage automatique"],
                                     ["Vente en boutique (POS)", "Comptabilisation auto + stock mis à jour"],
                                     ["Abonnement client", "Facturation périodique + comptabilisation auto"]
@@ -238,7 +238,7 @@ const CHAPTERS = [
 
                 <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
                     <h4 className="font-bold text-gray-900 mb-4">💡 Pourquoi faire de la comptabilité analytique ?</h4>
-                    <p className="text-gray-700 mb-4">La comptabilité générale te dit combien tu gagnes au total, mais ne te dit pas <strong>ce qui fonctionne bien ou pas</strong>.</p>
+                    <p className="text-gray-700 mb-4">La comptabilité générale vous dit combien vous gagnez au total, mais ne vous dit pas ce qui fonctionne bien.</p>
                     <div className="grid md:grid-cols-2 gap-4">
                         <div className="bg-red-50 rounded-xl p-4 border border-red-100">
                             <h5 className="font-medium text-gray-900 mb-2">Sans analytique</h5>
@@ -679,7 +679,7 @@ export default function GuideContent({ onStartQuiz }: GuideContentProps) {
                 {/* Chapters */}
                 <div className="space-y-16">
                     {CHAPTERS.map((chapter) => (
-                        <section key={chapter.id} id={`chapter-${chapter.id}`} className="chapter-block scroll-mt-24">
+                        <section key={chapter.id} id={`chapter-${chapter.id}`} className="chapter-block scroll-mt-32">
                             <div className="flex items-start gap-4 mb-8">
                                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-lg shrink-0 text-white" style={{ backgroundColor: ODOO_PURPLE }}>
                                     {chapter.icon}
@@ -699,7 +699,7 @@ export default function GuideContent({ onStartQuiz }: GuideContentProps) {
                 <div className="mt-16 bg-blue-50 rounded-2xl p-6 border border-blue-100 text-center">
                     <p className="text-gray-600 mb-3">📈 Besoin de revoir les bases ?</p>
                     <Link href="/ressources/guides/diagnostic-gestion" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
-                        Consultez le premier guide : &quot;Structurer sa comptabilité PME&quot;
+                        Consultez le premier guide : &quot;Structurer la comptabilité de votre PME&quot;
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>

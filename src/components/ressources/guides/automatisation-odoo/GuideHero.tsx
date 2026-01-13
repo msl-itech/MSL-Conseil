@@ -75,7 +75,7 @@ export default function GuideHero() {
 
                 {/* Title */}
                 <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                    Automatiser sa comptabilité PME
+                    Automatiser la comptabilité de votre PME
                     <br />
                     <span className="text-secondary">et piloter en temps réel avec Odoo</span>
                 </h1>

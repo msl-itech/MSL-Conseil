@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const GUIDES = [
     {
-        title: "Mise en place de la comptabilité pour PME",
+        title: "Mise en place d'une comptabilité efficace pour PME",
         category: "Formation Complète",
         desc: "2 E-books + 2 tests interactifs. 11 chapitres, 48 questions. De la structuration à l'automatisation avec Odoo.",
         image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop",

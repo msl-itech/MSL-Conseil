@@ -94,9 +94,9 @@ export default function GuideHero() {
             </div>
 
             {/* Scroll Indicator */}
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
+            {/* <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
                 <div className="w-px h-16 bg-gradient-to-b from-secondary to-transparent animate-pulse" />
-            </div>
+            </div> */}
         </section>
     );
 }

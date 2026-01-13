@@ -14,6 +14,8 @@ export interface UserData {
     lastName: string;
     email: string;
     company: string;
+    vatNumber: string;
+    revenueLevel: string;
     role: string;
     wantsDiagnostic: boolean;
 }
@@ -27,6 +29,13 @@ const ROLES = [
     "Autre"
 ];
 
+const REVENUE_LEVELS = [
+    "Moins de 300.000 €",
+    "De 300.000 € à 1M €",
+    "De 1M € à 3M €",
+    "Plus de 3M €"
+];
+
 export default function DownloadForm({ onSubmit, onBack }: DownloadFormProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState<UserData>({
@@ -34,6 +43,8 @@ export default function DownloadForm({ onSubmit, onBack }: DownloadFormProps) {
         lastName: "",
         email: "",
         company: "",
+        vatNumber: "",
+        revenueLevel: "",
         role: "",
         wantsDiagnostic: false
     });
@@ -49,6 +60,8 @@ export default function DownloadForm({ onSubmit, onBack }: DownloadFormProps) {
         if (!formData.lastName.trim()) e.lastName = "Requis";
         if (!formData.email.trim()) e.email = "Requis";
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) e.email = "Email invalide";
+        if (!formData.vatNumber.trim()) e.vatNumber = "Requis";
+        if (!formData.revenueLevel) e.revenueLevel = "Requis";
         setErrors(e);
         return Object.keys(e).length === 0;
     };
@@ -149,6 +162,33 @@ export default function DownloadForm({ onSubmit, onBack }: DownloadFormProps) {
                             className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary transition-colors focus:outline-none"
                             placeholder="Nom de votre entreprise"
                         />
+                    </div>
+
+                    {/* VAT & Revenue */}
+                    <div className="form-element grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Numéro TVA / BCE <span className="text-red-500">*</span></label>
+                            <input
+                                type="text"
+                                value={formData.vatNumber}
+                                onChange={(e) => handleChange("vatNumber", e.target.value)}
+                                className={`w-full px-4 py-3 rounded-xl border-2 ${errors.vatNumber ? "border-red-400" : "border-gray-200 focus:border-primary"} transition-colors focus:outline-none`}
+                                placeholder="BE 0123.456.789"
+                            />
+                            {errors.vatNumber && <p className="mt-1 text-sm text-red-500">{errors.vatNumber}</p>}
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Niveau de CA <span className="text-red-500">*</span></label>
+                            <select
+                                value={formData.revenueLevel}
+                                onChange={(e) => handleChange("revenueLevel", e.target.value)}
+                                className={`w-full px-4 py-3 rounded-xl border-2 ${errors.revenueLevel ? "border-red-400" : "border-gray-200 focus:border-primary"} transition-colors focus:outline-none bg-white`}
+                            >
+                                <option value="">Sélectionner...</option>
+                                {REVENUE_LEVELS.map(r => <option key={r} value={r}>{r}</option>)}
+                            </select>
+                            {errors.revenueLevel && <p className="mt-1 text-sm text-red-500">{errors.revenueLevel}</p>}
+                        </div>
                     </div>
 
                     {/* Role */}

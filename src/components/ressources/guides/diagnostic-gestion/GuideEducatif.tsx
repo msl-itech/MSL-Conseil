@@ -78,8 +78,8 @@ const CHAPTERS = [
                     <div className="space-y-4">
                         {[
                             { title: "🔹 Activité de l'entreprise", questions: ["Que vendez-vous ? (biens, services, abonnements…)", "À qui vendez-vous ? (particuliers, entreprises, administration)", "Votre CA est-il concentré sur quelques produits/clients ou réparti ?"] },
-                            { title: "🔹 Organisation commerciale", questions: ["Combien de canaux de vente ?", "Faut-il suivre les ventes par canal, produit, équipe ?"] },
-                            { title: "🔹 Structure juridique et fiscale", questions: ["Régime de TVA ? (réel, franchise, intracommunautaire…)", "Statut : micro, EI, société, holding ?", "Activités distinctes à suivre séparément ?"] },
+                            { title: "🔹 Organisation commerciale", questions: ["Combien de canaux de vente ? (site web, boutique physique, dépôt vente, etc.)", "Faut-il suivre les ventes par canal, produit, équipe ?"] },
+                            { title: "🔹 Structure juridique et fiscale", questions: ["Régime de TVA ? (réel, franchise, intracommunautaire…)", "Statut : individuel, micro, société, groupement, holding ?", "Activités distinctes à suivre séparément ?"] },
                             { title: "🔹 Objectifs de gestion", questions: ["Souhaitez-vous suivre la rentabilité par activité, produit, client ?", "Quels indicateurs vous intéressent vraiment ?", "Avez-vous besoin de scénarios prévisionnels ?"] }
                         ].map((block, i) => (
                             <div key={i} className="bg-gray-50 rounded-xl p-4">
@@ -139,22 +139,36 @@ const CHAPTERS = [
                 <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
                         <h5 className="font-bold text-gray-900 mb-2">🔹 Produits (classe 70-75)</h5>
-                        <p className="text-xs text-gray-500 mb-2">Personnalisation recommandée :</p>
+                        <ul className="text-sm text-gray-700 space-y-1 mb-3">
+                            <li>700000 – Vente de marchandises</li>
+                            <li>704000 – Prestations de services</li>
+                            <li>707000 – Vente de biens produits par l'entreprise</li>
+                            <li>708000 – Ristournes, remises accordées</li>
+                        </ul>
+                        <p className="text-xs text-gray-500 mb-2">🔧 Sous-comptes recommandés (personnalisation) :</p>
                         <ul className="text-sm text-gray-700 space-y-1">
-                            <li>700001 – Vente boutique physique</li>
-                            <li>700002 – Vente site e-commerce</li>
+                            <li>700001 – Vente via boutique physique</li>
+                            <li>700002 – Vente via site e-commerce</li>
                             <li>704001 – Prestations de conseil</li>
                             <li>704002 – Formations en ligne</li>
                         </ul>
                     </div>
                     <div className="bg-orange-50 rounded-xl p-4 border border-orange-100">
-                        <h5 className="font-bold text-gray-900 mb-2">🔹 Charges (classe 60-64)</h5>
-                        <p className="text-xs text-gray-500 mb-2">Personnalisation possible :</p>
+                        <h5 className="font-bold text-gray-900 mb-2">🔹 Charges (classe 60 à 64)</h5>
+                        <p className="text-xs text-gray-500 mb-2">📘 Exemples de base :</p>
+                        <ul className="text-sm text-gray-700 space-y-1 mb-3">
+                            <li>600000 – Achats de marchandises</li>
+                            <li>610000 – Services et biens divers</li>
+                            <li>620000 – Rémunérations</li>
+                            <li>630000 – Amortissements</li>
+                        </ul>
+                        <p className="text-xs text-gray-500 mb-2">🔧 Personnalisation possible :</p>
                         <ul className="text-sm text-gray-700 space-y-1">
-                            <li>611001 – Publicité Facebook</li>
-                            <li>611002 – Prestations freelance</li>
-                            <li>611003 – Logiciels SaaS</li>
-                            <li>600001 – Produits revente Amazon</li>
+                            <li>600001 – Produits achetés pour revente sur Amazon</li>
+                            <li>600002 – Emballage et logistique</li>
+                            <li>612003 – Logiciels SaaS</li>
+                            <li>613002 – Prestations freelance</li>
+                            <li>615001 – Publicité Facebook</li>
                         </ul>
                     </div>
                 </div>
@@ -247,26 +261,43 @@ const CHAPTERS = [
                     <div className="grid md:grid-cols-2 gap-4 mt-4">
                         <div className="bg-white rounded-xl p-4">
                             <h5 className="font-medium text-gray-900 mb-2">👔 L'expert-comptable cherche à :</h5>
+                            <ul className="text-sm text-gray-600 space-y-1 mb-3">
+                                <li>• Standardiser les pratiques clients</li>
+                                <li>• Uniformiser les outils et méthodes</li>
+                                <li>• Limiter les spécificités par dossier</li>
+                                <li>• Optimiser le travail en cabinet</li>
+                            </ul>
+                            <p className="text-sm text-gray-700 mb-3">👉 Son objectif : industrialiser la production comptable est <strong><u>indispensable à rentabilité du cabinet</u></strong>.</p>
+                            <p className="text-sm text-gray-600 mb-1">💡 Moins il y a d'adaptations par client, plus :</p>
                             <ul className="text-sm text-gray-600 space-y-1">
-                                <li>• Standardiser les processus</li>
-                                <li>• Faire fonctionner tous ses clients de manière similaire</li>
-                                <li>• Optimiser sa rentabilité</li>
+                                <li>• La productivité est élevée</li>
+                                <li>• Les coûts internes sont maîtrisés</li>
+                                <li>• La charge mentale des équipes est réduite</li>
                             </ul>
                         </div>
                         <div className="bg-white rounded-xl p-4">
                             <h5 className="font-medium text-gray-900 mb-2">🏢 L'entreprise cherche à :</h5>
-                            <ul className="text-sm text-gray-600 space-y-1">
-                                <li>• Automatiser au maximum</li>
-                                <li>• Réduire les tâches administratives</li>
-                                <li>• Piloter en temps réel</li>
+                            <ul className="text-sm text-gray-600 space-y-1 mb-3">
+                                <li>• Automatiser ses processus internes</li>
+                                <li>• Réduire les tâches manuelles récurrentes</li>
+                                <li>• Centraliser les données comptables et opérationnelles</li>
+                                <li>• Piloter son activité en temps réel</li>
                             </ul>
+                            <p className="text-sm text-gray-700 mb-3">👉 Son objectif : améliorer l'efficacité, la fiabilité et la réactivité dans la gestion quotidienne.</p>
+                            <p className="text-sm text-gray-600 mb-1">💡 Plus les outils sont adaptés à l'entreprise, plus :</p>
+                            <ul className="text-sm text-gray-600 space-y-1 mb-3">
+                                <li>• Les tâches sont fluides et automatisées</li>
+                                <li>• Les décisions sont prises sur des données à jour</li>
+                                <li>• Les coûts cachés (temps, erreurs, ressaisies) sont réduits</li>
+                            </ul>
+                            <p className="text-sm text-red-600 font-medium">⚠️ S'adapter aux contraintes de l'expert-comptable peut réduire la rentabilité de l'entreprise</p>
                         </div>
                     </div>
                 </div>
 
                 <div className="bg-orange-50 rounded-xl p-4 border border-orange-100">
                     <h4 className="font-bold text-gray-900 mb-2">💸 Le coût caché de multiplier les outils</h4>
-                    <p className="text-gray-700 text-sm">Plus il y a d'outils, plus il y a d'interfaces, plus il y a de frictions : <strong>productivité ↓, coûts ↑, ressaisies multiples, automatisation partielle.</strong></p>
+                    <p className="text-gray-700 text-sm">Plus il y a d'outils, plus il y a d'interfaces, plus il y a de frictions : <strong>productivité <span className="text-red-600 text-lg">↓</span>, coûts <span className="text-red-600 text-lg">↑</span>, ressaisies multiples, automatisation partielle.</strong></p>
                 </div>
 
                 <div className="bg-gradient-to-br from-purple-900 to-purple-800 rounded-2xl p-6 text-white" style={{ background: "linear-gradient(135deg, #714b67, #8e6180)" }}>
@@ -283,12 +314,12 @@ const CHAPTERS = [
                     <table className="w-full text-sm">
                         <thead><tr className="bg-gray-100"><th className="p-3 text-left font-semibold">Outil</th><th className="p-3 text-left font-semibold">Avantages entreprise</th><th className="p-3 text-left font-semibold">Limites</th></tr></thead>
                         <tbody>
-                            {[["Odoo", "🔥 Centralisation totale, automatisation max", "Mise en place initiale"], ["Banqup", "OCR performant, connexion banques", "Pensé pour le comptable"], ["Yuki", "OCR + banque + compta intégrée", "Flexibilité limitée"], ["Exact Online", "Puissant, multi-devises", "Complexe, coûteux"]].map(([outil, av, lim], i) => (
+                            {[["Odoo", "🔥 Centralisation totale, automatisation max. Pensé pour optimiser la rentabilité de l'entreprise", "Mise en place initiale"], ["Horus", "OCR performant, connexion banques", "Pensé pour améliorer la rentabilité de l'expert-comptable externe"], ["Yuki", "OCR + banque + compta intégrée", "Flexibilité limitée et améliore la rentabilité de l'expert-comptable externe"], ["Exact Online", "Puissant, multi-devises", "Complexe, coûteux et améliore la rentabilité de l'expert-comptable externe"]].map(([outil, av, lim], i) => (
                                 <tr key={i} className="border-b border-gray-100"><td className="p-3 font-medium">{outil}</td><td className="p-3 text-gray-600">{av}</td><td className="p-3 text-gray-500">{lim}</td></tr>
                             ))}
                         </tbody>
-                    </table>
-                </div>
+                </table>
+            </div>
             </div>
         )
     }
@@ -309,7 +340,7 @@ export default function GuideEducatif({ onStartDiagnostic }: GuideContentProps) 
                 {/* Introduction */}
                 <div className="text-center mb-16">
                     <span className="inline-block bg-secondary/10 text-secondary text-sm font-semibold px-4 py-1.5 rounded-full mb-4">E-book Gratuit</span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Structurer sa comptabilité PME</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Structurer la comptabilité de votre PME</h2>
                     <p className="text-gray-600 max-w-2xl mx-auto">Posez des bases solides : plan comptable personnalisé (PCMN 🇧🇪), organisation documentaire et choix des bons outils.</p>
                 </div>
 

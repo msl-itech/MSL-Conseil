@@ -8,11 +8,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 interface GuideContentPart2Props {
-    onDownload: () => void;
     onBack: () => void;
+    onStartChecklist: () => void;
 }
 
-export default function GuideContentPart2({ onDownload, onBack }: GuideContentPart2Props) {
+export default function GuideContentPart2({ onBack, onStartChecklist }: GuideContentPart2Props) {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
@@ -134,55 +134,73 @@ export default function GuideContentPart2({ onDownload, onBack }: GuideContentPa
                     </div>
                 </section>
 
-                {/* Section 9: Checklist */}
-                <section id="section-9" className="section-block scroll-mt-24 mb-12">
-                    <div className="flex items-start gap-4 mb-8">
-                        <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center text-2xl shadow-lg shrink-0">✅</div>
-                        <div>
-                            <span className="text-sm text-primary uppercase tracking-wider font-medium">Chapitre 9</span>
-                            <h3 className="text-2xl font-bold text-gray-900 mt-1">Checklist de mise en œuvre progressive</h3>
+                {/* Section 9: Interactive Checklist CTA */}
+                {/* <section id="section-9" className="section-block scroll-mt-24 mb-12">
+                    <div className="bg-gradient-to-br from-secondary to-secondary/90 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-[100px] pointer-events-none" />
+                        <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-[80px] pointer-events-none" />
+
+                        <div className="relative z-10">
+                            <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <span className="text-4xl">✅</span>
+                            </div>
+
+                            <span className="inline-block bg-white/20 text-white text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+                                Auto-diagnostic interactif
+                            </span>
+
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                                Évaluez votre maturité en 3 minutes
+                            </h2>
+
+                            <p className="text-white/80 max-w-xl mx-auto mb-8">
+                                Complétez notre checklist interactive en 4 phases pour obtenir un score personnalisé et des recommandations adaptées à votre situation.
+                            </p>
+
+                            <div className="flex flex-wrap justify-center gap-4 mb-8">
+                                {[
+                                    { icon: "🔍", text: "État des lieux" },
+                                    { icon: "🛠️", text: "Fondamentaux" },
+                                    { icon: "📊", text: "Suivi & Pilotage" },
+                                    { icon: "⚙️", text: "Automatisation" }
+                                ].map((phase, i) => (
+                                    <div key={i} className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
+                                        <span>{phase.icon}</span>
+                                        <span className="text-white/90 text-sm font-medium">{phase.text}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={onStartChecklist}
+                                className="inline-flex items-center gap-3 bg-white hover:bg-gray-100 text-secondary font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg active:scale-[0.98]"
+                            >
+                                Commencer l&apos;auto-diagnostic
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </button>
+
+                            <p className="text-white/60 text-sm mt-6">
+                                📤 Partagez ensuite vos résultats avec votre équipe de direction
+                            </p>
                         </div>
                     </div>
-                    <div className="pl-0 md:pl-[4.5rem] space-y-6">
-                        {[
-                            { phase: "Phase 1 : État des lieux", items: ["J'ai identifié les outils actuellement utilisés", "J'ai fait l'inventaire des indicateurs déjà suivis", "J'ai évalué ma maturité de gestion", "J'ai clarifié mes priorités", "J'ai mobilisé les parties prenantes"] },
-                            { phase: "Phase 2 : Mise en place des fondamentaux", items: ["J'ai formalisé un budget annuel", "J'ai défini mes 3 objectifs chiffrés", "J'ai mis en place une prévision de trésorerie 12 semaines", "J'ai identifié et suivi au moins 5 KPI", "J'ai mis en place un premier tableau de bord"] },
-                            { phase: "Phase 3 : Suivi & Pilotage actif", items: ["J'organise une réunion de pilotage mensuelle", "J'analyse les écarts budget/réalisé chaque mois", "J'ai une visibilité trésorerie à 30 jours", "J'ai identifié un indicateur RSE pertinent", "Je compare mes marges par produit/client"] },
-                            { phase: "Phase 4 : Automatisation & Amélioration", items: ["J'ai automatisé au moins un flux de données", "J'ai mis en place un tableau de bord dynamique", "J'ai défini une procédure d'actualisation", "J'ai cartographié mes risques critiques", "J'ai mis en place un plan de continuité"] }
-                        ].map((phase, pi) => (
-                            <div key={pi} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-                                <h4 className="font-bold text-gray-900 mb-4">{phase.phase}</h4>
-                                <ul className="space-y-2">
-                                    {phase.items.map((item, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-gray-700 text-sm">
-                                            <span className="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center shrink-0">⬜</span>
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                </section> */}
 
                 {/* Conclusion */}
-                <div className="bg-gray-900 rounded-3xl p-8 md:p-12 text-center mb-12">
+                <div className="bg-gray-900 rounded-3xl p-8 md:p-12 text-center">
                     <p className="text-xl md:text-2xl text-white italic mb-6">"Le bon contrôle de gestion, ce n'est pas plus de chiffres.<br /><strong className="text-secondary">Ce sont les bons chiffres, bien interprétés, au bon moment.</strong>"</p>
-                    <p className="text-white/60 text-sm">💡 Conseil : imprimez cette checklist et cochez chaque étape. Un bon contrôle de gestion est une construction continue.</p>
-                </div>
-
-                {/* CTA */}
-                <div className="bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-[100px] pointer-events-none" />
-                    <div className="relative z-10">
-                        <span className="inline-block bg-secondary/20 text-secondary text-sm font-semibold px-4 py-1.5 rounded-full mb-6">📎 Téléchargez le guide complet</span>
-                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Recevez le guide PDF + Checklist Excel</h2>
-                        <p className="text-white/70 max-w-xl mx-auto mb-8">Toutes les étapes, études de cas et la checklist complète prêtes à imprimer et à utiliser.</p>
-                        <button onClick={onDownload} className="inline-flex items-center gap-3 bg-secondary hover:bg-secondary/90 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg active:scale-[0.98]">
-                            Télécharger gratuitement
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        </button>
-                    </div>
+                    <p className="text-white/60 text-sm mb-8">💡 Conseil : faites l'auto-diagnostic ci-dessus et partagez vos résultats avec votre équipe. Un bon contrôle de gestion est une construction continue.</p>
+                    <button
+                        onClick={onStartChecklist}
+                        className="inline-flex items-center gap-3 bg-secondary hover:bg-secondary/90 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:shadow-lg active:scale-[0.98]"
+                    >
+                        ✅ Faire l'auto-diagnostic maintenant
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>

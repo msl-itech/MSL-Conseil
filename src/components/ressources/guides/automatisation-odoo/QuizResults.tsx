@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Link from "next/link";
 import { QUIZ_SECTIONS } from "./Quiz";
-import { UserInfo } from "@/app/ressources/guides/automatisation-odoo/page";
+import { UserData as UserInfo } from "./UserForm";
 
 // Odoo purple color
 const ODOO_PURPLE = "#714b67";
@@ -76,40 +76,38 @@ export default function QuizResults({ score, answers, userInfo, onRestartQuiz, i
     const scoreMax = 31;
     const maturity = MATURITY_LEVELS.find(m => score >= m.min && score <= m.max) || MATURITY_LEVELS[0];
 
-    // Share URL with tracking (Guide 2)
+    // Share URL with score and level info
     const shareUrl = typeof window !== 'undefined'
-        ? `${window.location.origin}/ressources/guides/automatisation-odoo?source=share&ref=diagnostic&canal=`
-        : 'https://msl-conseil.com/ressources/guides/automatisation-odoo?source=share&ref=diagnostic&canal=';
+        ? `${window.location.origin}/ressources/guides/automatisation-odoo?shared=true&score=${score}&level=${encodeURIComponent(maturity.level)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`
+        : `https://msl-conseil.com/ressources/guides/automatisation-odoo?shared=true&score=${score}&level=${encodeURIComponent(maturity.level)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`;
 
     // Pre-filled messages for Guide 2 (different tone - more advanced)
     const whatsAppMessage = `Salut 👋
 
-Je suis en train de travailler sur l'automatisation et le pilotage financier de ma PME.
+Je viens de faire un diagnostic sur l'automatisation et le pilotage financier de ma PME.
 
-J'ai lu un guide très pertinent sur le sujet et fait un diagnostic assez poussé.
+J'ai obtenu ${score}/${scoreMax} (${maturity.level}).
 
-J'aimerais bien avoir ton avis sur cette approche, et voir si ça correspond à ta façon de gérer aujourd'hui.
+J'aimerais bien avoir ton avis sur cette approche, ou te comparer.
+Tu peux voir mon score et faire le tien ici :
 
-Si tu veux, tu peux aussi faire le diagnostic pour te situer (un peu plus avancé, mais très utile).
-
-👉 ${shareUrl}whatsapp`;
+👉 ${shareUrl}`;
 
     const linkedInMessage = `Bonjour,
 
-Je travaille actuellement sur l'automatisation et le pilotage de la gestion financière de mon entreprise.
+Je travaille sur l'automatisation et le pilotage financier de mon entreprise.
 
-J'ai consulté un guide très structuré sur le sujet et réalisé un diagnostic avancé.
+J'ai réalisé un diagnostic avancé et obtenu ${score}/${scoreMax} (${maturity.level}).
 
-Les résultats m'ont fait réfléchir, et je serais curieux d'avoir ton regard de dirigeant.
-Si le sujet t'intéresse, tu peux également faire le diagnostic pour te situer.
+Curieux d'avoir ton regard de dirigeant. Tu peux voir mon score et faire le tien ici :
 
-👉 ${shareUrl}linkedin`;
+👉 ${shareUrl}`;
 
     const copyMessage = `Je travaille sur l'automatisation et le pilotage financier de ma PME.
-Ce guide + diagnostic m'a permis de me situer.
+J'ai obtenu ${score}/${scoreMax} (${maturity.level}) au diagnostic.
 
-Curieux d'avoir ton avis.
-👉 ${shareUrl}copy`;
+Curieux d'avoir ton avis ou de te comparer.
+👉 ${shareUrl}`;
 
     // Calculate score per section
     const sectionScores = QUIZ_SECTIONS.map(section => {

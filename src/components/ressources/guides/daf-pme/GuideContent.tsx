@@ -74,47 +74,107 @@ const SECTIONS: Section[] = [
                     <strong> pression sur les marges, décisions plus rapides à prendre, accès au financement plus sélectif, digitalisation accélérée</strong>.
                 </p>
 
+                {/* Ce qui manque aujourd'hui */}
                 <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                    <p className="text-gray-600 mb-4">Pourtant, sur le terrain, beaucoup de dirigeants pilotent encore :</p>
-                    <ul className="space-y-3">
+                    <h4 className="font-bold text-gray-900 mb-4">Ce qui manque aujourd'hui</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {[
-                            "avec des chiffres incomplets",
-                            "des tableaux Excel bricolés",
-                            "une trésorerie suivie \"au feeling\"",
-                            "des décisions prises trop tard"
+                            "Une scène vécue",
+                            "Un choix inconfortable",
+                            "Une question non résolue"
                         ].map((item, i) => (
-                            <li key={i} className="flex items-center gap-3 text-gray-600">
-                                <span className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-red-500">
-                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </span>
-                                {item}
-                            </li>
+                            <div key={i} className="bg-white rounded-xl p-4 border border-gray-200 text-center">
+                                <p className="text-gray-700 font-medium">{item}</p>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
+                    <p className="text-lg text-primary font-medium mt-6 text-center italic">
+                        Le dirigeant doit se dire : "Je suis exactement là."
+                    </p>
                 </div>
 
-                <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
-                    <p className="text-lg text-gray-700 italic">
-                        "J'ai l'impression de manquer de visibilité pour décider sereinement."
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">— Sophie, dirigeante PME de services, Bruxelles</p>
+                {/* Mauvaise pratique */}
+                <div className="bg-red-50 rounded-2xl p-8 border border-red-200">
+                    <h4 className="text-xl font-bold text-red-800 mb-6 flex items-center gap-2">
+                        ❌ Mauvaise pratique — Pilotage flou
+                    </h4>
+
+                    <div className="bg-white rounded-xl p-6 border border-red-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Charleroi</strong>, Laurent dirige une PME industrielle de 25 personnes.
+                            L'entreprise est rentable, mais tendue en trésorerie. Chaque mois, il reçoit :
+                        </p>
+                        <ul className="space-y-2 text-gray-600 mb-4">
+                            <li>→ les chiffres du comptable avec 6 à 8 semaines de retard,</li>
+                            <li>→ des tableaux Excel "reconstruits" en interne,</li>
+                            <li>→ des réponses floues quand il pose des questions simples.</li>
+                        </ul>
+                        <div className="bg-red-50 rounded-lg p-4 mb-4">
+                            <p className="text-gray-700 italic">"Est-ce qu'on peut recruter ?"</p>
+                            <p className="text-gray-700 italic">"Est-ce qu'on peut investir ?"</p>
+                        </div>
+                        <p className="text-gray-700">
+                            Laurent décide à l'intuition, en espérant que "ça passe".
+                        </p>
+                    </div>
+
+                    <p className="text-primary font-medium">Il ne se sent pas en danger… mais jamais vraiment serein.</p>
                 </div>
 
-                <p className="text-lg text-gray-700 leading-relaxed">
-                    Très vite, une question revient : <strong className="text-primary">"Est-ce que j'ai besoin d'un Directeur Financier ?"</strong>
-                </p>
+                {/* Bonne pratique */}
+                <div className="bg-green-50 rounded-2xl p-8 border border-green-200">
+                    <h4 className="text-xl font-bold text-green-800 mb-6 flex items-center gap-2">
+                        ✅ Bonne pratique — Prise de recul
+                    </h4>
 
-                <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
-                    <p className="text-lg font-medium text-gray-900 flex items-start gap-3">
-                        <svg className="w-6 h-6 text-secondary mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>
-                            <strong className="text-secondary">Objectif de ce guide :</strong> vous aider à comprendre si, quand et comment structurer votre pilotage financier — sans recruter trop tôt, ni trop tard.
-                        </span>
-                    </p>
+                    <div className="bg-white rounded-xl p-6 border border-green-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Namur</strong>, Isabelle dirige une PME de services du même ordre de grandeur.
+                            Elle ne dispose pas d'un DAF à temps plein. Mais elle a :
+                        </p>
+                        <ul className="space-y-2 text-gray-600">
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                des indicateurs clairs,
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                une vision de trésorerie à 6 mois,
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                quelqu'un qui l'aide à poser les bonnes questions avant de décider.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p className="text-primary font-medium">Elle ne décide pas plus lentement. Elle décide avec moins de stress et moins de surprises.</p>
+                </div>
+
+                {/* Chute éditoriale */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6">
+                        Chute éditoriale — Message clé
+                    </h4>
+
+                    <div className="space-y-4 mb-6">
+                        <p className="text-white/90 text-lg">Le problème n'est pas l'absence de DAF.</p>
+                        <p className="text-white/90 text-lg">Le problème est <strong className="text-secondary">l'absence de pilotage structuré</strong>.</p>
+                    </div>
+
+                    <div className="bg-white/10 rounded-xl p-4">
+                        <p className="text-white/80 mb-3"><span className="text-secondary font-bold">Bonne chose à faire :</span></p>
+                        <p className="text-white/80">
+                            Avant de se demander "qui recruter", se demander :<br />
+                            <strong className="text-secondary">"Comment est réellement pilotée ma finance aujourd'hui ?"</strong>
+                        </p>
+                    </div>
                 </div>
             </div>
         )
@@ -124,70 +184,114 @@ const SECTIONS: Section[] = [
         title: "Le DAF, bras droit stratégique",
         icon: Icons.daf,
         content: (
-            <div className="space-y-6">
+            <div className="space-y-8">
+                {/* Introduction */}
                 <p className="text-lg text-gray-700 leading-relaxed">
                     Le Directeur Financier (DAF) n'est pas un "super comptable". <strong>Il est le copilote du dirigeant.</strong>
                 </p>
 
-                <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
-                    <p className="text-gray-700 mb-4">
-                        À Gand, Claire dirige une PME e-commerce. Son DAF ne s'occupe pas des factures au quotidien.
-                        Il l'aide à répondre à des questions clés :
-                    </p>
-                    <ul className="space-y-2">
-                        {[
-                            "Peut-on recruter maintenant ?",
-                            "Cet investissement est-il rentable ?",
-                            "Quelle est la marge réelle par activité ?"
-                        ].map((item, i) => (
-                            <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
-                                <span className="text-secondary">→</span>
-                                {item}
+                {/* Mauvaise pratique */}
+                <div className="bg-red-50 rounded-2xl p-8 border border-red-200">
+                    <h4 className="text-xl font-bold text-red-800 mb-6 flex items-center gap-2">
+                        ❌ Mauvaise pratique — Rôle dilué
+                    </h4>
+
+                    <div className="bg-white rounded-xl p-6 border border-red-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Mons</strong>, David dirige une PME commerciale. Il pense que le rôle financier est couvert parce que :
+                        </p>
+                        <ul className="space-y-2 text-gray-600 mb-4">
+                            <li>→ le comptable produit le bilan,</li>
+                            <li>→ l'assistante fait les factures,</li>
+                            <li>→ lui-même "a l'œil sur la trésorerie".</li>
+                        </ul>
+                        <p className="text-gray-700 font-medium mb-3">En réalité :</p>
+                        <ul className="space-y-2 text-gray-600">
+                            <li className="text-red-600">→ personne ne consolide les informations,</li>
+                            <li className="text-red-600">→ les décisions sont prises tard,</li>
+                            <li className="text-red-600">→ les problèmes sont découverts après coup.</li>
+                        </ul>
+                    </div>
+
+                    <p className="text-primary font-medium">Le rôle de DAF existe… mais n'est tenu par personne.</p>
+                </div>
+
+                {/* Bonne pratique */}
+                <div className="bg-green-50 rounded-2xl p-8 border border-green-200">
+                    <h4 className="text-xl font-bold text-green-800 mb-6 flex items-center gap-2">
+                        ✅ Bonne pratique — Rôle clairement assumé
+                    </h4>
+
+                    <div className="bg-white rounded-xl p-6 border border-green-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Louvain-la-Neuve</strong>, Claire dirige une PME similaire.
+                            Elle a compris une chose simple :
+                        </p>
+                        <p className="text-lg text-primary font-medium italic mb-4">
+                            « Le rôle de DAF est une fonction, pas un titre. »
+                        </p>
+                        <p className="text-gray-700 mb-3">Même sans DAF interne, elle a :</p>
+                        <ul className="space-y-2 text-gray-600">
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                une personne qui structure les budgets,
                             </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-primary rounded-2xl p-6 text-white">
-                        <h4 className="font-bold mb-4 flex items-center gap-2">
-                            <svg className="w-5 h-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Rôle du DAF
-                        </h4>
-                        <ul className="space-y-2 text-white/90">
-                            <li>• Traduire les chiffres en décisions</li>
-                            <li>• Relier stratégie, opérations et finance</li>
-                            <li>• Sécuriser la trajectoire de l'entreprise</li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                une vision claire de la trésorerie,
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                un regard externe pour challenger ses décisions.
+                            </li>
                         </ul>
                     </div>
 
-                    <div className="bg-gray-900 rounded-2xl p-6 text-white">
-                        <h4 className="font-bold mb-4 flex items-center gap-2">
-                            <svg className="w-5 h-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            Missions principales
-                        </h4>
-                        <ul className="space-y-2 text-white/90 text-sm">
-                            <li>• Élaboration et suivi du budget</li>
-                            <li>• Pilotage de la trésorerie</li>
-                            <li>• Mise en place d'indicateurs</li>
-                            <li>• Analyse de la rentabilité</li>
-                            <li>• Préparation des investissements</li>
-                        </ul>
+                    <p className="text-primary font-medium">Le rôle est clair, même si le poste ne l'est pas.</p>
+                </div>
+
+                {/* Chute éditoriale */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6 flex items-center gap-2">
+                        Chute éditoriale — Message clé
+                    </h4>
+
+                    <div className="space-y-4 mb-6">
+                        <p className="text-white/90 text-lg">Le problème n'est pas de ne pas avoir de DAF.</p>
+                        <p className="text-white/90 text-lg">Le problème est de <strong className="text-secondary">ne pas savoir qui joue ce rôle</strong>.</p>
+                    </div>
+
+                    <div className="bg-white/10 rounded-xl p-4 mb-6">
+                        <p className="text-white/80 mb-3"><span className="text-secondary font-bold">Bonne chose à faire :</span></p>
+                        <p className="text-white/80 mb-3">Identifier clairement :</p>
+                        <div className="flex flex-wrap gap-3">
+                            {["qui pilote", "qui anticipe", "qui transforme les chiffres en décisions"].map((item, i) => (
+                                <span key={i} className="px-4 py-2 bg-white/10 rounded-full text-white font-medium">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="border-t border-white/20 pt-6">
+                        <p className="text-lg">
+                            <strong className="text-secondary">Sans cela, aucun outil et aucun recrutement ne résoudra le problème.</strong>
+                        </p>
                     </div>
                 </div>
 
+                {/* Transition */}
                 <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
-                    <p className="text-lg font-medium text-gray-900 flex items-start gap-3">
-                        <svg className="w-6 h-6 text-secondary mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                        Le DAF n'est pas là pour produire plus de chiffres. <strong className="text-secondary">Il est là pour faire parler les bons chiffres.</strong>
+                    <p className="text-lg text-gray-700 mb-4">
+                        Si le rôle de DAF est une fonction clé, encore faut-il comprendre pourquoi il ne peut pas être assumé seul par un expert-comptable ou un contrôleur de gestion.
                     </p>
+                    <p className="text-primary font-medium">C'est précisément ce que nous allons clarifier maintenant.</p>
                 </div>
             </div>
         )
@@ -197,12 +301,14 @@ const SECTIONS: Section[] = [
         title: "Pourquoi un seul profil ne peut pas tout faire",
         icon: Icons.roles,
         content: (
-            <div className="space-y-6">
+            <div className="space-y-8">
+                {/* Introduction */}
                 <p className="text-lg text-gray-700 leading-relaxed">
                     Beaucoup de dirigeants pensent que l'expert-comptable suffit. D'autres comptent sur un contrôleur de gestion interne.
                     <strong> En réalité, ces rôles sont différents et complémentaires.</strong>
                 </p>
 
+                {/* Grille des 3 rôles */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
                         <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
@@ -247,19 +353,176 @@ const SECTIONS: Section[] = [
                     </div>
                 </div>
 
-                <div className="bg-red-50 rounded-2xl p-6 border border-red-100">
-                    <p className="text-gray-700 italic">
-                        À Louvain-la-Neuve, Thomas a voulu tout confier à une seule personne.
-                        <strong> Résultat : des décisions tardives et un pilotage fragmenté.</strong>
-                    </p>
+                {/* Mauvaise pratique 1 */}
+                <div className="bg-red-50 rounded-2xl p-8 border border-red-200">
+                    <h4 className="text-xl font-bold text-red-800 mb-6 flex items-center gap-2">
+                        ❌ Mauvaise pratique — "Tout repose sur le comptable"
+                    </h4>
+
+                    <div className="bg-white rounded-xl p-6 border border-red-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Wavre</strong>, Nicolas dirige une PME de construction. Il dit souvent :
+                        </p>
+                        <p className="text-xl font-medium text-gray-800 italic mb-4">
+                            « Mon expert-comptable s'occupe de tout. »
+                        </p>
+                        <p className="text-gray-700 font-medium mb-3">En pratique :</p>
+                        <ul className="space-y-2 text-gray-600 mb-4">
+                            <li>→ le comptable envoie le bilan une fois par an,</li>
+                            <li>→ la TVA est correcte,</li>
+                        </ul>
+                        <p className="text-gray-700 font-medium mb-3">mais :</p>
+                        <ul className="space-y-2 text-gray-600">
+                            <li className="text-red-600">→ personne ne suit les marges par chantier,</li>
+                            <li className="text-red-600">→ la trésorerie est tendue sans explication claire,</li>
+                            <li className="text-red-600">→ les décisions sont prises après les problèmes.</li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-red-100 rounded-xl p-4 mb-4">
+                        <p className="text-gray-700 mb-2">Quand Nicolas demande :</p>
+                        <p className="text-lg font-medium text-gray-800 italic">« Pourquoi on manque de cash alors qu'on travaille beaucoup ? »</p>
+                        <p className="text-gray-600 mt-2">La réponse arrive… <strong>trois mois plus tard</strong>.</p>
+                    </div>
+
+                    <div className="space-y-2 text-primary font-medium">
+                        <p>Le comptable fait son travail.</p>
+                        <p>Mais ce n'est pas son rôle de piloter l'entreprise au quotidien.</p>
+                    </div>
                 </div>
 
+                {/* Mauvaise pratique 2 */}
+                <div className="bg-orange-50 rounded-2xl p-8 border border-orange-200">
+                    <h4 className="text-xl font-bold text-orange-800 mb-6 flex items-center gap-2">
+                        ❌ Autre mauvaise pratique — "Un contrôleur sans vision"
+                    </h4>
+
+                    <div className="bg-white rounded-xl p-6 border border-orange-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Hasselt</strong>, une PME industrielle recrute un contrôleur de gestion junior. Il produit :
+                        </p>
+                        <ul className="space-y-2 text-gray-600 mb-4">
+                            <li>→ des tableaux,</li>
+                            <li>→ des graphiques,</li>
+                            <li>→ des indicateurs.</li>
+                        </ul>
+                        <p className="text-gray-700 font-medium mb-3">Mais :</p>
+                        <ul className="space-y-2 text-gray-600">
+                            <li className="text-orange-600">→ les chiffres ne sont pas consolidés avec la comptabilité,</li>
+                            <li className="text-orange-600">→ les priorités stratégiques ne sont pas claires,</li>
+                            <li className="text-orange-600">→ le dirigeant reçoit beaucoup d'informations… sans décision claire.</li>
+                        </ul>
+                    </div>
+
+                    <div className="space-y-2 text-primary font-medium">
+                        <p>Le contrôleur analyse.</p>
+                        <p>Mais personne ne tranche, n'arbitre, ni ne pilote.</p>
+                    </div>
+                </div>
+
+                {/* Bonne pratique */}
+                <div className="bg-green-50 rounded-2xl p-8 border border-green-200">
+                    <h4 className="text-xl font-bold text-green-800 mb-6 flex items-center gap-2">
+                        ✅ Bonne pratique — Rôles distincts, posture claire
+                    </h4>
+
+                    <div className="bg-white rounded-xl p-6 border border-green-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Liège</strong>, Sophie dirige une PME B2B en croissance.
+                            Elle a compris une chose simple :
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div className="bg-blue-50 rounded-xl p-4 text-center border border-blue-100">
+                                <p className="text-sm text-blue-600 font-medium">Expert-comptable</p>
+                                <p className="text-gray-700 font-bold">sécurise le passé</p>
+                            </div>
+                            <div className="bg-green-50 rounded-xl p-4 text-center border border-green-100">
+                                <p className="text-sm text-green-600 font-medium">Contrôleur de gestion</p>
+                                <p className="text-gray-700 font-bold">analyse le présent</p>
+                            </div>
+                            <div className="bg-primary/10 rounded-xl p-4 text-center border border-primary/20">
+                                <p className="text-sm text-primary font-medium">DAF</p>
+                                <p className="text-gray-700 font-bold">prépare l'avenir</p>
+                            </div>
+                        </div>
+                        <p className="text-gray-700 mb-3">Elle ne confond pas les rôles :</p>
+                        <ul className="space-y-2 text-gray-600">
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                le comptable garantit la conformité,
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                le contrôleur éclaire la performance,
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                le pilotage stratégique est clairement assumé.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-green-100 rounded-xl p-4">
+                        <p className="text-green-800 font-medium mb-2">Résultat :</p>
+                        <div className="flex flex-wrap gap-2">
+                            {["moins de frictions", "moins de zones grises", "plus de décisions assumées"].map((item, i) => (
+                                <span key={i} className="px-3 py-1 bg-white rounded-full text-green-700 text-sm font-medium">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Chute éditoriale */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6 flex items-center gap-2">
+                        Chute éditoriale — La bonne chose à faire
+                    </h4>
+
+                    <p className="text-white/90 text-lg mb-6">
+                        Aucun profil ne peut tout faire correctement, durablement.
+                    </p>
+
+                    <div className="bg-white/10 rounded-xl p-4 mb-6">
+                        <p className="text-white/80 mb-3"><span className="text-secondary font-bold">Bonne posture à adopter :</span></p>
+                        <ul className="space-y-2 text-white/80">
+                            <li>→ arrêter d'attendre d'un expert-comptable ce qu'il n'est pas censé fournir,</li>
+                            <li>→ arrêter de demander à un contrôleur de "faire le DAF" sans en avoir le cadre,</li>
+                            <li>→ clarifier qui pilote réellement la finance.</li>
+                        </ul>
+                    </div>
+
+                    <div className="border-t border-white/20 pt-6">
+                        <p className="text-lg">
+                            <strong className="text-secondary">Quand les rôles sont clairs, les décisions deviennent plus simples.</strong>
+                        </p>
+                    </div>
+                </div>
+
+                {/* Transition */}
                 <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
-                    <p className="text-lg font-medium text-gray-900 flex items-start gap-3">
-                        <svg className="w-6 h-6 text-secondary mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                        Un bon pilotage financier repose sur des <strong className="text-secondary">rôles clairs</strong>, pas sur une personne "qui fait tout".
+                    <p className="text-lg text-gray-700 mb-4">
+                        Si le rôle de DAF est distinct et stratégique, reste une question centrale :
+                        <strong> à partir de quand devient-il réellement indispensable dans une PME ?</strong>
+                    </p>
+                    <p className="text-primary font-medium">C'est précisément ce que nous allons explorer maintenant.</p>
+                </div>
+
+                {/* Message clé */}
+                <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200 text-center">
+                    <p className="text-lg text-gray-700 italic">
+                        Ce chapitre doit provoquer un déclic très précis chez le dirigeant :<br />
+                        <strong className="text-primary">"Je confonds des rôles… et ça me coûte plus cher que je ne le pense."</strong>
+                    </p>
+                    <p className="text-gray-500 mt-4 text-sm">
+                        Il ne s'agit pas d'opposer les métiers, mais de montrer pourquoi ils ne peuvent pas se substituer les uns aux autres.
                     </p>
                 </div>
             </div>
@@ -270,11 +533,13 @@ const SECTIONS: Section[] = [
         title: "Pourquoi un DAF devient indispensable",
         icon: Icons.growth,
         content: (
-            <div className="space-y-6">
+            <div className="space-y-8">
+                {/* Introduction */}
                 <p className="text-lg text-gray-700 leading-relaxed">
                     Un DAF devient critique quand l'entreprise doit <strong>choisir, pas seulement exécuter</strong>.
                 </p>
 
+                {/* Situations typiques */}
                 <div className="bg-blue-50 rounded-2xl p-6 border border-blue-100">
                     <h4 className="font-bold text-gray-900 mb-4">Situations typiques</h4>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -293,120 +558,349 @@ const SECTIONS: Section[] = [
                     </div>
                 </div>
 
-                <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
-                    <p className="text-gray-700 italic">
-                        À Mons, une PME croît vite mais ne sait pas où elle gagne réellement de l'argent.
-                        <strong> Le chiffre d'affaires augmente, la sérénité diminue.</strong>
-                    </p>
-                </div>
-
-                <div className="bg-red-50 rounded-2xl p-6 border border-red-200">
-                    <h4 className="font-bold text-red-800 mb-3 flex items-center gap-2">
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Le frein principal : le coût
+                {/* Mauvaise pratique */}
+                <div className="bg-red-50 rounded-2xl p-8 border border-red-200">
+                    <h4 className="text-xl font-bold text-red-800 mb-6 flex items-center gap-2">
+                        ❌ Mauvaise pratique — Trop tard
                     </h4>
-                    <p className="text-gray-700">
-                        Un DAF interne en Belgique représente souvent : <strong className="text-red-700">115 000 à 170 000 € par an</strong>.
-                    </p>
+
+                    <div className="bg-white rounded-xl p-6 border border-red-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Arlon</strong>, une PME de services passe de 12 à 30 collaborateurs en 18 mois.
+                            Le chiffre d'affaires progresse, mais :
+                        </p>
+                        <ul className="space-y-2 text-gray-600 mb-4">
+                            <li>→ les marges se dégradent,</li>
+                            <li>→ la trésorerie devient imprévisible,</li>
+                            <li>→ les recrutements sont faits "au feeling".</li>
+                        </ul>
+                        <p className="text-gray-700 italic">
+                            Le dirigeant se dit : « On verra quand on sera plus gros. »
+                        </p>
+                    </div>
+
+                    <div className="bg-red-100 rounded-xl p-4 mb-4">
+                        <p className="font-medium text-red-800 mb-2">Résultat :</p>
+                        <div className="flex flex-wrap gap-2">
+                            {["tensions bancaires", "décisions subies", "énergie consommée à éteindre des incendies"].map((item, i) => (
+                                <span key={i} className="px-3 py-1 bg-white/80 rounded-full text-red-700 text-sm">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <p className="text-primary font-medium">Le besoin de pilotage était là avant la crise.</p>
                 </div>
 
-                <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
-                    <p className="text-lg font-medium text-gray-900 flex items-start gap-3">
-                        <svg className="w-6 h-6 text-secondary mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                        Le besoin de pilotage arrive souvent <strong className="text-secondary">avant la capacité d'embauche</strong>.
+                {/* Bonne pratique */}
+                <div className="bg-green-50 rounded-2xl p-8 border border-green-200">
+                    <h4 className="text-xl font-bold text-green-800 mb-6 flex items-center gap-2">
+                        ✅ Bonne pratique — Juste à temps
+                    </h4>
+
+                    <div className="bg-white rounded-xl p-6 border border-green-100 mb-6">
+                        <p className="text-gray-700 mb-4">
+                            <strong>À Bruges</strong>, une PME e-commerce anticipe sa croissance.
+                            Avant d'embaucher massivement, le dirigeant met en place :
+                        </p>
+                        <ul className="space-y-2 text-gray-600 mb-4">
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                un budget structuré,
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                des scénarios de trésorerie,
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                un regard financier externe.
+                            </li>
+                        </ul>
+                        <p className="text-gray-700">
+                            <strong>Quand une opportunité se présente, la décision est rapide, chiffrée, assumée.</strong>
+                        </p>
+                    </div>
+
+                    <div className="space-y-2 text-primary font-medium">
+                        <p>Le DAF n'a pas "sauvé" l'entreprise.</p>
+                        <p>Il a évité qu'elle se mette en danger.</p>
+                    </div>
+                </div>
+
+                {/* Chute éditoriale */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6 flex items-center gap-2">
+                        Chute éditoriale — La bonne chose à faire
+                    </h4>
+
+                    <p className="text-white/90 text-lg mb-6">
+                        Le DAF devient indispensable quand <strong className="text-secondary">la complexité dépasse l'intuition</strong>.
                     </p>
+
+                    <div className="bg-white/10 rounded-xl p-4 mb-6">
+                        <p className="text-white/80 mb-3"><span className="text-secondary font-bold">Signaux concrets :</span></p>
+                        <div className="flex flex-wrap gap-3">
+                            {["décisions engageantes", "croissance rapide", "financement externe", "marges difficiles à lire"].map((item, i) => (
+                                <span key={i} className="px-4 py-2 bg-white/10 rounded-full text-white font-medium">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="border-t border-white/20 pt-6">
+                        <p className="text-lg">
+                            <strong className="text-secondary">Attendre trop longtemps coûte plus cher que d'anticiper.</strong>
+                        </p>
+                    </div>
+                </div>
+
+                {/* Transition */}
+                <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
+                    <p className="text-lg text-gray-700 mb-4">
+                        Reste une question clé :
+                        <strong> comment bénéficier de ce pilotage sans supporter le coût d'un DAF à temps plein ?</strong>
+                    </p>
+                    <p className="text-primary font-medium">C'est là qu'une alternative intelligente entre en jeu.</p>
                 </div>
             </div>
         )
     },
     {
         id: 5,
-        title: "Une alternative intelligente : DAF à temps partiel",
+        title: "Une alternative intelligente : DAF à temps partiel + outils digitaux",
         icon: Icons.alternative,
         content: (
-            <div className="space-y-6">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                    À Charleroi, Alain hésite à recruter. À Liège, Céline fait un autre choix :
-                    <strong> un DAF à temps partiel, appuyé par des outils bien structurés</strong>.
-                </p>
+            <div className="space-y-8">
+                <div className="space-y-4">
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                        Pendant longtemps, beaucoup de dirigeants de PME ont pensé que le pilotage financier était une affaire de tout ou rien :
+                    </p>
+                    <div className="space-y-2 text-primary font-medium">
+                        <p>soit recruter un Directeur Financier à temps plein,</p>
+                        <p>soit continuer à se débrouiller avec les moyens du bord.</p>
+                    </div>
+                    <p className="text-gray-700">
+                        <strong>Dans les faits, cette opposition est trompeuse.</strong>
+                    </p>
+                </div>
 
-                <div className="bg-primary rounded-2xl p-6 text-white">
-                    <h4 className="font-bold text-secondary mb-4 flex items-center gap-2">
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                        </svg>
-                        Le combo gagnant
+                {/* Exemples Charleroi et Liège */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-red-50 rounded-2xl p-6 border border-red-100">
+                        <h4 className="font-bold text-red-800 mb-3">À Charleroi — L'hésitation</h4>
+                        <p className="text-gray-700 text-sm">
+                            Alain dirige une PME industrielle de 30 personnes. Il sait que son pilotage financier n'est plus suffisant, mais le coût d'un DAF interne lui paraît disproportionné.
+                            <strong> Il reporte donc la décision, mois après mois.</strong>
+                        </p>
+                    </div>
+                    <div className="bg-green-50 rounded-2xl p-6 border border-green-100">
+                        <h4 className="font-bold text-green-800 mb-3">À Liège — Le bon choix</h4>
+                        <p className="text-gray-700 text-sm">
+                            Céline, dirigeante d'une PME B2B de taille comparable, a fait un autre choix. Elle n'a pas recruté un DAF à temps plein.
+                            <strong> Elle a structuré une solution hybride, plus réaliste et plus efficace.</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div className="space-y-2 text-primary font-medium text-lg text-center bg-primary/5 rounded-2xl p-6">
+                    <p>Le pilotage financier n'est pas une question de poste.</p>
+                    <p>C'est une question de <strong className="text-secondary">fonction bien remplie, au bon rythme</strong>.</p>
+                </div>
+
+                {/* Combo gagnant */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6 flex items-center gap-2">
+                        Le combo gagnant pour une PME
                     </h4>
-                    <ul className="space-y-3">
-                        {[
-                            "Odoo Finance bien paramétré",
-                            "DAF à temps partiel (2 à 6 jours/mois)",
-                            "Montée en compétence interne"
-                        ].map((item, i) => (
-                            <li key={i} className="flex items-center gap-3">
-                                <span className="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-sm font-bold">{i + 1}</span>
-                                <span className="text-white/90">{item}</span>
-                            </li>
-                        ))}
-                    </ul>
+                    <p className="text-white/80 mb-6">
+                        Les PME qui réussissent leur structuration financière s'appuient généralement sur trois piliers complémentaires :
+                    </p>
+                    <div className="overflow-hidden rounded-xl border border-white/20">
+                        <table className="w-full text-sm">
+                            <thead className="bg-white/10">
+                                <tr>
+                                    <th className="px-4 py-3 text-left text-white font-bold">Ressource</th>
+                                    <th className="px-4 py-3 text-left text-white font-bold">Rôle</th>
+                                    <th className="px-4 py-3 text-left text-secondary font-bold">Bénéfice</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/10">
+                                <tr>
+                                    <td className="px-4 py-3 text-white/90">Odoo Finance paramétré</td>
+                                    <td className="px-4 py-3 text-white/70">Centralisation et automatisation</td>
+                                    <td className="px-4 py-3 text-secondary">Visibilité fiable, gain de temps</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-4 py-3 text-white/90">DAF à temps partiel (2-6j/mois)</td>
+                                    <td className="px-4 py-3 text-white/70">Pilotage, stratégie, coaching</td>
+                                    <td className="px-4 py-3 text-secondary">Expertise senior accessible</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-4 py-3 text-white/90">Montée en compétence interne</td>
+                                    <td className="px-4 py-3 text-white/70">Autonomie progressive</td>
+                                    <td className="px-4 py-3 text-secondary">Organisation plus résiliente</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p className="text-white/90 mt-6">
+                        Cette combinaison permet de bénéficier d'un pilotage professionnel, <strong className="text-secondary">sans rigidité ni surcoût structurel</strong>.
+                    </p>
                 </div>
 
                 {/* Comparison Table */}
-                <div className="overflow-hidden rounded-2xl border border-gray-200">
-                    <table className="w-full">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">Critère</th>
-                                <th className="px-6 py-4 text-center text-sm font-bold text-gray-500">DAF interne</th>
-                                <th className="px-6 py-4 text-center text-sm font-bold text-primary">DAF à temps partiel</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-100">
-                            {[
-                                { criteria: "Coût", internal: "Très élevé", partial: "Maîtrisé" },
-                                { criteria: "Flexibilité", internal: "Faible", partial: "Forte" },
-                                { criteria: "Expertise", internal: "Senior", partial: "Senior" },
-                                { criteria: "Impact", internal: "Progressif", partial: "Rapide" },
-                            ].map((row, i) => (
-                                <tr key={i} className="bg-white">
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{row.criteria}</td>
-                                    <td className="px-6 py-4 text-center text-sm text-gray-500">{row.internal}</td>
-                                    <td className="px-6 py-4 text-center text-sm text-primary font-medium">{row.partial}</td>
+                <div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        DAF interne vs DAF à temps partiel
+                    </h4>
+                    <div className="overflow-hidden rounded-2xl border border-gray-200">
+                        <table className="w-full">
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">Critère</th>
+                                    <th className="px-6 py-4 text-center text-sm font-bold text-gray-500">DAF interne</th>
+                                    <th className="px-6 py-4 text-center text-sm font-bold text-primary">DAF à temps partiel</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-gray-100">
+                                {[
+                                    { criteria: "Coût annuel", internal: "115 000 – 170 000 €", partial: "18 000 – 36 000 €" },
+                                    { criteria: "Flexibilité", internal: "Faible", partial: "Élevée" },
+                                    { criteria: "Niveau d'expertise", internal: "Senior", partial: "Senior" },
+                                    { criteria: "Charge salariale", internal: "Fixe", partial: "Variable" },
+                                    { criteria: "Impact perçu", internal: "Progressif", partial: "Rapide et ciblé" },
+                                ].map((row, i) => (
+                                    <tr key={i} className="bg-white">
+                                        <td className="px-6 py-4 text-sm font-medium text-gray-900">{row.criteria}</td>
+                                        <td className="px-6 py-4 text-center text-sm text-gray-500">{row.internal}</td>
+                                        <td className="px-6 py-4 text-center text-sm text-primary font-medium">{row.partial}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <div className="bg-green-50 rounded-2xl p-6 border border-green-200">
-                    <h4 className="font-bold text-green-800 mb-3">Cas réel</h4>
-                    <div className="grid grid-cols-3 gap-4 text-center">
-                        <div>
-                            <p className="text-2xl font-bold text-green-600">4% → 8,5%</p>
-                            <p className="text-sm text-gray-600">Marge</p>
+                {/* ROI Explanation */}
+                <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <h4 className="font-bold text-gray-900 mb-4">Que signifie "ROI perçu" dans ce contexte ?</h4>
+                    <div className="space-y-4 text-gray-700">
+                        <p>
+                            Un DAF interne est un investissement lourd et permanent.
+                            Les bénéfices existent, mais ils mettent du temps à être visibles et sont parfois difficiles à relier directement aux décisions prises.
+                        </p>
+                        <p>
+                            Un DAF à temps partiel, lui, intervient sur des sujets précis : trésorerie, marges, décisions clés.
+                            <strong> Les effets sont souvent immédiats et tangibles</strong> : meilleure visibilité, décisions plus sûres, stress réduit.
+                        </p>
+                    </div>
+                    <div className="mt-4 p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Autrement dit :</span> chaque euro investi dans un DAF à temps partiel est plus facilement relié à un résultat concret.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Simulation d'impact */}
+                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
+                    <h4 className="text-xl font-bold text-green-800 mb-6 flex items-center gap-2">
+                        Simulation d'impact — Cas réel de PME
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div className="bg-white rounded-xl p-6 shadow-sm">
+                            <h5 className="font-bold text-gray-900 mb-3">Situation initiale</h5>
+                            <ul className="space-y-2 text-gray-600 text-sm">
+                                <li>→ Marge nette : 4 %</li>
+                                <li>→ Trésorerie tendue</li>
+                                <li>→ Décisions prises au feeling</li>
+                            </ul>
                         </div>
-                        <div>
-                            <p className="text-2xl font-bold text-green-600">+78 000 €</p>
-                            <p className="text-sm text-gray-600">Économisés en 9 mois</p>
+                        <div className="bg-white rounded-xl p-6 shadow-sm">
+                            <h5 className="font-bold text-green-700 mb-3">Après 9 mois</h5>
+                            <ul className="space-y-2 text-gray-600 text-sm">
+                                <li className="text-green-600 font-medium">→ Marge nette : 8,5 %</li>
+                                <li className="text-green-600 font-medium">→ +78 000 € d'économies</li>
+                                <li>→ Décisions structurées et anticipées</li>
+                            </ul>
                         </div>
-                        <div>
-                            <p className="text-2xl font-bold text-green-600">0</p>
-                            <p className="text-sm text-gray-600">Embauche</p>
+                        <div className="bg-white rounded-xl p-6 shadow-sm">
+                            <h5 className="font-bold text-primary mb-3">Leviers activés</h5>
+                            <ul className="space-y-2 text-gray-600 text-sm">
+                                <li>→ Odoo Finance structuré</li>
+                                <li>→ Tableau de bord simple</li>
+                                <li>→ DAF : 6 jours par mois</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
-                    <p className="text-lg font-medium text-gray-900 flex items-start gap-3">
-                        <svg className="w-6 h-6 text-secondary mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                        Le pilotage financier n'est pas une question de poste. <strong className="text-secondary">C'est une question de juste niveau d'intervention.</strong>
+                {/* Témoignage */}
+                <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
+                    <div className="flex items-start gap-4">
+                        <span className="text-4xl">🗣️</span>
+                        <div>
+                            <p className="text-lg text-gray-700 italic mb-4">
+                                « Grâce à notre DAF à temps partiel, on a structuré notre pilotage sans embauche.
+                                Les décisions sont plus sûres, les marges meilleures, et la pression est retombée. »
+                            </p>
+                            <p className="text-sm text-gray-500">— Céline, dirigeante PME B2B (Liège)</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Chute */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6 flex items-center gap-2">
+                        La bonne décision à prendre
+                    </h4>
+                    <div className="space-y-4 mb-6">
+                        <p className="text-white/90">Le pilotage financier n'est pas une question de prestige ni de taille d'équipe.</p>
+                        <p className="text-white/90">C'est une question de <strong className="text-secondary">clarté, de méthode et de rythme adapté</strong>.</p>
+                    </div>
+                    <p className="text-white/80 mb-4">
+                        Pour beaucoup de PME, la solution la plus intelligente n'est ni l'inaction, ni le recrutement lourd.
+                        C'est une approche pragmatique :
                     </p>
+                    <div className="flex flex-wrap gap-3 mb-6">
+                        {["accéder à une expertise senior", "garder de la flexibilité", "structurer sans alourdir"].map((item, i) => (
+                            <span key={i} className="px-4 py-2 bg-white/10 rounded-full text-white font-medium">
+                                {item}
+                            </span>
+                        ))}
+                    </div>
+                    <div className="border-t border-white/20 pt-6">
+                        <p className="text-lg">
+                            Un DAF à temps partiel n'est pas une solution "par défaut".
+                            <br /><strong className="text-secondary">C'est souvent la solution la plus rationnelle.</strong>
+                        </p>
+                    </div>
+                </div>
+
+                {/* Transition */}
+                <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
+                    <h4 className="font-bold text-gray-900 mb-4">Du "comment" au "quand"</h4>
+                    <p className="text-gray-700 mb-4">
+                        Mettre en place un pilotage financier adapté est une décision structurante.
+                        <strong> Mais encore faut-il savoir quand cette décision devient réellement nécessaire.</strong>
+                    </p>
+                    <p className="text-gray-600 mb-4">
+                        Toutes les PME n'ont pas besoin d'un DAF au même moment.
+                        En revanche, elles émettent presque toutes les mêmes signaux lorsque le pilotage financier n'est plus suffisant.
+                    </p>
+                    <div className="space-y-2 text-primary font-medium">
+                        <p>Ces signaux ne sont pas des alertes rouges.</p>
+                        <p>Ce sont des indicateurs de maturité.</p>
+                    </div>
+                    <p className="text-gray-600 mt-4">C'est précisément ce que nous allons identifier maintenant.</p>
                 </div>
             </div>
         )
@@ -416,45 +910,188 @@ const SECTIONS: Section[] = [
         title: "5 signaux que vous avez besoin d'un DAF",
         icon: Icons.signals,
         content: (
-            <div className="space-y-6">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                    Ces signaux ne sont pas des échecs. <strong>Ce sont des indicateurs de maturité.</strong>
-                </p>
-
+            <div className="space-y-8">
                 <div className="space-y-4">
-                    {[
-                        { num: 1, signal: "Décisions prises sans chiffres fiables", desc: "Vous décidez souvent \"au feeling\" faute de données à jour" },
-                        { num: 2, signal: "Trésorerie floue ou tendue", desc: "Vous ne savez pas à 3 mois ce qui vous attend" },
-                        { num: 3, signal: "Rentabilité mal connue", desc: "Vous ignorez où vous gagnez (ou perdez) réellement de l'argent" },
-                        { num: 4, signal: "Expert-comptable débordé ou trop tardif", desc: "Les chiffres arrivent après la décision" },
-                        { num: 5, signal: "Manque de crédibilité face aux financeurs", desc: "Les banques demandent des projections que vous n'avez pas" },
-                    ].map((item) => (
-                        <div key={item.num} className="flex gap-4 p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-secondary/30 transition-colors">
-                            <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary font-bold text-lg shrink-0">
-                                {item.num}
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-gray-900 mb-1">{item.signal}</h4>
-                                <p className="text-gray-600 text-sm">{item.desc}</p>
-                            </div>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                        Il est rare qu'un dirigeant se réveille un matin en se disant :
+                    </p>
+                    <p className="text-xl text-primary font-medium italic">
+                        « Il me faut un DAF. »
+                    </p>
+                    <p className="text-gray-700">
+                        Dans la réalité, le besoin apparaît progressivement, à travers des situations concrètes du quotidien.
+                    </p>
+                    <p className="text-gray-600">
+                        <strong>Voici les cinq signaux les plus fréquents</strong> observés dans les PME en phase de structuration.
+                    </p>
+                </div>
+
+                {/* Signal 1 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-start gap-4 mb-6">
+                        <span className="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-2xl shrink-0">1️⃣</span>
+                        <h4 className="text-xl font-bold text-gray-900">Les décisions sont prises sans chiffres fiables</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Namur, un dirigeant valide un recrutement parce que "l'activité tourne bien".
+                            <strong> Quelques mois plus tard, la trésorerie se tend sans qu'il comprenne pourquoi.</strong>
+                        </p>
+                    </div>
+
+                    <div className="space-y-2 text-primary font-medium mb-4">
+                        <p>La décision n'était pas mauvaise.</p>
+                        <p>Elle n'était simplement pas suffisamment chiffrée.</p>
+                    </div>
+
+                    <div className="p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Ce signal indique</span> que l'intuition a pris le dessus sur le pilotage.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Signal 2 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-start gap-4 mb-6">
+                        <span className="w-12 h-12 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center text-2xl shrink-0">2️⃣</span>
+                        <h4 className="text-xl font-bold text-gray-900">La trésorerie est floue ou sous tension</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Bruxelles, une PME rentable sur le papier vit sous pression permanente.
+                            <strong> Le solde bancaire dicte les décisions à court terme.</strong>
+                        </p>
+                    </div>
+
+                    <div className="space-y-2 text-primary font-medium mb-4">
+                        <p>La trésorerie n'est pas pilotée.</p>
+                        <p>Elle est subie.</p>
+                    </div>
+
+                    <div className="p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Ce signal montre</span> qu'il manque une vision prévisionnelle et des scénarios clairs.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Signal 3 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-start gap-4 mb-6">
+                        <span className="w-12 h-12 rounded-xl bg-yellow-100 text-yellow-600 flex items-center justify-center text-2xl shrink-0">3️⃣</span>
+                        <h4 className="text-xl font-bold text-gray-900">La rentabilité réelle est mal connue</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Mons, l'entreprise vend de plus en plus. Mais personne ne sait précisément :
+                        </p>
+                        <ul className="mt-2 space-y-1 text-gray-700">
+                            <li>→ quels clients sont rentables,</li>
+                            <li>→ quels produits détruisent de la marge.</li>
+                        </ul>
+                    </div>
+
+                    <p className="text-primary font-medium mb-4">La croissance masque parfois les vrais problèmes.</p>
+
+                    <div className="p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Ce signal révèle</span> un manque d'analyse structurée de la performance.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Signal 4 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-start gap-4 mb-6">
+                        <span className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl shrink-0">4️⃣</span>
+                        <h4 className="text-xl font-bold text-gray-900">L'expert-comptable est débordé… ou arrive trop tard</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Tournai, le dirigeant sollicite son comptable pour des questions de gestion. La réponse est souvent :
+                        </p>
+                        <p className="text-xl font-medium text-gray-800 mt-2">« On verra au bilan. »</p>
+                    </div>
+
+                    <div className="space-y-2 text-primary font-medium mb-4">
+                        <p>Le comptable fait son travail.</p>
+                        <p>Mais le pilotage arrive après les décisions, pas avant.</p>
+                    </div>
+
+                    <div className="p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Ce signal indique</span> un décalage entre conformité et pilotage.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Signal 5 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-start gap-4 mb-6">
+                        <span className="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl shrink-0">5️⃣</span>
+                        <h4 className="text-xl font-bold text-gray-900">Le discours manque de crédibilité face aux financeurs</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic mb-2">
+                            À Liège, lors d'un rendez-vous bancaire, on demande :
+                        </p>
+                        <ul className="space-y-1 text-gray-700">
+                            <li>→ un budget,</li>
+                            <li>→ une projection de trésorerie,</li>
+                            <li>→ des indicateurs clairs.</li>
+                        </ul>
+                        <p className="text-gray-700 mt-3"><strong>Le dirigeant improvise.</strong></p>
+                    </div>
+
+                    <p className="text-primary font-medium mb-4">La crédibilité financière se construit avant le rendez-vous.</p>
+
+                    <div className="p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Ce signal montre</span> que la finance n'est pas encore structurée comme un outil de communication stratégique.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Chute */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6 flex items-center gap-2">
+                        Ce qu'il faut comprendre
+                    </h4>
+                    <div className="space-y-4 mb-6">
+                        <p className="text-white/90">Aucun de ces signaux n'est un échec.</p>
+                        <p className="text-white/90">Ils sont tous des <strong className="text-secondary">marqueurs d'évolution naturelle</strong> d'une PME.</p>
+                    </div>
+                    <div className="border-t border-white/20 pt-6 mb-6">
+                        <p className="text-lg">
+                            Le vrai risque n'est pas de les reconnaître.
+                            <br /><strong className="text-secondary">Le vrai risque est de les ignorer.</strong>
+                        </p>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-4">
+                        <p className="text-white/80 mb-3"><span className="text-secondary font-bold">La bonne posture :</span></p>
+                        <div className="flex flex-wrap gap-3">
+                            {["ne pas attendre la crise", "structurer avant d'y être contraint", "activer le pilotage au bon moment"].map((item, i) => (
+                                <span key={i} className="px-4 py-2 bg-white/10 rounded-full text-white font-medium">
+                                    {item}
+                                </span>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
 
-                <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
-                    <p className="text-gray-700 italic">
-                        À Tournai, le dirigeant attend le bilan pour comprendre.
-                        <strong> À Bruxelles, un autre anticipe.</strong>
-                    </p>
-                </div>
-
+                {/* Transition */}
                 <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
-                    <p className="text-lg font-medium text-gray-900 flex items-start gap-3">
-                        <svg className="w-6 h-6 text-secondary mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
-                        Le risque n'est pas de voir ces signaux. <strong className="text-secondary">Le risque est de les ignorer trop longtemps.</strong>
+                    <p className="text-lg text-gray-700">
+                        La bonne nouvelle, c'est qu'il n'est pas nécessaire de transformer toute l'organisation pour progresser.
                     </p>
+                    <p className="text-primary font-medium mt-4">Il est possible de poser les bonnes bases rapidement, avec méthode et pragmatisme.</p>
+                    <p className="text-gray-600 mt-2">C'est ce que nous allons voir dans le chapitre suivant.</p>
                 </div>
             </div>
         )
@@ -464,39 +1101,98 @@ const SECTIONS: Section[] = [
         title: "Démarrer concrètement en 30 jours",
         icon: Icons.action,
         content: (
-            <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {[
-                        {
-                            week: "Semaine 1",
-                            title: "Faire une photo honnête",
-                            items: ["Budget existant ?", "Trésorerie suivie ?", "Marges connues ?", "Délais de paiement ?"]
-                        },
-                        {
-                            week: "Semaine 2",
-                            title: "Choisir l'essentiel",
-                            items: ["3 priorités max", "5 indicateurs utiles", "Focus sur l'urgent"]
-                        },
-                        {
-                            week: "Semaine 3",
-                            title: "Structurer les outils",
-                            items: ["Excel ou Odoo, peu importe", "Clarté avant sophistication", "Automatiser si possible"]
-                        },
-                        {
-                            week: "Semaine 4",
-                            title: "Prendre du recul",
-                            items: ["Regard externe", "Validation des choix", "Plan d'action"]
-                        }
-                    ].map((week, i) => (
-                        <div key={i} className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-                            <span className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-xs font-bold rounded-full mb-3">
-                                {week.week}
-                            </span>
-                            <h4 className="font-bold text-gray-900 mb-4">{week.title}</h4>
+            <div className="space-y-8">
+                <div className="space-y-4">
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                        Après avoir identifié les signaux, beaucoup de dirigeants se posent la même question :
+                    </p>
+                    <p className="text-xl text-primary font-medium italic">
+                        « D'accord… mais par où commencer, concrètement ? »
+                    </p>
+                    <p className="text-gray-700">
+                        La bonne nouvelle, c'est qu'il n'est pas nécessaire de tout révolutionner pour améliorer son pilotage financier.
+                        <strong> Dans la majorité des PME, quelques décisions bien posées suffisent à créer un vrai changement.</strong>
+                    </p>
+                    <p className="text-gray-600">
+                        Voici une approche simple, réaliste et éprouvée, sur 30 jours.
+                    </p>
+                </div>
+
+                {/* Semaine 1 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-center gap-3 mb-6">
+                        <span className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-full">Semaine 1</span>
+                        <h4 className="text-xl font-bold text-gray-900">Prendre une photo honnête de la situation</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Libramont, une PME familiale décide de faire une pause avant d'agir.
+                            <strong> Pas pour ralentir, mais pour voir clair.</strong>
+                        </p>
+                    </div>
+
+                    <p className="text-gray-700 font-medium mb-4">Les bonnes questions à se poser :</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                        {[
+                            "Avons-nous un budget clair ?",
+                            "Connaissons-nous nos marges ?",
+                            "Avons-nous une vision de trésorerie à 3 ou 6 mois ?",
+                            "Les chiffres arrivent-ils à temps pour décider ?"
+                        ].map((q, i) => (
+                            <div key={i} className="flex items-center gap-2 text-gray-600">
+                                <span className="text-secondary">→</span>
+                                {q}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="space-y-2 text-primary font-medium">
+                        <p>L'objectif n'est pas d'avoir toutes les réponses.</p>
+                        <p>L'objectif est d'identifier ce qui manque vraiment.</p>
+                    </div>
+
+                    <div className="mt-4 p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Bonne pratique :</span> écrire noir sur blanc les zones floues, sans chercher à les corriger tout de suite.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Semaine 2 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-center gap-3 mb-6">
+                        <span className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-full">Semaine 2</span>
+                        <h4 className="text-xl font-bold text-gray-900">Choisir ses priorités (et renoncer au reste)</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Namur, un dirigeant comprend que vouloir tout suivre est contre-productif.
+                            <strong> Il décide de se concentrer sur l'essentiel.</strong>
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <p className="text-gray-700 font-medium mb-3">Les règles simples :</p>
                             <ul className="space-y-2">
-                                {week.items.map((item, j) => (
-                                    <li key={j} className="flex items-center gap-2 text-gray-600 text-sm">
-                                        <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <li className="flex items-center gap-2 text-gray-600">
+                                    <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">3</span>
+                                    priorités maximum
+                                </li>
+                                <li className="flex items-center gap-2 text-gray-600">
+                                    <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">5</span>
+                                    indicateurs clés au plus
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p className="text-gray-700 font-medium mb-3">Exemples d'indicateurs utiles :</p>
+                            <ul className="space-y-1 text-gray-600 text-sm">
+                                {["trésorerie disponible", "marge par activité", "coûts fixes", "délai de paiement client (DSO)", "chiffre d'affaires mensuel"].map((item, i) => (
+                                    <li key={i} className="flex items-center gap-2">
+                                        <svg className="w-4 h-4 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
                                         {item}
@@ -504,50 +1200,192 @@ const SECTIONS: Section[] = [
                                 ))}
                             </ul>
                         </div>
-                    ))}
+                    </div>
+
+                    <p className="text-primary font-medium">Mieux vaut peu d'indicateurs fiables que beaucoup de chiffres inutilisés.</p>
                 </div>
 
+                {/* Semaine 3 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-center gap-3 mb-6">
+                        <span className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-full">Semaine 3</span>
+                        <h4 className="text-xl font-bold text-gray-900">Structurer les outils sans complexifier</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Tournai, une PME commence avec Excel.
+                            À Bruxelles, une autre structure Odoo Finance.
+                        </p>
+                    </div>
+
+                    <p className="text-primary font-medium mb-4">Le choix de l'outil importe moins que la qualité de la structure.</p>
+
+                    <div className="mb-4">
+                        <p className="text-gray-700 font-medium mb-3">Ce qui compte :</p>
+                        <div className="flex flex-wrap gap-3">
+                            {["des données cohérentes", "des règles claires", "des chiffres compréhensibles"].map((item, i) => (
+                                <span key={i} className="px-4 py-2 bg-white rounded-full text-gray-700 font-medium shadow-sm border border-gray-200">
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="p-4 bg-secondary/10 rounded-xl border border-secondary/20">
+                        <p className="text-gray-700">
+                            <span className="text-secondary font-bold">Bonne posture :</span> l'outil doit servir la décision, pas l'inverse.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Semaine 4 */}
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <div className="flex items-center gap-3 mb-6">
+                        <span className="px-4 py-2 bg-primary text-white text-sm font-bold rounded-full">Semaine 4</span>
+                        <h4 className="text-xl font-bold text-gray-900">S'appuyer sur un regard externe</h4>
+                    </div>
+
+                    <div className="bg-blue-50 rounded-xl p-4 border border-blue-100 mb-6">
+                        <p className="text-gray-700 italic">
+                            À Liège, un dirigeant réalise que le plus difficile n'est pas technique.
+                            <strong> C'est de prendre du recul sur ses propres chiffres.</strong>
+                        </p>
+                    </div>
+
+                    <div className="mb-4">
+                        <p className="text-gray-700 font-medium mb-3">Un accompagnement ciblé permet :</p>
+                        <ul className="space-y-2">
+                            {["de valider les hypothèses", "d'éviter les angles morts", "de sécuriser les décisions"].map((item, i) => (
+                                <li key={i} className="flex items-center gap-2 text-gray-600">
+                                    <svg className="w-5 h-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <p className="text-primary font-medium">Quelques jours d'expertise bien utilisés valent souvent mieux qu'un poste mal calibré.</p>
+                </div>
+
+                {/* Chute */}
+                <div className="bg-primary rounded-2xl p-8 text-white">
+                    <h4 className="text-xl font-bold text-secondary mb-6 flex items-center gap-2">
+                        Ce qu'il faut retenir
+                    </h4>
+                    <div className="space-y-4 mb-6">
+                        <p className="text-white/90">Démarrer un pilotage financier efficace ne demande ni une équipe dédiée, ni un projet lourd.</p>
+                        <p className="text-white/90">Cela demande surtout <strong className="text-secondary">une posture claire</strong> :</p>
+                    </div>
+                    <div className="flex flex-wrap gap-3 mb-6">
+                        {["accepter de regarder les chiffres en face", "choisir ce qui compte vraiment", "décider avec méthode"].map((item, i) => (
+                            <span key={i} className="px-4 py-2 bg-white/10 rounded-full text-white font-medium">
+                                {item}
+                            </span>
+                        ))}
+                    </div>
+                    <div className="border-t border-white/20 pt-6">
+                        <p className="text-lg">
+                            Le pilotage financier n'est pas une question de taille.
+                            <br /><strong className="text-secondary">C'est une question de discipline et de clarté.</strong>
+                        </p>
+                    </div>
+                </div>
+
+                {/* Transition */}
                 <div className="bg-secondary/10 rounded-2xl p-6 border border-secondary/20">
-                    <p className="text-lg font-medium text-gray-900 flex items-start gap-3">
-                        <svg className="w-6 h-6 text-secondary mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                        Mieux vaut avancer progressivement que <strong className="text-secondary">rester bloqué par peur de mal faire</strong>.
+                    <p className="text-lg text-gray-700">
+                        Une fois ces bases posées, une chose devient évidente :
+                        <strong> le pilotage n'est pas une fonction ponctuelle, mais une posture durable.</strong>
                     </p>
+                    <p className="text-primary font-medium mt-4">C'est ce que nous allons conclure maintenant.</p>
                 </div>
             </div>
         )
     },
     {
         id: 8,
-        title: "Conclusion — Le pilotage est une posture",
+        title: "Conclusion — Le pilotage financier est avant tout une posture",
         icon: Icons.conclusion,
         content: (
-            <div className="space-y-6">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                    Les PME solides ne sont pas celles qui recrutent le plus vite.
-                    <strong> Ce sont celles qui voient plus clair, plus tôt.</strong>
+            <div className="space-y-8">
+                <p className="text-xl text-gray-700 leading-relaxed">
+                    Les PME qui traversent les périodes complexes ne sont pas celles qui recrutent le plus vite.
+                    <br /><strong className="text-primary">Ce sont celles qui voient plus clair, plus tôt.</strong>
                 </p>
 
+                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <p className="text-gray-700 mb-6">Tout au long de ce guide, une idée revient sans cesse :</p>
+                    <div className="space-y-4">
+                        {[
+                            "le pilotage financier n'est pas une question de titre,",
+                            "ni de taille d'équipe,",
+                            "ni de sophistication des outils."
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-center gap-3 text-lg text-primary font-medium">
+                                <span className="text-secondary">👉</span>
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 <div className="bg-primary rounded-2xl p-8 text-white text-center">
-                    <p className="text-xl mb-6">Vous n'avez peut-être pas besoin d'un DAF à temps plein.</p>
-                    <p className="text-lg text-white/80 mb-6">Mais vous avez besoin :</p>
-                    <div className="flex flex-wrap justify-center gap-4">
-                        {["de visibilité", "de méthode", "d'un regard stratégique"].map((item, i) => (
-                            <span key={i} className="px-4 py-2 bg-white/10 rounded-full text-secondary font-medium">
+                    <p className="text-3xl font-serif mb-2">C'est une <span className="text-secondary italic">posture de dirigeant</span>.</p>
+                </div>
+
+                <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
+                    <p className="text-gray-700 mb-6 font-medium">Une posture qui consiste à :</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {[
+                            "vouloir comprendre avant d'agir,",
+                            "accepter de remettre en question certaines habitudes,",
+                            "s'entourer des bons rôles au bon moment,",
+                            "transformer les chiffres en décisions, et non en contraintes."
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl">
+                                <svg className="w-5 h-5 text-secondary shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span className="text-gray-700">{item}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="bg-secondary/10 rounded-2xl p-8 border border-secondary/20">
+                    <p className="text-xl text-gray-800 mb-6">
+                        Vous n'avez pas nécessairement besoin d'un Directeur Financier à temps plein.
+                        <br /><strong>Mais vous avez besoin :</strong>
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                        {["d'une vision claire", "d'indicateurs utiles", "d'un regard capable de relier stratégie, opérations et finance"].map((item, i) => (
+                            <span key={i} className="px-5 py-3 bg-white rounded-full text-primary font-medium shadow-sm">
                                 {item}
                             </span>
                         ))}
                     </div>
                 </div>
 
-                <div className="bg-secondary/10 rounded-2xl p-8 border border-secondary/20 text-center">
-                    <p className="text-2xl font-serif text-primary mb-4">
-                        Le bon pilotage, ce n'est pas plus de chiffres.
+                <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <p className="text-lg text-gray-700 italic">
+                        Les entreprises qui réussissent ne cherchent pas à tout maîtriser seules.
+                        <strong> Elles cherchent à structurer intelligemment leur pilotage, à leur rythme.</strong>
                     </p>
-                    <p className="text-2xl font-serif text-secondary font-bold">
-                        C'est utiliser les bons chiffres, au bon moment, pour décider sereinement.
-                    </p>
+                </div>
+
+                <div className="bg-primary rounded-2xl p-10 text-center">
+                    <div className="space-y-4">
+                        <p className="text-xl text-white/90 flex items-center justify-center gap-2">
+                            <span className="text-secondary">👉</span>
+                            Le bon pilotage, ce n'est pas plus de chiffres.
+                        </p>
+                        <p className="text-2xl md:text-3xl font-serif text-secondary font-bold">
+                            C'est mieux utiliser les bons chiffres, au bon moment, pour décider sereinement.
+                        </p>
+                    </div>
                 </div>
             </div>
         )

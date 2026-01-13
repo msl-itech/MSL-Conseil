@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-interface UserFormProps {
+interface ChecklistFormProps {
     onSubmit: (data: UserData) => void;
     onBack: () => void;
 }
@@ -29,7 +29,7 @@ const REVENUE_LEVELS = [
     "Plus de 3M €"
 ];
 
-export default function UserForm({ onSubmit, onBack }: UserFormProps) {
+export default function ChecklistForm({ onSubmit, onBack }: ChecklistFormProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState<UserData>({ firstName: "", lastName: "", email: "", company: "", vatNumber: "", revenueLevel: "", sector: "", employees: "" });
     const [errors, setErrors] = useState<Partial<Record<keyof UserData, string>>>({});
@@ -65,7 +65,7 @@ export default function UserForm({ onSubmit, onBack }: UserFormProps) {
 
     return (
         <div ref={containerRef} className="w-full min-h-screen bg-gray-50">
-            <div className="pt-24 pb-12 px-6 bg-gradient-to-r from-primary to-primary/90">
+            <div className="pt-24 pb-12 px-6 bg-linear-to-r from-primary to-primary/90">
                 <div className="max-w-3xl mx-auto">
                     <button onClick={onBack} className="form-element flex items-center gap-2 text-white/70 hover:text-white mb-6 transition-colors">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
@@ -124,7 +124,7 @@ export default function UserForm({ onSubmit, onBack }: UserFormProps) {
 
                     <div className="form-element grid md:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Secteur d'activité <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Secteur d&apos;activité <span className="text-red-500">*</span></label>
                             <select value={formData.sector} onChange={(e) => handleChange("sector", e.target.value)} className={`w-full px-4 py-3 rounded-xl border-2 ${errors.sector ? "border-red-400" : "border-gray-200 focus:border-primary"} transition-colors focus:outline-none bg-white`}>
                                 <option value="">Sélectionner...</option>
                                 {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
@@ -132,7 +132,7 @@ export default function UserForm({ onSubmit, onBack }: UserFormProps) {
                             {errors.sector && <p className="mt-1 text-sm text-red-500">{errors.sector}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Nombre d'employés <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Nombre d&apos;employés <span className="text-red-500">*</span></label>
                             <select value={formData.employees} onChange={(e) => handleChange("employees", e.target.value)} className={`w-full px-4 py-3 rounded-xl border-2 ${errors.employees ? "border-red-400" : "border-gray-200 focus:border-primary"} transition-colors focus:outline-none bg-white`}>
                                 <option value="">Sélectionner...</option>
                                 {EMPLOYEES.map(e => <option key={e} value={e}>{e}</option>)}
@@ -143,7 +143,7 @@ export default function UserForm({ onSubmit, onBack }: UserFormProps) {
 
                     <div className="form-element pt-4">
                         <button type="submit" className="w-full py-4 px-6 rounded-xl font-semibold text-white bg-primary hover:bg-primary/90 transition-all hover:shadow-lg active:scale-[0.98] flex items-center justify-center gap-3">
-                            Commencer l'évaluation
+                            Commencer l&apos;évaluation
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                         </button>
                     </div>

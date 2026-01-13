@@ -112,7 +112,7 @@ function AutomatisationDiagnosticContent() {
     // Show loading during SSR
     if (!isMounted) {
         return (
-            <main className="w-full min-h-screen bg-white">
+            <main className="w-full min-h-screen bg-white" suppressHydrationWarning>
                 <div className="w-full min-h-[70vh] flex items-center justify-center pt-24" style={{ background: "linear-gradient(135deg, #012a1e 0%, #014730 50%, #016742 100%)" }}>
                     <div className="text-white/50 text-sm">Chargement...</div>
                 </div>
@@ -121,7 +121,7 @@ function AutomatisationDiagnosticContent() {
     }
 
     return (
-        <main className="w-full min-h-screen bg-white">
+        <main className="w-full min-h-screen bg-white" suppressHydrationWarning>
             {/* ChapterNav only on guide state */}
             {pageState === "guide" && <ChapterNavNew />}
 

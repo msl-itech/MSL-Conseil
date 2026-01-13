@@ -1,65 +1,150 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
-interface ChapterNavProps {
-    sections: { id: number; title: string }[];
+interface Section {
+    id: number;
+    title: string;
 }
 
-export default function ChapterNav({ sections }: ChapterNavProps) {
-    const [activeSection, setActiveSection] = useState(1);
-    const [isVisible, setIsVisible] = useState(false);
+interface ChapterNavProps {
+    sections: Section[];
+    onCtaClick?: () => void;
+}
+
+export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
+    const [activeSection, setActiveSection] = useState(sections[0]?.id || 1);
+    const [isOpen, setIsOpen] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        if (isOpen) {
+            gsap.fromTo(".nav-item", { x: -20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: "power3.out" });
+        }
+    }, { scope: containerRef, dependencies: [isOpen] });
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsVisible(window.scrollY > 300);
-            let closestSection = 1;
-            let closestDistance = Infinity;
-            sections.forEach(s => {
-                const el = document.getElementById(`section-${s.id}`);
-                if (!el) return;
-                const rect = el.getBoundingClientRect();
-                const distance = Math.abs(rect.top - window.innerHeight / 3);
-                if (distance < closestDistance && rect.top < window.innerHeight * 0.7) {
-                    closestDistance = distance;
-                    closestSection = s.id;
+            const scrollPosition = window.scrollY + 200;
+
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const element = document.getElementById(`section-${sections[i].id}`);
+                if (element && element.offsetTop <= scrollPosition) {
+                    setActiveSection(sections[i].id);
+                    break;
                 }
-            });
-            setActiveSection(closestSection);
+            }
         };
+
         window.addEventListener("scroll", handleScroll);
-        handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
     }, [sections]);
 
     const scrollToSection = (id: number) => {
-        const el = document.getElementById(`section-${id}`);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        const element = document.getElementById(`section-${id}`);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+            setIsOpen(false);
+        }
     };
 
-    if (!isVisible) return null;
-
     return (
-        <div className="fixed right-4 xl:right-8 top-1/2 -translate-y-1/2 z-[9999] hidden lg:block">
-            <nav className="bg-white/95 backdrop-blur-md rounded-2xl p-2 shadow-2xl border border-gray-200/50">
-                <div className="space-y-1.5">
-                    {sections.map((section) => (
+        <>
+            {/* Mobile trigger */}
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="fixed bottom-6 right-6 z-50 lg:hidden w-14 h-14 rounded-full shadow-lg text-white flex items-center justify-center hover:shadow-xl transition-all bg-primary"
+            >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            {/* Mobile overlay */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+                    onClick={() => setIsOpen(false)}
+                />
+            )}
+
+            {/* Navigation panel */}
+            <div
+                ref={containerRef}
+                className={`fixed z-50 transition-transform duration-300 lg:translate-x-0
+                    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+                    left-0 bottom-0 top-0 w-72 bg-white shadow-xl lg:shadow-md
+                    lg:left-4 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:w-64 lg:rounded-2xl lg:max-h-[80vh] overflow-hidden`}
+            >
+                <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-primary/10">
+                    <div className="flex items-center gap-2">
+                        <span className="text-lg">📘</span>
+                        <span className="font-bold text-sm text-gray-900">Navigation rapide</span>
+                    </div>
+                    <button onClick={() => setIsOpen(false)} className="lg:hidden p-1 hover:bg-gray-100 rounded">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div className="p-3 overflow-y-auto max-h-[calc(80vh-60px)]">
+                    <div className="space-y-1">
+                        {sections.map((section) => (
+                            <button
+                                key={section.id}
+                                onClick={() => scrollToSection(section.id)}
+                                className={`nav-item w-full text-left p-3 rounded-xl transition-all text-sm ${activeSection === section.id
+                                    ? "text-white shadow-md bg-primary"
+                                    : "text-gray-700 hover:bg-gray-50"
+                                    }`}
+                            >
+                                <div className="flex items-center gap-2">
+                                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${activeSection === section.id ? "bg-white/20 text-white" : "bg-gray-100 text-gray-500"
+                                        }`}>
+                                        {section.id}
+                                    </span>
+                                    <span className="line-clamp-2">{section.title}</span>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Progress indicator */}
+                <div className="p-3 border-t border-gray-100">
+                    <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+                        <span>Progression</span>
+                        <span>{Math.round(((sections.findIndex(s => s.id === activeSection) + 1) / sections.length) * 100)}%</span>
+                    </div>
+                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                            className="h-full rounded-full transition-all duration-300 bg-primary"
+                            style={{
+                                width: `${((sections.findIndex(s => s.id === activeSection) + 1) / sections.length) * 100}%`
+                            }}
+                        />
+                    </div>
+                </div>
+
+                {/* CTA */}
+                {onCtaClick && (
+                    <div className="p-3 border-t border-gray-100">
                         <button
-                            key={section.id}
-                            onClick={() => scrollToSection(section.id)}
-                            className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all duration-300 relative group
-                                ${activeSection === section.id ? "bg-primary text-white shadow-lg shadow-primary/30 scale-110" : "bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700 hover:scale-105"}`}
-                            title={section.title}
+                            onClick={onCtaClick}
+                            className="w-full text-white font-semibold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:opacity-90 bg-secondary"
                         >
-                            {section.id}
-                            <span className="absolute right-full mr-3 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none max-w-[200px] truncate">{section.title}</span>
+                            <span>✅</span>
+                            <span>Faire le diagnostic</span>
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
                         </button>
-                    ))}
-                </div>
-                <div className="mt-3 pt-3 border-t border-gray-100 text-center">
-                    <span className="text-xs font-medium text-gray-400">{activeSection}/{sections.length}</span>
-                </div>
-            </nav>
-        </div>
+                    </div>
+                )}
+            </div>
+        </>
     );
 }

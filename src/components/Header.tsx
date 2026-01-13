@@ -16,10 +16,10 @@ const NAV_LINKS = [
     { label: "Solutions", href: "/solutions" },
     { label: "Ressources", href: "/ressources" },
     { label: "Méthode", href: "/methode" },
-    { label: "FAQ", href: "/faq" },
     { label: "Bootcamp", href: "/bootcamp" },
+      {label: "Partenaires / Intégrateurs", href: "/partenaires"},
     { label: "Contact", href: "/contact" },
-    {label: "Partenaires", href: "/partenaires"}
+  
 ];
 
 export default function Header() {

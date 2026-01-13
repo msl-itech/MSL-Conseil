@@ -14,9 +14,10 @@ interface Section {
 
 interface ChapterNavProps {
     sections: Section[];
+    onCtaClick?: () => void;
 }
 
-export default function ChapterNav({ sections }: ChapterNavProps) {
+export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
     const [activeSection, setActiveSection] = useState(sections[0]?.id || 6);
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -100,8 +101,8 @@ export default function ChapterNav({ sections }: ChapterNavProps) {
                                 key={section.id}
                                 onClick={() => scrollToSection(section.id)}
                                 className={`nav-item w-full text-left p-3 rounded-xl transition-all text-sm ${activeSection === section.id
-                                        ? "text-white shadow-md"
-                                        : "text-gray-700 hover:bg-gray-50"
+                                    ? "text-white shadow-md"
+                                    : "text-gray-700 hover:bg-gray-50"
                                     }`}
                                 style={activeSection === section.id ? { backgroundColor: ODOO_PURPLE } : {}}
                             >
@@ -132,6 +133,29 @@ export default function ChapterNav({ sections }: ChapterNavProps) {
                             }}
                         />
                     </div>
+                </div>
+
+                {/* CTA Diagnostic */}
+                <div className="p-3 border-t border-gray-100">
+                    <button
+                        onClick={() => {
+                            if (onCtaClick) {
+                                onCtaClick();
+                            } else {
+                                const el = document.getElementById('diagnostic-cta');
+                                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }
+                            setIsOpen(false);
+                        }}
+                        className="w-full text-white font-semibold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:opacity-90"
+                        style={{ backgroundColor: ODOO_PURPLE }}
+                    >
+                        <span>🧪</span>
+                        <span>Faire le diagnostic</span>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </>

@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { siteConfig, organizationSchema } from "@/lib/seo";
 import Preloader from "@/components/Preloader";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -98,6 +99,30 @@ export default function RootLayout({
           }}
         />
 
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+            success: {
+              duration: 3000,
+              iconTheme: {
+                primary: '#10b981',
+                secondary: '#fff',
+              },
+            },
+            error: {
+              duration: 4000,
+              iconTheme: {
+                primary: '#ef4444',
+                secondary: '#fff',
+              },
+            },
+          }}
+        />
         <SmoothScroll>
           {/* TopBar en premier pour qu'elle soit en haut */}
           <Marquee />

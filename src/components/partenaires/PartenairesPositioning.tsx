@@ -86,7 +86,7 @@ export default function PartenairesPositioning() {
                         Notre positionnement
                     </span>
                     <h2 className="pos-content text-4xl md:text-6xl font-serif mb-6">
-                        Analyste fonctionnel Finance, <br />
+                        Analyste fonctionnel Finances, <br />
                         <span className="italic text-secondary">pas intégrateur.</span>
                     </h2>
                 </div>

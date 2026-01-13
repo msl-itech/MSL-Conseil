@@ -570,7 +570,7 @@ export default function GuideContent({ onStartQuiz }: GuideContentProps) {
                             onClick={onStartQuiz}
                             className="inline-flex items-center gap-3 bg-secondary hover:bg-secondary/90 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-secondary/25 active:scale-[0.98]"
                         >
-                            Commencer le questionnaire
+                            Commencer le diagnostic
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>

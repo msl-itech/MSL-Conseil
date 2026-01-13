@@ -36,7 +36,7 @@ export default function MethodeWhy() {
 
                     <div className="mt-12 p-6 bg-secondary/10 border border-secondary/20 rounded-2xl">
                         <p className="text-primary font-medium text-lg text-center">
-                            Votre entreprise gagne : <span className="font-bold">clarté, sérénité, maîtrise et croissance.</span>
+                            La méthode  <span className="font-bold">P.I.L.O.T.E.R. </span>est le socle commun à tous nos accompagnements et bootcamps.Elle s’exprime concrètement à travers des formats intensifs, conçus pour produire des résultats mesurables.
                         </p>
                     </div>
                 </div>

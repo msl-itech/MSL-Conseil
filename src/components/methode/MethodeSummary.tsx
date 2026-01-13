@@ -68,13 +68,13 @@ export default function MethodeSummary() {
                 </div>
 
                 <div className="mt-20 text-center">
-                    <p className="text-2xl text-gray-600 font-light mb-12">
-                        Votre entreprise gagne : <span className="text-primary font-bold">clarté, sérénité, maîtrise et croissance.</span>
-                    </p>
+                     <p className="text-2xl text-gray-600 font-light mb-12">
+                            La méthode  <span className="text-primary font-bold">P.I.L.O.T.E.R. </span>est le socle commun à tous nos accompagnements et bootcamps.Elle s’exprime concrètement à travers des formats intensifs, conçus pour produire des résultats mesurables.
+                        </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <Link href="/contact" className="bg-primary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-xl hover:shadow-primary/20 text-center">
-                            👉 Demandez votre diagnostic gratuit
+                        <Link href="/bootcamp" className="bg-primary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-xl hover:shadow-primary/20 text-center">
+                            👉 Découvrir les bootcamps
                         </Link>
                         <Link href="/contact" className="bg-transparent border border-gray-300 text-gray-600 px-10 py-5 rounded-full font-bold text-lg hover:border-primary hover:text-primary transition-all text-center">
                             👉 Parlez à un consultant expert

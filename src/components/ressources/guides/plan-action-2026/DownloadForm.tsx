@@ -14,13 +14,22 @@ interface FormData {
     lastName: string;
     email: string;
     company: string;
+    vatNumber: string;
+    revenueLevel: string;
     role: string;
     wantsDiagnostic: boolean;
 }
 
+const REVENUE_LEVELS = [
+    "Moins de 300.000 €",
+    "De 300.000 € à 1M €",
+    "De 1M € à 3M €",
+    "Plus de 3M €"
+];
+
 export default function DownloadForm({ onSubmit, onBack }: DownloadFormProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [formData, setFormData] = useState<FormData>({ firstName: "", lastName: "", email: "", company: "", role: "", wantsDiagnostic: false });
+    const [formData, setFormData] = useState<FormData>({ firstName: "", lastName: "", email: "", company: "", vatNumber: "", revenueLevel: "", role: "", wantsDiagnostic: false });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
@@ -34,6 +43,8 @@ export default function DownloadForm({ onSubmit, onBack }: DownloadFormProps) {
         if (!formData.lastName.trim()) newErrors.lastName = "Le nom est requis";
         if (!formData.email.trim()) newErrors.email = "L'email est requis";
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "L'email n'est pas valide";
+        if (!formData.vatNumber.trim()) newErrors.vatNumber = "Le numéro TVA / BCE est requis";
+        if (!formData.revenueLevel) newErrors.revenueLevel = "Veuillez sélectionner le niveau de CA";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -89,6 +100,21 @@ export default function DownloadForm({ onSubmit, onBack }: DownloadFormProps) {
                     <div className="form-element">
                         <label className="block text-sm font-medium text-gray-700 mb-2">Entreprise</label>
                         <input type="text" value={formData.company} onChange={(e) => handleChange("company", e.target.value)} className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary transition-colors focus:outline-none" placeholder="Nom de votre entreprise" />
+                    </div>
+                    <div className="form-element grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Numéro TVA / BCE <span className="text-red-500">*</span></label>
+                            <input type="text" value={formData.vatNumber} onChange={(e) => handleChange("vatNumber", e.target.value)} className={`w-full px-4 py-3 rounded-xl border-2 transition-colors focus:outline-none ${errors.vatNumber ? "border-red-400 bg-red-50" : "border-gray-200 focus:border-primary"}`} placeholder="BE 0123.456.789" />
+                            {errors.vatNumber && <p className="mt-1 text-sm text-red-500">{errors.vatNumber}</p>}
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Niveau de CA <span className="text-red-500">*</span></label>
+                            <select value={formData.revenueLevel} onChange={(e) => handleChange("revenueLevel", e.target.value)} className={`w-full px-4 py-3 rounded-xl border-2 transition-colors focus:outline-none bg-white ${errors.revenueLevel ? "border-red-400 bg-red-50" : "border-gray-200 focus:border-primary"}`}>
+                                <option value="">Sélectionner...</option>
+                                {REVENUE_LEVELS.map(r => <option key={r} value={r}>{r}</option>)}
+                            </select>
+                            {errors.revenueLevel && <p className="mt-1 text-sm text-red-500">{errors.revenueLevel}</p>}
+                        </div>
                     </div>
                     <div className="form-element">
                         <label className="block text-sm font-medium text-gray-700 mb-2">Rôle ou fonction</label>

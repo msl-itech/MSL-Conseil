@@ -111,7 +111,7 @@ function GuideDAFContent() {
     // Show loading during SSR
     if (!isMounted) {
         return (
-            <main className="w-full min-h-screen bg-white">
+            <main className="w-full min-h-screen bg-white" suppressHydrationWarning>
                 <div className="w-full min-h-[70vh] flex items-center justify-center pt-24" style={{ background: "linear-gradient(135deg, #012a1e 0%, #014730 50%, #016742 100%)" }}>
                     <div className="text-white/50 text-sm">Chargement...</div>
                 </div>
@@ -120,9 +120,9 @@ function GuideDAFContent() {
     }
 
     return (
-        <main className="w-full min-h-screen bg-white">
+        <main className="w-full min-h-screen bg-white" suppressHydrationWarning>
             {/* Chapter Navigation - Only visible on content step */}
-            {step === "content" && <ChapterNav sections={SECTIONS} />}
+            {step === "content" && <ChapterNav onCtaClick={handleStartDiagnostic} />}
 
             {/* Shared results view */}
             {step === "shared" && sharedData && (

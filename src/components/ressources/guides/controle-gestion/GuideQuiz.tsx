@@ -19,7 +19,7 @@ interface Question {
     }[];
 }
 
-const QUESTIONS: Question[] = [
+export const QUESTIONS: Question[] = [
     {
         id: 1,
         question: "Suivez-vous vos objectifs avec des indicateurs concrets ?",
@@ -167,15 +167,7 @@ export default function GuideQuiz({ userName, onComplete, onBack }: GuideQuizPro
         setSelectedOption(optionIndex);
         const points = question.options[optionIndex].points;
         setAnswers(prev => ({ ...prev, [question.id]: points }));
-
-        // Auto-advance after a short delay
-        setTimeout(() => {
-            if (currentQuestion < QUESTIONS.length - 1) {
-                animateQuestionChange("next", () => {
-                    setCurrentQuestion(prev => prev + 1);
-                });
-            }
-        }, 400);
+        // No auto-advance - user must click Next button
     };
 
     const handlePrevious = () => {
@@ -247,29 +239,6 @@ export default function GuideQuiz({ userName, onComplete, onBack }: GuideQuizPro
                             className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-500"
                             style={{ width: `${progress}%` }}
                         />
-                    </div>
-
-                    {/* Question dots */}
-                    <div className="flex justify-center gap-2 mt-4">
-                        {QUESTIONS.map((q, i) => (
-                            <button
-                                key={q.id}
-                                onClick={() => {
-                                    if (!isAnimating) {
-                                        animateQuestionChange(i > currentQuestion ? "next" : "prev", () => {
-                                            setCurrentQuestion(i);
-                                        });
-                                    }
-                                }}
-                                className={`w-3 h-3 rounded-full transition-all duration-300
-                                    ${i === currentQuestion
-                                        ? "bg-primary scale-125"
-                                        : answers[q.id] !== undefined
-                                            ? "bg-secondary"
-                                            : "bg-gray-200 hover:bg-gray-300"
-                                    }`}
-                            />
-                        ))}
                     </div>
                 </div>
             </div>
@@ -380,6 +349,29 @@ export default function GuideQuiz({ userName, onComplete, onBack }: GuideQuizPro
                                 </button>
                             )}
                         </div>
+
+                        {/* Progress dots - after navigation */}
+                        <div className="flex justify-center gap-2 mt-6 flex-wrap">
+                            {QUESTIONS.map((q, i) => (
+                                <button
+                                    key={q.id}
+                                    onClick={() => {
+                                        if (!isAnimating) {
+                                            animateQuestionChange(i > currentQuestion ? "next" : "prev", () => {
+                                                setCurrentQuestion(i);
+                                            });
+                                        }
+                                    }}
+                                    className={`w-3 h-3 rounded-full transition-all duration-300
+                                        ${i === currentQuestion
+                                            ? "bg-primary scale-125"
+                                            : answers[q.id] !== undefined
+                                                ? "bg-secondary"
+                                                : "bg-gray-200 hover:bg-gray-300"
+                                        }`}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -398,3 +390,4 @@ export default function GuideQuiz({ userName, onComplete, onBack }: GuideQuizPro
         </div>
     );
 }
+

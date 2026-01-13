@@ -32,18 +32,21 @@ export default function QuizResults({ userData, answers, isSharedVisitor = false
 
     const maturity = MATURITY_LEVELS.find(m => score >= m.min && score <= m.max) || MATURITY_LEVELS[0];
 
-    // Share URL with tracking
+    // Get level label without emoji for URL
+    const levelLabel = maturity.level.replace(/^[^\s]+\s/, ''); // Remove emoji prefix
+
+    // Share URL with score and level info
     const shareUrl = typeof window !== 'undefined'
-        ? `${window.location.origin}/ressources/guides/diagnostic-gestion?source=share&ref=diagnostic`
-        : 'https://msl-conseil.com/ressources/guides/diagnostic-gestion?source=share&ref=diagnostic';
+        ? `${window.location.origin}/ressources/guides/diagnostic-gestion?shared=true&score=${score}&level=${encodeURIComponent(levelLabel)}&from=${encodeURIComponent(userData.firstName + ' ' + userData.lastName)}`
+        : `https://msl-conseil.com/ressources/guides/diagnostic-gestion?shared=true&score=${score}&level=${encodeURIComponent(levelLabel)}&from=${encodeURIComponent(userData.firstName + ' ' + userData.lastName)}`;
 
     // Pre-filled message
     const shareMessage = `Salut 👋
 
-Je viens de lire un guide très intéressant sur la structuration de la comptabilité des PME ("Structurer sa comptabilité PME pour gagner du temps") et j'ai fait un diagnostic en ligne.
+Je viens de faire un diagnostic sur la structuration comptable de ma PME et j'ai obtenu ${score}/${scoreMax} (niveau : ${levelLabel}).
 
-J'aimerais bien avoir ton avis sur mes résultats.
-Si tu veux, tu peux aussi faire le diagnostic pour te situer (2 minutes).
+J'aimerais bien avoir ton avis sur mes résultats ou te comparer.
+Tu peux voir mon score et faire le tien ici (2 minutes) :
 
 👉 ${shareUrl}`;
 

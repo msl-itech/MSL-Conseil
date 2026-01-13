@@ -76,7 +76,7 @@ const SECTIONS = [
         intro: "Connaître son point mort, c'est savoir à partir de quel moment on commence à gagner de l'argent. C'est aussi un outil clé de décision.",
         surveiller: ["Le seuil de rentabilité (point mort)", "Le taux de couverture des charges fixes", "L'évolution des charges d'exploitation"],
         pourquoi: "Cette donnée permet de dimensionner vos charges fixes, vos objectifs commerciaux et vos investissements.",
-        pratiques: ["Mettre à jour un compte de résultat prévisionnel trimestriel", "Calculer la marge de sécurité (écart entre CA prévu et seuil)", "Réduire les charges fixes non critiques"],
+        pratiques: ["Mettre à jour un compte de résultat prévisionnel trimestriel", "Calculer la marge de sécurité (écart entre CA prévu et seuil de rentabilité)", "Réduire les charges fixes non critiques"],
         caseBad: { name: "PME « Studio Design Tournai »", text: "Engage un nouveau salarié sans savoir si le seuil de rentabilité est dépassé. Charge supplémentaire non absorbée." },
         caseGood: { name: "PME « Immo+ Louvain-la-Neuve »", text: "Calcule son seuil chaque trimestre et ajuste ses campagnes marketing en conséquence." },
         moral: "Le seuil de rentabilité n'est pas une formalité : c'est un déclencheur d'actions concrètes.",

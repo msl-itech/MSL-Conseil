@@ -17,19 +17,20 @@ export interface UserData {
     lastName: string;
     email: string;
     company: string;
-    role: string;
+    vatNumber: string;
+    revenueLevel: string;
+    sector: string;
     employees: string;
 }
 
-const ROLES = [
-    "Dirigeant / Gérant",
-    "Directeur financier / DAF",
-    "Comptable",
-    "Office Manager",
-    "Responsable administratif",
-    "Autre"
-];
+const SECTORS = ["Services", "Commerce", "Industrie", "Construction", "Tech/Digital", "Santé", "Autre"];
 const EMPLOYEES = ["1-10", "11-50", "51-100", "101-250", "250+"];
+const REVENUE_LEVELS = [
+    "Moins de 300.000 €",
+    "De 300.000 € à 1M €",
+    "De 1M € à 3M €",
+    "Plus de 3M €"
+];
 
 export default function UserForm({ onSubmit, onBack }: UserFormProps) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -38,7 +39,9 @@ export default function UserForm({ onSubmit, onBack }: UserFormProps) {
         lastName: "",
         email: "",
         company: "",
-        role: "",
+        vatNumber: "",
+        revenueLevel: "",
+        sector: "",
         employees: ""
     });
     const [errors, setErrors] = useState<Partial<Record<keyof UserData, string>>>({});
@@ -49,10 +52,15 @@ export default function UserForm({ onSubmit, onBack }: UserFormProps) {
 
     const validate = () => {
         const e: Partial<Record<keyof UserData, string>> = {};
-        if (!formData.firstName.trim()) e.firstName = "Requis";
-        if (!formData.lastName.trim()) e.lastName = "Requis";
-        if (!formData.email.trim()) e.email = "Requis";
+        if (!formData.firstName?.trim()) e.firstName = "Requis";
+        if (!formData.lastName?.trim()) e.lastName = "Requis";
+        if (!formData.email?.trim()) e.email = "Requis";
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) e.email = "Email invalide";
+        if (!formData.company?.trim()) e.company = "Requis";
+        if (!formData.vatNumber?.trim()) e.vatNumber = "Requis";
+        if (!formData.revenueLevel) e.revenueLevel = "Requis";
+        if (!formData.sector) e.sector = "Requis";
+        if (!formData.employees) e.employees = "Requis";
         setErrors(e);
         return Object.keys(e).length === 0;
     };
@@ -142,46 +150,86 @@ export default function UserForm({ onSubmit, onBack }: UserFormProps) {
 
                     {/* Company */}
                     <div className="form-element">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Entreprise</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Entreprise <span className="text-red-500">*</span>
+                        </label>
                         <input
                             type="text"
                             value={formData.company}
                             onChange={(e) => handleChange("company", e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 transition-colors focus:outline-none"
+                            className={`w-full px-4 py-3 rounded-xl border-2 ${errors.company ? "border-red-400" : "border-gray-200 focus:border-purple-500"} transition-colors focus:outline-none`}
                             placeholder="Nom de votre entreprise"
                         />
+                        {errors.company && <p className="mt-1 text-sm text-red-500">{errors.company}</p>}
                     </div>
 
-                    {/* Role and Employees */}
+                    {/* VAT Number and Revenue Level */}
                     <div className="form-element grid md:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Fonction</label>
-                            <select
-                                value={formData.role}
-                                onChange={(e) => handleChange("role", e.target.value)}
-                                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 transition-colors focus:outline-none bg-white"
-                            >
-                                <option value="">Sélectionner...</option>
-                                {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
-                            </select>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Numéro TVA / BCE <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={formData.vatNumber}
+                                onChange={(e) => handleChange("vatNumber", e.target.value)}
+                                className={`w-full px-4 py-3 rounded-xl border-2 ${errors.vatNumber ? "border-red-400" : "border-gray-200 focus:border-purple-500"} transition-colors focus:outline-none`}
+                                placeholder="BE 0123.456.789"
+                            />
+                            {errors.vatNumber && <p className="mt-1 text-sm text-red-500">{errors.vatNumber}</p>}
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Nombre d&apos;employés</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Niveau de CA <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                value={formData.revenueLevel}
+                                onChange={(e) => handleChange("revenueLevel", e.target.value)}
+                                className={`w-full px-4 py-3 rounded-xl border-2 ${errors.revenueLevel ? "border-red-400" : "border-gray-200 focus:border-purple-500"} transition-colors focus:outline-none bg-white`}
+                            >
+                                <option value="">Sélectionner...</option>
+                                {REVENUE_LEVELS.map(r => <option key={r} value={r}>{r}</option>)}
+                            </select>
+                            {errors.revenueLevel && <p className="mt-1 text-sm text-red-500">{errors.revenueLevel}</p>}
+                        </div>
+                    </div>
+
+                    {/* Sector and Employees */}
+                    <div className="form-element grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Secteur d'activité <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                value={formData.sector}
+                                onChange={(e) => handleChange("sector", e.target.value)}
+                                className={`w-full px-4 py-3 rounded-xl border-2 ${errors.sector ? "border-red-400" : "border-gray-200 focus:border-purple-500"} transition-colors focus:outline-none bg-white`}
+                            >
+                                <option value="">Sélectionner...</option>
+                                {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                            {errors.sector && <p className="mt-1 text-sm text-red-500">{errors.sector}</p>}
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Nombre d'employés <span className="text-red-500">*</span>
+                            </label>
                             <select
                                 value={formData.employees}
                                 onChange={(e) => handleChange("employees", e.target.value)}
-                                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-purple-500 transition-colors focus:outline-none bg-white"
+                                className={`w-full px-4 py-3 rounded-xl border-2 ${errors.employees ? "border-red-400" : "border-gray-200 focus:border-purple-500"} transition-colors focus:outline-none bg-white`}
                             >
                                 <option value="">Sélectionner...</option>
                                 {EMPLOYEES.map(e => <option key={e} value={e}>{e}</option>)}
                             </select>
+                            {errors.employees && <p className="mt-1 text-sm text-red-500">{errors.employees}</p>}
                         </div>
                     </div>
 
                     {/* Info box */}
                     <div className="form-element bg-purple-50 rounded-xl p-4 border border-purple-100">
                         <p className="text-sm text-gray-600">
-                            <span className="font-medium text-purple-700">🔒 Confidentialité :</span> Vos données sont utilisées uniquement pour personnaliser vos résultats. Nous ne les partageons jamais.
+                            <span className="font-medium text-purple-700">🔒 Confidentialité :</span> Vos données sont utilisées uniquement pour personnaliser vos résultats et seront envoyées à notre équipe pour un suivi personnalisé.
                         </p>
                     </div>
 

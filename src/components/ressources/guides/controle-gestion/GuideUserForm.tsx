@@ -9,6 +9,8 @@ interface UserInfo {
     lastName: string;
     email: string;
     company: string;
+    vatNumber: string;
+    revenueLevel: string;
     role: string;
     employees: string;
 }
@@ -36,6 +38,13 @@ const EMPLOYEES_OPTIONS = [
     "Plus de 100 employés"
 ];
 
+const REVENUE_LEVELS = [
+    "Moins de 300.000 €",
+    "De 300.000 € à 1M €",
+    "De 1M € à 3M €",
+    "Plus de 3M €"
+];
+
 export default function GuideUserForm({ onSubmit, onBack }: GuideUserFormProps) {
     const formRef = useRef<HTMLDivElement>(null);
     const [formData, setFormData] = useState<UserInfo>({
@@ -43,6 +52,8 @@ export default function GuideUserForm({ onSubmit, onBack }: GuideUserFormProps) 
         lastName: "",
         email: "",
         company: "",
+        vatNumber: "",
+        revenueLevel: "",
         role: "",
         employees: ""
     });
@@ -87,6 +98,12 @@ export default function GuideUserForm({ onSubmit, onBack }: GuideUserFormProps) 
         }
         if (!formData.company.trim()) {
             newErrors.company = "Le nom de l'entreprise est requis";
+        }
+        if (!formData.vatNumber.trim()) {
+            newErrors.vatNumber = "Le numéro TVA / BCE est requis";
+        }
+        if (!formData.revenueLevel) {
+            newErrors.revenueLevel = "Veuillez sélectionner le niveau de CA";
         }
         if (!formData.role) {
             newErrors.role = "Veuillez sélectionner votre rôle";
@@ -133,7 +150,7 @@ export default function GuideUserForm({ onSubmit, onBack }: GuideUserFormProps) 
                             Étape 2 sur 3
                         </span>
                         <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                            Avant de commencer le questionnaire
+                            Avant de commencer le diagnostic
                         </h1>
                         <p className="text-white/70">
                             Ces informations nous permettront de personnaliser vos résultats
@@ -275,6 +292,82 @@ export default function GuideUserForm({ onSubmit, onBack }: GuideUserFormProps) 
                                 )}
                             </div>
 
+                            {/* VAT Number & Revenue Level Row */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label
+                                        htmlFor="vatNumber"
+                                        className="block text-sm font-semibold text-gray-700 mb-2"
+                                    >
+                                        Numéro TVA / BCE *
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="vatNumber"
+                                        name="vatNumber"
+                                        value={formData.vatNumber}
+                                        onChange={handleChange}
+                                        placeholder="BE 0123.456.789"
+                                        className={`w-full px-4 py-3.5 rounded-xl border-2 transition-all duration-300 outline-none
+                                        ${errors.vatNumber
+                                                ? "border-red-300 bg-red-50 focus:border-red-500"
+                                                : "border-gray-200 bg-gray-50 focus:border-primary focus:bg-white"
+                                            }`}
+                                    />
+                                    {errors.vatNumber && (
+                                        <p className="mt-2 text-sm text-red-500 flex items-center gap-1">
+                                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                            </svg>
+                                            {errors.vatNumber}
+                                        </p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="revenueLevel"
+                                        className="block text-sm font-semibold text-gray-700 mb-2"
+                                    >
+                                        Niveau de CA *
+                                    </label>
+                                    <div className="relative">
+                                        <select
+                                            id="revenueLevel"
+                                            name="revenueLevel"
+                                            value={formData.revenueLevel}
+                                            onChange={handleChange}
+                                            className={`w-full px-4 py-3.5 rounded-xl border-2 transition-all duration-300 outline-none appearance-none cursor-pointer
+                                            ${errors.revenueLevel
+                                                    ? "border-red-300 bg-red-50 focus:border-red-500"
+                                                    : "border-gray-200 bg-gray-50 focus:border-primary focus:bg-white"
+                                                }
+                                            ${!formData.revenueLevel ? "text-gray-400" : "text-gray-900"}`}
+                                        >
+                                            <option value="">Sélectionnez le niveau de CA</option>
+                                            {REVENUE_LEVELS.map(level => (
+                                                <option key={level} value={level}>{level}</option>
+                                            ))}
+                                        </select>
+                                        <svg
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                    {errors.revenueLevel && (
+                                        <p className="mt-2 text-sm text-red-500 flex items-center gap-1">
+                                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                            </svg>
+                                            {errors.revenueLevel}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+
                             {/* Role & Employees Row */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -396,7 +489,7 @@ export default function GuideUserForm({ onSubmit, onBack }: GuideUserFormProps) 
                                     </span>
                                 ) : (
                                     <span className="flex items-center justify-center gap-3">
-                                        Commencer le questionnaire
+                                        Commencer le diagnostic
                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                         </svg>

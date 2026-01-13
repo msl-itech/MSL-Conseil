@@ -1,15 +1,50 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createOdooLead, updateOdooLead, formatQuizResultsToDescription } from "@/lib/odoo-api";
+import toast from "react-hot-toast";
 
 // Types
 export interface UserInfo {
     firstName: string;
     lastName: string;
     company: string;
+    vatNumber: string;
+    revenueLevel: string;
+    sector: string;
+    employees: string;
     role: string;
     email: string;
 }
+
+const REVENUE_LEVELS = [
+    "Moins de 300.000 €",
+    "De 300.000 € à 1M €",
+    "De 1M € à 3M €",
+    "Plus de 3M €"
+];
+
+const SECTORS = [
+    "Commerce & Distribution",
+    "Services aux entreprises",
+    "Industrie & Production",
+    "Construction & BTP",
+    "Technologie & IT",
+    "Santé & Médical",
+    "Transport & Logistique",
+    "Immobilier",
+    "Finance & Assurance",
+    "Autre"
+];
+
+const EMPLOYEE_RANGES = [
+    "1-5 employés",
+    "6-10 employés",
+    "11-25 employés",
+    "26-50 employés",
+    "51-100 employés",
+    "Plus de 100 employés"
+];
 
 export interface DiagnosticAnswer {
     questionId: number;
@@ -267,10 +302,15 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
         firstName: "",
         lastName: "",
         company: "",
+        vatNumber: "",
+        revenueLevel: "",
+        sector: "",
+        employees: "",
         role: "",
         email: ""
     });
     const [formErrors, setFormErrors] = useState<Partial<UserInfo>>({});
+    const [leadId, setLeadId] = useState<number | null>(null);
 
     const question = QUESTIONS[currentQuestion];
     const currentAxe = AXES.find(a => a.id === question?.axe);
@@ -297,19 +337,65 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
         if (!userInfo.firstName.trim()) errors.firstName = "Le prénom est requis";
         if (!userInfo.lastName.trim()) errors.lastName = "Le nom est requis";
         if (!userInfo.company.trim()) errors.company = "Le nom de l'entreprise est requis";
+        if (!userInfo.vatNumber.trim()) errors.vatNumber = "Le numéro TVA / BCE est requis";
+        if (!userInfo.revenueLevel) errors.revenueLevel = "Veuillez sélectionner le niveau de CA";
+        if (!userInfo.sector) errors.sector = "Veuillez sélectionner le secteur";
+        if (!userInfo.employees) errors.employees = "Veuillez sélectionner l'effectif";
+        if (!userInfo.role.trim()) errors.role = "La fonction est requise";
+        if (!userInfo.email.trim()) {
+            errors.email = "L'email est requis";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userInfo.email)) {
+            errors.email = "Veuillez entrer un email valide";
+        }
 
         setFormErrors(errors);
         return Object.keys(errors).length === 0;
     };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (validateForm()) {
-            setStep("quiz");
+        if (!validateForm()) return;
+        
+        const loadingToast = toast.loading("Enregistrement de vos informations...");
+        
+        try {
+            // Créer le lead dans Odoo
+            const userData = {
+                firstName: userInfo.firstName,
+                lastName: userInfo.lastName,
+                email: userInfo.email,
+                company: userInfo.company,
+                vatNumber: userInfo.vatNumber,
+                revenueLevel: userInfo.revenueLevel,
+                sector: userInfo.sector,
+                employees: userInfo.employees,
+            };
+            
+            const response = await createOdooLead(userData, "Guide: Automatisation & Diagnostic");
+            
+            // Stocker l'ID du lead pour mise à jour ultérieure
+            if (response.id) {
+                setLeadId(response.id);
+                console.log("Lead créé avec succès:", response.id);
+            } else {
+                console.warn("Lead créé mais ID non disponible dans la réponse");
+            }
+            
+            toast.success("Vos informations ont été enregistrées !", {
+                id: loadingToast,
+            });
+        } catch (error) {
+            console.error("Erreur lors de la création du lead:", error);
+            toast.error("Une erreur est survenue, mais vous pouvez continuer le diagnostic", {
+                id: loadingToast,
+            });
+            // On continue quand même vers le quiz même si la création échoue
         }
+        
+        setStep("quiz");
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         if (selectedAnswer === null) return;
 
         const newAnswers = [...answers, { questionId: question.id, answer: selectedAnswer as 0 | 1 | 2 }];
@@ -333,6 +419,79 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
                 date: new Date().toISOString(),
                 id: `auto_diag_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
             };
+
+            // Mettre à jour le lead avec les résultats du quiz
+            console.log("🔍 DEBUG - leadId:", leadId);
+            console.log("🔍 DEBUG - userInfo:", userInfo);
+            
+            if (leadId) {
+                const updatingToast = toast.loading("Envoi de vos résultats...");
+                
+                try {
+                    const maxScore = QUESTIONS.length * 2; // 2 points max par question
+                    const percentage = Math.round((result.totalScore / maxScore) * 100);
+                    
+                    // Convertir les réponses pour l'API
+                    const answersMap: Record<string, number> = {};
+                    const questionsMap: Record<string, string> = {};
+                    newAnswers.forEach(a => {
+                        const questionKey = `q${a.questionId}`;
+                        answersMap[questionKey] = a.answer;
+                        
+                        // Trouver la question correspondante pour obtenir son texte
+                        const question = QUESTIONS.find(q => q.id === a.questionId);
+                        if (question) {
+                            questionsMap[questionKey] = question.question;
+                        }
+                    });
+                    
+                    const userData = {
+                        firstName: userInfo.firstName,
+                        lastName: userInfo.lastName,
+                        email: userInfo.email,
+                        company: userInfo.company,
+                        vatNumber: userInfo.vatNumber,
+                        revenueLevel: userInfo.revenueLevel,
+                        sector: userInfo.sector,
+                        employees: userInfo.employees,
+                    };
+                    
+                    const updatedDescription = formatQuizResultsToDescription(
+                        userData,
+                        {
+                            answers: answersMap,
+                            totalScore: result.totalScore,
+                            maxScore,
+                            percentage,
+                            questions: questionsMap,
+                        },
+                        "Guide: Automatisation & Diagnostic"
+                    );
+                    
+                    console.log("📝 DEBUG - Description (premiers 200 chars):", updatedDescription.substring(0, 200));
+                    console.log("📊 DEBUG - Envoi à Odoo - leadId:", leadId);
+                    
+                    const updateResponse = await updateOdooLead(leadId, {
+                        description: updatedDescription
+                    });
+                    
+                    console.log("✅ Lead mis à jour avec succès:", updateResponse);
+                    toast.success("Vos résultats ont été enregistrés avec succès ! 🎉", {
+                        id: updatingToast,
+                    });
+                } catch (error) {
+                    console.error("Erreur lors de la mise à jour du lead:", error);
+                    toast.error("Erreur lors de l'envoi, mais vos résultats s'affichent", {
+                        id: updatingToast,
+                    });
+                    // On continue vers les résultats même si la mise à jour échoue
+                }
+            } else {
+                console.warn("⚠️ Aucun leadId trouvé - la mise à jour du lead n'a pas été effectuée");
+                toast.error("Impossible d'envoyer vos résultats (pas de leadId)", {
+                    duration: 2000,
+                });
+            }
 
             localStorage.setItem('auto_diagnostic_result', JSON.stringify(result));
             onComplete(result);
@@ -415,6 +574,7 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
                     </div>
 
                     <form onSubmit={handleFormSubmit} className="bg-white rounded-3xl p-8 shadow-sm border border-gray-200">
+                        {/* Row 1: Prénom / Nom */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -444,6 +604,7 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
                             </div>
                         </div>
 
+                        {/* Row 2: Entreprise */}
                         <div className="mb-6">
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Entreprise <span className="text-red-500">*</span>
@@ -458,33 +619,106 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
                             {formErrors.company && <p className="text-red-500 text-sm mt-1">{formErrors.company}</p>}
                         </div>
 
-                        <div className="mb-6">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Fonction
-                            </label>
-                            <input
-                                type="text"
-                                value={userInfo.role}
-                                onChange={(e) => setUserInfo({ ...userInfo, role: e.target.value })}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none"
-                                placeholder="Ex: Dirigeant, DAF, Resp. Finance..."
-                            />
+                        {/* Row 3: TVA / Niveau CA */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Numéro TVA / BCE <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={userInfo.vatNumber}
+                                    onChange={(e) => setUserInfo({ ...userInfo, vatNumber: e.target.value })}
+                                    className={`w-full px-4 py-3 rounded-xl border ${formErrors.vatNumber ? 'border-red-500' : 'border-gray-200'} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none`}
+                                    placeholder="BE 0123.456.789"
+                                />
+                                {formErrors.vatNumber && <p className="text-red-500 text-sm mt-1">{formErrors.vatNumber}</p>}
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Niveau de CA <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    value={userInfo.revenueLevel}
+                                    onChange={(e) => setUserInfo({ ...userInfo, revenueLevel: e.target.value })}
+                                    className={`w-full px-4 py-3 rounded-xl border ${formErrors.revenueLevel ? 'border-red-500' : 'border-gray-200'} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none bg-white`}
+                                >
+                                    <option value="">Sélectionnez...</option>
+                                    {REVENUE_LEVELS.map(level => (
+                                        <option key={level} value={level}>{level}</option>
+                                    ))}
+                                </select>
+                                {formErrors.revenueLevel && <p className="text-red-500 text-sm mt-1">{formErrors.revenueLevel}</p>}
+                            </div>
                         </div>
 
-                        <div className="mb-8">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Email <span className="text-gray-400 text-xs">(optionnel)</span>
-                            </label>
-                            <input
-                                type="email"
-                                value={userInfo.email}
-                                onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none"
-                                placeholder="email@exemple.com"
-                            />
-                            <p className="text-gray-400 text-xs mt-2">Pour recevoir vos résultats par email</p>
+                        {/* Row 4: Secteur / Effectif */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Secteur d'activité <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    value={userInfo.sector}
+                                    onChange={(e) => setUserInfo({ ...userInfo, sector: e.target.value })}
+                                    className={`w-full px-4 py-3 rounded-xl border ${formErrors.sector ? 'border-red-500' : 'border-gray-200'} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none bg-white`}
+                                >
+                                    <option value="">Sélectionnez...</option>
+                                    {SECTORS.map(sector => (
+                                        <option key={sector} value={sector}>{sector}</option>
+                                    ))}
+                                </select>
+                                {formErrors.sector && <p className="text-red-500 text-sm mt-1">{formErrors.sector}</p>}
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Effectif <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    value={userInfo.employees}
+                                    onChange={(e) => setUserInfo({ ...userInfo, employees: e.target.value })}
+                                    className={`w-full px-4 py-3 rounded-xl border ${formErrors.employees ? 'border-red-500' : 'border-gray-200'} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none bg-white`}
+                                >
+                                    <option value="">Sélectionnez...</option>
+                                    {EMPLOYEE_RANGES.map(range => (
+                                        <option key={range} value={range}>{range}</option>
+                                    ))}
+                                </select>
+                                {formErrors.employees && <p className="text-red-500 text-sm mt-1">{formErrors.employees}</p>}
+                            </div>
                         </div>
 
+                        {/* Row 5: Fonction / Email */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Fonction <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={userInfo.role}
+                                    onChange={(e) => setUserInfo({ ...userInfo, role: e.target.value })}
+                                    className={`w-full px-4 py-3 rounded-xl border ${formErrors.role ? 'border-red-500' : 'border-gray-200'} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none`}
+                                    placeholder="Ex: Dirigeant, DAF, Resp. Finance..."
+                                />
+                                {formErrors.role && <p className="text-red-500 text-sm mt-1">{formErrors.role}</p>}
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Email <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="email"
+                                    value={userInfo.email}
+                                    onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                                    className={`w-full px-4 py-3 rounded-xl border ${formErrors.email ? 'border-red-500' : 'border-gray-200'} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-colors outline-none`}
+                                    placeholder="email@exemple.com"
+                                />
+                                {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
+                            </div>
+                        </div>
+
+                        {/* Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4">
                             <button
                                 type="submit"
@@ -503,7 +737,7 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
                     </form>
 
                     <p className="text-center text-gray-400 text-sm mt-6">
-                        🔒 Vos données restent confidentielles et ne sont pas partagées.
+                        🔒 Vos données sont sécurisées et seront intégrées dans notre CRM Odoo pour un suivi personnalisé.
                     </p>
                 </div>
             </section>
@@ -529,7 +763,8 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
     return (
         <section className="w-full min-h-screen bg-gray-50 text-gray-900 py-24 px-6">
             <div className="max-w-2xl mx-auto">
-                <div className="mb-12">
+                {/* Progress Bar */}
+                <div className="mb-8">
                     <div className="flex justify-between items-center mb-2 text-sm text-gray-500">
                         <span>Question {currentQuestion + 1} / {QUESTIONS.length}</span>
                         <span>AXE {currentAxe?.id} — {currentAxe?.title}</span>
@@ -590,6 +825,27 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
                     >
                         {currentQuestion < QUESTIONS.length - 1 ? 'Question suivante' : 'Voir mes résultats'}
                     </button>
+                </div>
+
+                {/* Progress Dots */}
+                <div className="flex justify-center gap-1 mt-8 flex-wrap">
+                    {AXES.map((axe) => (
+                        <div key={axe.id} className="flex gap-1">
+                            {QUESTIONS.filter(q => q.axe === axe.id).map((q) => {
+                                const isAnswered = answers.some(a => a.questionId === q.id);
+                                const isCurrent = q.id === question.id;
+                                return (
+                                    <div
+                                        key={q.id}
+                                        className={`w-2 h-2 rounded-full transition-all ${isCurrent ? 'w-4 bg-secondary' :
+                                            isAnswered ? 'bg-green-500' : 'bg-gray-200'
+                                            }`}
+                                    />
+                                );
+                            })}
+                            {axe.id < 4 && <div className="w-1" />}
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

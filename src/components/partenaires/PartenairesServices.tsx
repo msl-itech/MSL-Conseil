@@ -16,7 +16,7 @@ const SERVICES = [
             </svg>
         ),
         title: "Avant-vente & cadrage fonctionnel",
-        description: "Nous accompagnons vos équipes commerciales et projets pour sécuriser le périmètre fonctionnel Odoo Finance.",
+        description: "Nous accompagnons vos équipes commerciales et projets pour sécuriser le périmètre fonctionnel Odoo Finances.",
         image: "/images/partenaires/expert_consulting.png",
         actions: [
             "Participer aux rendez-vous clients",
@@ -40,7 +40,7 @@ const SERVICES = [
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
         ),
-        title: "Analyse fonctionnelle & paramétrage Finance",
+        title: "Analyse fonctionnelle & paramétrage Finances",
         description: "Nous intervenons directement sur la structuration et la migration comptable vers Odoo.",
         image: "/images/partenaires/finance_analytics.png",
         actions: [

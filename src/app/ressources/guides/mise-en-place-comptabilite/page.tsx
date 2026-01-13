@@ -14,7 +14,7 @@ const ODOO_PURPLE = "#714b67";
 const EBOOKS = [
     {
         number: 1,
-        title: "Structurer sa comptabilité PME",
+        title: "Structurer la comptabilité de votre PME",
         subtitle: "Gagner du temps et bâtir sur de bonnes bases",
         description: "Posez les fondations de votre architecture comptable : plan comptable personnalisé (PCMN), organisation documentaire, choix des outils et automatisations de base.",
         chapters: [
@@ -35,7 +35,7 @@ const EBOOKS = [
     },
     {
         number: 2,
-        title: "Automatiser sa comptabilité PME",
+        title: "Automatiser la comptabilité de votre PME",
         subtitle: "Piloter son entreprise en temps réel avec Odoo",
         description: "Passez à la vitesse supérieure : automatisez vos flux, mettez en place des indicateurs de pilotage, exploitez la comptabilité analytique et préparez la croissance.",
         chapters: [
@@ -135,7 +135,7 @@ export default function MiseEnPlaceComptabilitePage() {
                     <div className="flex items-center justify-center gap-2 text-white/60 text-sm mb-6">
                         <Link href="/ressources" className="hover:text-white transition-colors">Ressources</Link>
                         <span>/</span>
-                        <span className="text-white">Mise en place de la comptabilité</span>
+                        <span className="text-white">Mise en place d'une comptabilité efficace</span>
                     </div>
 
                     {/* Badge */}
@@ -148,7 +148,7 @@ export default function MiseEnPlaceComptabilitePage() {
 
                     {/* Title */}
                     <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                        Mise en place de la comptabilité
+                        Mise en place d'une comptabilité efficace
                         <br />
                         <span className="text-secondary">pour PME</span>
                     </h1>
@@ -230,7 +230,7 @@ export default function MiseEnPlaceComptabilitePage() {
                                     {/* E-book number badge */}
                                     <div className="absolute top-4 left-4">
                                         <span className="bg-white text-gray-900 text-sm font-bold px-3 py-1.5 rounded-full shadow-lg">
-                                            E-book {ebook.number}
+                                            Etape {ebook.number}
                                         </span>
                                     </div>
 
@@ -295,7 +295,7 @@ export default function MiseEnPlaceComptabilitePage() {
                                         className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-semibold text-white transition-all hover:shadow-lg active:scale-[0.98]"
                                         style={{ backgroundColor: ebook.color }}
                                     >
-                                        Accéder à l&apos;E-book {ebook.number}
+                                        Accéder à l&apos;Etape {ebook.number}
                                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                         </svg>

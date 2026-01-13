@@ -34,6 +34,7 @@ export default function GuideHero() {
     return (
         <section
             ref={containerRef}
+            suppressHydrationWarning
             className="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden pt-24"
             style={{
                 background: "linear-gradient(135deg, #012a1e 0%, #014730 50%, #016742 100%)"
@@ -70,7 +71,7 @@ export default function GuideHero() {
 
                 {/* Title */}
                 <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                    Structurer sa comptabilité PME
+                    Structurer la comptabilité de votre PME
                     <br />
                     <span className="text-secondary">pour gagner du temps et bâtir sur de bonnes bases</span>
                 </h1>
