@@ -408,12 +408,11 @@ export default function GuideResults({ score, userInfo, onRestartQuiz }: GuideRe
                 </div>
 
                 {/* Share Section */}
-                <div className="result-section bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+                {/* <div className="result-section bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
                     <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Partagez vos résultats</h3>
                     <p className="text-gray-500 text-center mb-6">Invitez d'autres dirigeants à découvrir leur profil</p>
 
                     <div className="grid md:grid-cols-3 gap-4">
-                        {/* WhatsApp */}
                         <button
                             onClick={() => {
                                 const shareUrl = `${window.location.origin}/ressources/guides/controle-gestion?shared=true&score=${score}&level=${encodeURIComponent(profile.name)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`;
@@ -433,7 +432,6 @@ export default function GuideResults({ score, userInfo, onRestartQuiz }: GuideRe
                             </div>
                         </button>
 
-                        {/* LinkedIn */}
                         <button
                             onClick={() => {
                                 const shareUrl = `${window.location.origin}/ressources/guides/controle-gestion?shared=true&score=${score}&level=${encodeURIComponent(profile.name)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`;
@@ -454,7 +452,6 @@ export default function GuideResults({ score, userInfo, onRestartQuiz }: GuideRe
                             </div>
                         </button>
 
-                        {/* Copy Link */}
                         <button
                             onClick={() => {
                                 const shareUrl = `${window.location.origin}/ressources/guides/controle-gestion?shared=true&score=${score}&level=${encodeURIComponent(profile.name)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`;
@@ -479,7 +476,7 @@ export default function GuideResults({ score, userInfo, onRestartQuiz }: GuideRe
                     <p className="text-center text-gray-400 text-sm mt-6 italic">
                         "Les diagnostics les plus utiles sont ceux qui déclenchent une discussion."
                     </p>
-                </div>
+                </div> */}
 
                 {/* Back to Resources */}
                 <div className="text-center pb-8">

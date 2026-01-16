@@ -78,7 +78,7 @@ const STEPS = [
         after: ["Processus optimisés", "Anticipation des besoins"],
         actions: ["Analyse continue", "Ajustements réguliers", "Support évolutif"],
         livrable: "Plan d’optimisation + suivi",
-        duree: "Trimestriel"
+        duree: "1 à 2 semaines"
     },
     {
         letter: "R",

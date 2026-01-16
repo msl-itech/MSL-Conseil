@@ -48,9 +48,9 @@ export default function SolutionsHero() {
                     <button className="px-8 py-4 bg-secondary text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white transition-colors duration-300 shadow-lg">
                         Parler à un expert
                     </button>
-                    <button className="px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors duration-300">
+                    {/* <button className="px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors duration-300">
                         Demander un diagnostic gratuit
-                    </button>
+                    </button> */}
                 </div>
             </div>
 

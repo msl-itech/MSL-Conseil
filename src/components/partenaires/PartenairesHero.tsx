@@ -56,16 +56,16 @@ export default function PartenairesHero() {
                     <a href="#contact" className="px-8 py-4 bg-secondary text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white transition-colors duration-300 shadow-lg">
                         Parlons partenariat
                     </a>
-                    <a href="#offre" className="px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors duration-300">
+                    <a href="#tarif-partenaire" className="px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors duration-300">
                         Découvrir notre offre
                     </a>
                 </div>
             </div>
 
             {/* Scroll Indicator */}
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
+            {/* <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
                 <div className="w-px h-16 bg-gradient-to-b from-secondary to-transparent animate-pulse" />
-            </div>
+            </div> */}
         </section>
     );
 }

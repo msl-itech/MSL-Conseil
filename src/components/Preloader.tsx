@@ -5,71 +5,90 @@ import gsap from 'gsap';
 
 export default function Preloader() {
     const [complete, setComplete] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
     const counterRef = useRef<HTMLSpanElement>(null);
+    const tlRef = useRef<gsap.core.Timeline | null>(null);
+
+    // Set mounted state after hydration
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
-        const tl = gsap.timeline({
-            onComplete: () => {
-                setComplete(true);
-                document.body.style.overflow = 'auto';
-            }
-        });
+        // Only run animations after hydration is complete
+        if (!isMounted) return;
 
-        // Empêcher le scroll
-        document.body.style.overflow = 'hidden';
+        // Use requestAnimationFrame to ensure DOM is fully ready
+        const frameId = requestAnimationFrame(() => {
+            const mainElement = document.querySelector('main');
 
-        // 1. Initial State
-        const mainElement = document.querySelector('main');
-        if (mainElement) {
-            gsap.set(mainElement, { opacity: 0, y: 100 });
-        }
-
-        // 2. Animation du compteur (0 -> 100)
-        let progress = { value: 0 };
-
-        tl.to(progress, {
-            value: 100,
-            duration: 2.5,
-            ease: "power2.inOut",
-            onUpdate: () => {
-                if (counterRef.current) {
-                    counterRef.current.textContent = Math.round(progress.value).toString();
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    setComplete(true);
+                    document.body.style.overflow = 'auto';
                 }
+            });
+            tlRef.current = tl;
+
+            // Empêcher le scroll
+            document.body.style.overflow = 'hidden';
+
+            // 1. Initial State - only set after hydration
+            if (mainElement) {
+                gsap.set(mainElement, { opacity: 0, y: 100 });
             }
-        })
 
-            // 3. Animation de sortie des textes du preloader
-            .to('.preloader-text', {
-                y: -50,
-                opacity: 0,
-                duration: 0.8,
-                ease: "power3.in",
-                stagger: 0.1
-            }, "-=0.5")
+            // 2. Animation du compteur (0 -> 100)
+            const progress = { value: 0 };
 
-            // 4. Rideau (Slide Up)
-            .to('.preloader-curtain', {
-                yPercent: -100,
-                duration: 1.2,
-                ease: "power4.inOut"
+            tl.to(progress, {
+                value: 100,
+                duration: 2.5,
+                ease: "power2.inOut",
+                onUpdate: () => {
+                    if (counterRef.current) {
+                        counterRef.current.textContent = Math.round(progress.value).toString();
+                    }
+                }
             })
 
-            // 5. Entrée du contenu principal (Reveal)
-            .to(mainElement, {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                ease: "power3.out"
-            }, "-=0.8");
+                // 3. Animation de sortie des textes du preloader
+                .to('.preloader-text', {
+                    y: -50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power3.in",
+                    stagger: 0.1
+                }, "-=0.5")
+
+                // 4. Rideau (Slide Up)
+                .to('.preloader-curtain', {
+                    yPercent: -100,
+                    duration: 1.2,
+                    ease: "power4.inOut"
+                })
+
+                // 5. Entrée du contenu principal (Reveal)
+                .to(mainElement, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out"
+                }, "-=0.8");
+        });
 
         return () => {
-            tl.kill();
+            cancelAnimationFrame(frameId);
+            if (tlRef.current) {
+                tlRef.current.kill();
+            }
             document.body.style.overflow = 'auto';
+            const mainElement = document.querySelector('main');
             if (mainElement) {
                 gsap.set(mainElement, { clearProps: 'all' });
             }
         };
-    }, []);
+    }, [isMounted]);
 
     if (complete) return null;
 

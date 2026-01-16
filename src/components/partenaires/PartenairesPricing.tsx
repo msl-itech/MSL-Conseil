@@ -42,7 +42,7 @@ export default function PartenairesPricing() {
     }, []);
 
     return (
-        <section ref={container} className="relative w-full py-32 px-6 bg-[#050505] text-white overflow-hidden">
+        <section id="tarif-partenaire" ref={container} className="relative w-full py-32 px-6 bg-[#050505] text-white overflow-hidden">
             {/* Decorative Blobs */}
             <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-secondary/15 rounded-full blur-[150px]" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/30 rounded-full blur-[120px]" />

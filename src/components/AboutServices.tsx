@@ -53,7 +53,7 @@ const SERVICES = [
     {
         id: 6,
         number: "NON",
-        title: "Ce que nous NE faisons pas",
+        title: "Ce que nous ne faisons pas",
         description: "Tenue comptable, Encodage factures, Clôtures complètes, Mission fiduciaire.",
         image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop",
         size: "large"
@@ -120,16 +120,16 @@ export default function AboutServices() {
 
                     <p className="text-white/60 text-sm italic mb-10 border-l-2 border-secondary pl-4 py-1">
                         Nous ne faisons pas votre comptabilité.
-                        Si vous avez besoin d’un fiduciaire, nous vous orientons vers notre partenaire <span className="text-white font-semibold">Oddofinances</span>.
+                        Si vous avez besoin d’un fiduciaire, nous vous orientons vers notre partenaire <span className="text-white font-semibold">Odoo Finances</span>.
                     </p>
 
                     <div className="flex flex-col sm:flex-col gap-4">
                         <Link href="/contact" className="bg-secondary text-primary font-bold px-8 py-4 rounded-sm hover:bg-secondary/90 transition-colors uppercase tracking-wide text-sm text-center">
                             Obtenez votre plan personnalisé
                         </Link>
-                        <Link href="/contact" className="border border-white/30 text-white font-medium px-6 py-3 rounded-sm hover:bg-white hover:text-primary transition-all uppercase tracking-wide text-xs text-center">
+                        {/* <Link href="/contact" className="border border-white/30 text-white font-medium px-6 py-3 rounded-sm hover:bg-white hover:text-primary transition-all uppercase tracking-wide text-xs text-center">
                             Réservez votre audit gratuit
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
 
@@ -141,7 +141,7 @@ export default function AboutServices() {
                         <h3 className="text-2xl font-serif italic text-secondary mb-2">
                             Ce que nous faisons
                         </h3>
-                        <p className="text-white/60">— et ce que nous ne faisons pas</p>
+                        <p className="text-white/60">— et Ce que nous ne faisons pas</p>
                     </div>
 
                     {/* Fixed Grid Layout - 3 columns, explicit placement */}

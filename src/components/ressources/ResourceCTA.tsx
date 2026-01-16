@@ -15,9 +15,9 @@ export default function ResourceCTA() {
                     votre finances ?
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                    <Link href="/ressources" className="bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-gray-100 transition-colors shadow-xl hover:scale-105 transform duration-300 text-center">
+                    {/* <Link href="/ressources" className="bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-gray-100 transition-colors shadow-xl hover:scale-105 transform duration-300 text-center">
                         Télécharger le Kit Complet
-                    </Link>
+                    </Link> */}
                     <Link href="/contact" className="px-8 py-4 border border-white/30 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors hover:scale-105 transform duration-300 text-center">
                         Parler à un expert
                     </Link>
