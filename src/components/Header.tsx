@@ -52,11 +52,10 @@ export default function Header() {
     <>
       <header
         ref={headerRef}
-        className={`left-0 w-full z-50 transition-all duration-500 ${
-          scrolled
-            ? "fixed top-0 py-4 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 shadow-2xl translate-y-0"
-            : "absolute top-[40px] py-6 bg-transparent"
-        }`}
+        className={`left-0 w-full z-50 transition-all duration-500 ${scrolled
+          ? "fixed top-0 py-4 bg-[#050505]/90 backdrop-blur-md border-b border-white/5 shadow-2xl translate-y-0"
+          : "absolute top-[40px] py-6 bg-transparent"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center text-white">
           {/* Logo Area */}
@@ -66,7 +65,7 @@ export default function Header() {
                 src="/assets/logoConseils.png"
                 alt="MSL Conseils Logo"
                 fill
-                className="object-contain"
+                className="object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
                 priority
               />
             </div>
@@ -74,25 +73,22 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav
-            className={`hidden md:flex items-center gap-6 px-6 py-2.5 rounded-full backdrop-blur-md transition-all duration-500 ${
-              scrolled
-                ? "bg-transparent border-transparent shadow-none"
-                : "bg-[#013524]/90 border border-white/10 shadow-lg"
-            }`}
+            className={`hidden md:flex items-center gap-6 px-6 py-2.5 rounded-full backdrop-blur-md transition-all duration-500 ${scrolled
+              ? "bg-transparent border-transparent shadow-none"
+              : "bg-[#013524]/90 border border-white/10 shadow-lg"
+              }`}
           >
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`text-[10px] uppercase tracking-widest hover:text-secondary transition-colors relative group font-medium ${
-                  pathname === link.href ? "text-secondary" : "text-white/90"
-                }`}
+                className={`text-[10px] uppercase tracking-widest hover:text-secondary transition-colors relative group font-medium ${pathname === link.href ? "text-secondary" : "text-white/90"
+                  }`}
               >
                 {link.label}
                 <span
-                  className={`absolute -bottom-1 left-0 h-[1px] bg-secondary transition-all duration-300 ${
-                    pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                  className={`absolute -bottom-1 left-0 h-[1px] bg-secondary transition-all duration-300 ${pathname === link.href ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
                 />
               </Link>
             ))}
@@ -115,19 +111,16 @@ export default function Header() {
               aria-label="Toggle Menu"
             >
               <span
-                className={`w-6 h-[2px] bg-white transition-all duration-300 group-hover:bg-secondary ${
-                  isMenuOpen ? "rotate-45 translate-y-2.5" : ""
-                }`}
+                className={`w-6 h-[2px] bg-white transition-all duration-300 group-hover:bg-secondary ${isMenuOpen ? "rotate-45 translate-y-2.5" : ""
+                  }`}
               />
               <span
-                className={`w-4 h-[2px] bg-white ml-auto transition-all duration-300 group-hover:bg-secondary ${
-                  isMenuOpen ? "opacity-0" : ""
-                }`}
+                className={`w-4 h-[2px] bg-white ml-auto transition-all duration-300 group-hover:bg-secondary ${isMenuOpen ? "opacity-0" : ""
+                  }`}
               />
               <span
-                className={`w-6 h-[2px] bg-white transition-all duration-300 group-hover:bg-secondary ${
-                  isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-                }`}
+                className={`w-6 h-[2px] bg-white transition-all duration-300 group-hover:bg-secondary ${isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+                  }`}
               />
             </button>
           </div>
@@ -136,11 +129,10 @@ export default function Header() {
 
       {/* Mobile Fullscreen Menu */}
       <div
-        className={`fixed inset-0 bg-[#0a0a0a] z-40 flex flex-col justify-center items-center transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-          isMenuOpen
-            ? "opacity-100 visible"
-            : "opacity-0 invisible pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-[#0a0a0a] z-40 flex flex-col justify-center items-center transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${isMenuOpen
+          ? "opacity-100 visible"
+          : "opacity-0 invisible pointer-events-none"
+          }`}
       >
         {/* Background Decoration */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary/20 to-transparent opacity-20" />
@@ -151,11 +143,10 @@ export default function Header() {
               key={link.label}
               href={link.href}
               onClick={toggleMenu}
-              className={`text-4xl md:text-5xl font-serif text-white hover:text-secondary hover:italic transition-all duration-500 transform ${
-                isMenuOpen
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-10 opacity-0"
-              }`}
+              className={`text-4xl md:text-5xl font-serif text-white hover:text-secondary hover:italic transition-all duration-500 transform ${isMenuOpen
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
+                }`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               {link.label}
@@ -163,19 +154,17 @@ export default function Header() {
           ))}
 
           <div
-            className={`w-12 h-[1px] bg-white/20 mx-auto my-4 transition-all duration-700 delay-500 ${
-              isMenuOpen ? "w-12 opacity-100" : "w-0 opacity-0"
-            }`}
+            className={`w-12 h-[1px] bg-white/20 mx-auto my-4 transition-all duration-700 delay-500 ${isMenuOpen ? "w-12 opacity-100" : "w-0 opacity-0"
+              }`}
           />
 
           <Link
             href="/contact"
             onClick={toggleMenu}
-            className={`text-lg uppercase tracking-widest text-secondary font-bold transition-all duration-500 delay-500 transform ${
-              isMenuOpen
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
+            className={`text-lg uppercase tracking-widest text-secondary font-bold transition-all duration-500 delay-500 transform ${isMenuOpen
+              ? "translate-y-0 opacity-100"
+              : "translate-y-10 opacity-0"
+              }`}
           >
             Demander un diagnostic
           </Link>
