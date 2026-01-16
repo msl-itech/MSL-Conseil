@@ -88,22 +88,48 @@ export default function BootcampDifference() {
                         Manifeste d'Indépendance
                     </span>
                     <h2 className="diff-title text-6xl md:text-8xl font-serif leading-[0.85] tracking-tighter text-white">
-                        <span className="diff-title-line block">L'approche</span>
-                        <span className="diff-title-line block italic text-secondary font-light">sans compromis.</span>
+                        <span className="diff-title-line block">Pourquoi nos bootcamps </span>
+                        <span className="diff-title-line block italic text-secondary font-light">sont différents.</span>
                     </h2>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-start">
 
-                    {/* Left Side: The "Anti-Thesis" (Clean & Minimal) */}
+                    {/* Left Side: What We DON'T Do */}
                     <div className="lg:col-span-5 space-y-12">
                         <div>
-                            <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-10">Ce que nous refusons</p>
-                            <div className="space-y-8">
-                                {WHAT_WE_DONT.map((item, index) => (
+                            <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-10 flex items-center gap-2">
+                                <span className="text-red-400">❌</span> Ce que nous ne faisons pas
+                            </p>
+                            <div className="space-y-6">
+                                {[
+                                    "Pas de formations catalogue",
+                                    "Pas de journées \"à remplir\"",
+                                    "Pas de théorie déconnectée du terrain",
+                                    "Pas de solutions plaquées"
+                                ].map((item, index) => (
+                                    <div key={index} className="group flex items-center gap-6 opacity-70 hover:opacity-100 transition-opacity">
+                                        <div className="w-6 h-[1px] bg-red-400/50 group-hover:w-10 transition-all duration-500" />
+                                        <span className="text-lg md:text-xl font-light tracking-tight text-white/80">{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="pt-8 border-t border-white/10">
+                            <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-10 flex items-center gap-2">
+                                <span className="text-green-400">✅</span> Ce que nous faisons
+                            </p>
+                            <div className="space-y-6">
+                                {[
+                                    "Travail sur vos données",
+                                    "Analyse de vos flux réels",
+                                    "Formation alignée sur vos décisions à prendre",
+                                    "Résultats visibles dès la fin du parcours"
+                                ].map((item, index) => (
                                     <div key={index} className="group flex items-center gap-6 opacity-80 hover:opacity-100 transition-opacity">
-                                        <div className="w-8 h-[1px] bg-secondary/50 group-hover:w-12 transition-all duration-500" />
-                                        <span className="text-xl md:text-2xl font-light tracking-tight">{item}</span>
+                                        <div className="w-6 h-[1px] bg-secondary/70 group-hover:w-10 transition-all duration-500" />
+                                        <span className="text-lg md:text-xl font-light tracking-tight text-white">{item}</span>
                                     </div>
                                 ))}
                             </div>

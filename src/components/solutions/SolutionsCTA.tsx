@@ -45,11 +45,11 @@ export default function SolutionsCTA() {
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <button className="px-10 py-5 bg-white text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-secondary transition-colors duration-300 shadow-xl hover:scale-105">
-                            Demander votre diagnostic Odoo Finances
-                        </button>
-                        <button className="px-10 py-5 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors duration-300">
                             Parler à un consultant MSL
                         </button>
+                        {/* <button className="px-10 py-5 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors duration-300">
+                            Parler à un consultant MSL
+                        </button> */}
                     </div>
                 </div>
             </div>

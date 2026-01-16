@@ -115,14 +115,15 @@ export default function BootcampPhilosophy() {
                             <div>
                                 <span className="text-primary/40 text-xs font-bold uppercase tracking-widest block mb-6">01. Notre Approche</span>
                                 <p className="text-2xl md:text-3xl font-light leading-snug text-primary/90">
-                                    Chez MSL Conseils, le bootcamp n’est <span className="text-secondary italic">ni académique, ni théorique, ni standardisé</span>.
+                                    Chez MSL Conseils, le bootcamp n’est <span className="text-secondary italic">ni une formation standard, ni une suite de slides, ni un programme figé</span>.
                                 </p>
+                                
                             </div>
 
                             <div className="border-t border-primary/10 pt-8">
                                 <span className="text-primary/40 text-xs font-bold uppercase tracking-widest block mb-6">02. La Méthode</span>
                                 <p className="text-xl md:text-2xl leading-relaxed text-primary/80 font-medium">
-                                    C’est un outil de transformation opérationnelle, centré sur la <span className="text-primary font-bold">finances</span>, la <span className="text-primary font-bold">gestion</span> et la <span className="text-primary font-bold">digitalisation</span> dans Odoo.
+                                    C’est une intervention opérationnelle sur mesure, conçue à partir de la <span className="text-primary font-bold">réalité factuelle de votre entreprise</span>
                                 </p>
                             </div>
                         </div>

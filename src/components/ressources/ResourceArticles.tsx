@@ -53,17 +53,22 @@ export default function ResourceArticles() {
                     <Link href="/ressources#articles" className="text-sm font-bold uppercase tracking-widest text-secondary hover:text-primary transition-colors">Tous les articles</Link>
                 </div>
 
-                <div className="space-y-12">
-                    {ARTICLES.map((article, i) => (
-                        <div key={i} className="article-row group cursor-pointer block">
-                            <div className="flex flex-col md:flex-row gap-4 md:items-baseline justify-between mb-2">
-                                <h3 className="text-2xl font-medium text-gray-900 group-hover:text-secondary transition-colors">{article.title}</h3>
-                                <span className="text-xs text-gray-400 font-mono uppercase tracking-wider whitespace-nowrap">{article.readTime} de lecture</span>
-                            </div>
-                            <p className="text-gray-500 leading-relaxed max-w-2xl">{article.excerpt}</p>
-                            <div className="h-px w-full bg-gray-100 mt-8 group-hover:bg-gray-200 transition-colors" />
-                        </div>
-                    ))}
+                {/* Empty state - No articles yet */}
+                <div className="article-row py-16 text-center">
+                    <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg className="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                    </div>
+                    <h3 className="text-xl font-medium text-gray-700 mb-2">Pas d'article disponible pour le moment</h3>
+                    <p className="text-gray-500 max-w-md mx-auto">
+                        Nos articles sur le contrôle de gestion et la finance d'entreprise arrivent bientôt.
+                        Restez connecté !
+                    </p>
+                    <div className="mt-6 inline-flex items-center gap-2 text-sm text-secondary font-medium">
+                        <span className="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+                        Prochainement
+                    </div>
                 </div>
 
                 {/* Avant / Après Block - Embedded */}
