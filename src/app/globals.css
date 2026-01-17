@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -8,20 +7,15 @@
   --secondary: #fe981a;
 }
 
-@font-face {
-  font-family: 'CircularXXWeb-Regular';
-  src: url('/fonts/CircularXXWeb-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Note: CircularXXWeb supprimée car le fichier n'existe pas dans /public/fonts */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --font-sans: 'CircularXXWeb-Regular', 'Outfit', var(--font-geist-sans), sans-serif;
+  /* Utilise Outfit (optimisée via next/font) comme police principale */
+  --font-sans: var(--font-outfit), var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
