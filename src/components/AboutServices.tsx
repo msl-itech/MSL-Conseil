@@ -127,9 +127,9 @@ export default function AboutServices() {
                         <Link href="/contact" className="bg-secondary text-primary font-bold px-8 py-4 rounded-sm hover:bg-secondary/90 transition-colors uppercase tracking-wide text-sm text-center">
                             Obtenez votre plan personnalisé
                         </Link>
-                        {/* <Link href="/contact" className="border border-white/30 text-white font-medium px-6 py-3 rounded-sm hover:bg-white hover:text-primary transition-all uppercase tracking-wide text-xs text-center">
+                        <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="border border-white/30 text-white font-medium px-6 py-3 rounded-sm hover:bg-white hover:text-primary transition-all uppercase tracking-wide text-xs text-center">
                             Réservez votre audit gratuit
-                        </Link> */}
+                        </a>
                     </div>
                 </div>
 

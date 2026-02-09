@@ -45,9 +45,9 @@ export default function SolutionsHero() {
                 </p>
 
                 <div className="hero-reveal flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="px-8 py-4 bg-secondary text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white transition-colors duration-300 shadow-lg">
+                    <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-secondary text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white transition-colors duration-300 shadow-lg inline-block">
                         Parler à un expert
-                    </button>
+                    </a>
                     {/* <button className="px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors duration-300">
                         Demander un diagnostic gratuit
                     </button> */}

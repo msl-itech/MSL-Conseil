@@ -57,9 +57,9 @@ export default function MethodeIntro() {
                         {/* <Link href="/solutions" className="px-8 py-4 bg-primary text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-secondary hover:text-white transition-all duration-300 shadow-lg hover:shadow-secondary/30 text-center">
                             👉 Découvrir la méthode P.I.L.O.T.E.R.
                         </Link> */}
-                        <Link href="/contact" className="px-8 py-4 bg-transparent border border-gray-300 text-gray-600 rounded-full font-bold uppercase tracking-wider text-xs hover:border-primary hover:text-primary transition-colors duration-300 text-center">
+                        <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-gray-300 text-gray-600 rounded-full font-bold uppercase tracking-wider text-xs hover:border-primary hover:text-primary transition-colors duration-300 text-center">
                             Réserver un audit
-                        </Link>
+                        </a>
                     </div>
                 </div>
 

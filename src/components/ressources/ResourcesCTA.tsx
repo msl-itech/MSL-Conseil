@@ -43,12 +43,12 @@ export default function ResourcesCTA() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <button className="bg-secondary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all shadow-xl hover:shadow-secondary/20 hover:-translate-y-1">
+                        {/* <button className="bg-secondary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all shadow-xl hover:shadow-secondary/20 hover:-translate-y-1">
                             👉 Télécharger toutes les ressources
-                        </button>
-                        <button className="bg-transparent border border-white/30 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all">
+                        </button> */}
+                        <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="bg-secondary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-black transition-all shadow-xl hover:shadow-secondary/20 hover:-translate-y-1 inline-block">
                             👉 Parler à un expert
-                        </button>
+                        </a>
                     </div>
                 </div>
 

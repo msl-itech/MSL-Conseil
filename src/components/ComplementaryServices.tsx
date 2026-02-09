@@ -166,10 +166,10 @@ export default function ComplementaryServices() {
 
                     {/* Final CTA Inline */}
                     <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-                        {/* <button className="relative overflow-hidden group bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-wider text-xs">
+                        <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="relative overflow-hidden group bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-wider text-xs inline-block">
                             <span className="relative z-10 group-hover:text-white transition-colors duration-300">Demander votre diagnostic gratuit</span>
                             <div className="absolute inset-0 bg-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                        </button> */}
+                        </a>
                         <Link href="/contact" className="text-white/70 hover:text-white border-b border-transparent hover:border-secondary transition-all text-sm uppercase tracking-wide pb-1">
                             Parler à un expert Odoo Finances
                         </Link>

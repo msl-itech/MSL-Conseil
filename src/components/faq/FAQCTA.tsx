@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -42,12 +43,12 @@ export default function FAQCTA() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <button className="px-8 py-4 bg-secondary text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105 shadow-lg shadow-secondary/20">
+                        <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-secondary text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white hover:text-primary transition-all duration-300 hover:scale-105 shadow-lg shadow-secondary/20 inline-block">
                             👉 Demander votre diagnostic gratuit
-                        </button>
-                        <button className="px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-all duration-300">
+                        </a>
+                        <Link href="/contact" className="px-8 py-4 border border-white/20 text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-all duration-300 inline-block">
                             👉 Parler à un consultant expert
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -229,7 +229,7 @@ export default function ContactContent() {
                                     📞
                                 </div>
                                 <div>
-                                    <p className="font-bold text-gray-900">+32 XXX XXX XXX (Belgique)</p>
+                                    <p className="font-bold text-gray-900">+32 2 883 05 51 (Belgique)</p>
                                     <p className="font-bold text-gray-900">+212 XXX XXX XXX (Maroc)</p>
                                     <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider font-bold">Accès humain direct</p>
                                 </div>
@@ -288,12 +288,9 @@ export default function ContactContent() {
                         </p>
 
                         <div className="flex flex-col sm:flex-row justify-center gap-6">
-                            <button className="px-8 py-4 bg-white text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-secondary hover:text-white transition-all duration-300 shadow-xl hover:scale-105">
+                            <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-white text-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-secondary hover:text-white transition-all duration-300 shadow-xl hover:scale-105 inline-block">
                                 👉 Parler à un expert maintenant
-                            </button>
-                            <button className="px-8 py-4 bg-transparent border border-white text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-white hover:text-primary transition-all duration-300 shadow-xl hover:scale-105">
-                                👉 Réserver mon audit gratuit
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
