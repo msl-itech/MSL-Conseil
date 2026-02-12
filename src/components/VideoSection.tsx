@@ -88,7 +88,7 @@ export default function VideoSection() {
                                     {/* Thumbnail */}
                                     <div className="absolute inset-0 bg-black">
                                         <img
-                                            src="https://img.youtube.com/vi/_6C-3EiEVB8/maxresdefault.jpg"
+                                            src="https://img.youtube.com/vi/_VBuYFmT-hg/maxresdefault.jpg"
                                             alt="Video Thumbnail"
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                                         />
@@ -124,7 +124,7 @@ export default function VideoSection() {
                                 <iframe
                                     width="100%"
                                     height="100%"
-                                    src="https://www.youtube.com/embed/_6C-3EiEVB8?autoplay=1"
+                                    src="https://www.youtube.com/embed/_VBuYFmT-hg?autoplay=1"
                                     title="Odoo : pourquoi vos chiffres ne servent (encore) à rien ?"
                                     frameBorder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
