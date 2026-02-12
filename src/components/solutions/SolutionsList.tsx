@@ -149,7 +149,7 @@ export default function SolutionsList() {
                             <h2 className="text-4xl md:text-5xl font-serif text-primary mb-6">{sol.title}</h2>
                             <p className="text-gray-500 text-lg leading-relaxed mb-10 max-w-lg">{sol.description}</p>
 
-                            <div className="grid grid-cols-2 gap-8 mb-12">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                                 <div className="p-8 rounded-2xl bg-gray-50 border border-gray-100 shadow-sm">
                                     <p className="text-sm font-bold uppercase tracking-wide text-gray-400 mb-6">Avant</p>
                                     <ul className="space-y-3">

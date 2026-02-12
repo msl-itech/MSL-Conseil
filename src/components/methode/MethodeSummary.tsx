@@ -76,7 +76,7 @@ export default function MethodeSummary() {
                         <Link href="/bootcamp" className="bg-primary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white hover:text-primary transition-all shadow-xl hover:shadow-primary/20 text-center">
                             👉 Découvrir les bootcamps
                         </Link>
-                        <Link href="/contact" className="bg-transparent border border-gray-300 text-gray-600 px-10 py-5 rounded-full font-bold text-lg hover:border-primary hover:text-primary transition-all text-center">
+                        <Link href="https://odoo.mslconseils.be/book/911999cf" target="_blank" className="bg-transparent border border-gray-300 text-gray-600 px-10 py-5 rounded-full font-bold text-lg hover:border-primary hover:text-primary transition-all text-center">
                             👉 Parlez à un consultant expert
                         </Link>
                     </div>

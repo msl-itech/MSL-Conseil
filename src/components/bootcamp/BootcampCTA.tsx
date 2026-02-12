@@ -119,7 +119,7 @@ export default function BootcampCTA() {
                 {/* CTA Buttons */}
                 <div className="cta-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
                     <Link
-                        href="/contact"
+                       href="https://odoo.mslconseils.be/book/911999cf" target="_blank"
                         className="cta-button group relative overflow-hidden rounded-full bg-secondary px-12 py-6 text-center shadow-lg shadow-secondary/30 hover:shadow-xl hover:shadow-secondary/40 transition-all duration-300"
                     >
                         <span className="relative z-10 text-xl font-bold text-white group-hover:text-primary transition-colors duration-300">

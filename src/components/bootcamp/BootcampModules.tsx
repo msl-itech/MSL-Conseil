@@ -520,7 +520,7 @@ export default function BootcampModules() {
                             </svg>
                         </Link>
                         <Link
-                            href="/contact"
+                            href="https://odoo.mslconseils.be/book/911999cf" target="_blank"
                             className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-secondary text-primary rounded-full font-bold hover:scale-105 transition-all duration-300 shadow-xl shadow-secondary/25"
                         >
                             <span>💬</span>

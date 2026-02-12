@@ -204,7 +204,7 @@ export default function ContactContent() {
                         </div>
 
                         <div className="grid gap-4">
-                            <a href="https://wa.me/32XXXXXXXXX" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-green-500/30 transition-all group">
+                            <a href="https://wa.me/+32486971329" target="_blank" rel="noopener noreferrer" className="flex items-center gap-6 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-green-500/30 transition-all group">
                                 <div className="w-12 h-12 rounded-full bg-green-50 text-green-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                                     💬
                                 </div>
@@ -261,9 +261,9 @@ export default function ContactContent() {
                                 </li>
                             </ul>
 
-                            <button className="w-full bg-white text-primary font-bold py-4 rounded-xl hover:bg-secondary hover:text-white transition-all duration-300">
+                            <a href="https://odoo.mslconseils.be/book/911999cf" target="_blank" rel="noopener noreferrer" className="block w-full bg-white text-primary font-bold py-4 rounded-xl hover:bg-secondary hover:text-white transition-all duration-300 text-center">
                                 Voir les disponibilités
-                            </button>
+                            </a>
                             <p className="text-center text-[10px] text-white/40 mt-3 uppercase tracking-wider">Confirmation immédiate + rappel auto</p>
                         </div>
                     </div>
@@ -272,10 +272,9 @@ export default function ContactContent() {
             </div>
 
             {/* Emotional Mini-Text & Final CTA */}
-            <div className="mt-24 contact-block">
+            {/* <div className="mt-24 contact-block">
                 <div className="w-full bg-primary rounded-[2.5rem] py-16 px-6 md:px-12 text-center relative overflow-hidden shadow-2xl">
 
-                    {/* Decorative Background */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
 
@@ -294,7 +293,7 @@ export default function ContactContent() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
         </section>
     );

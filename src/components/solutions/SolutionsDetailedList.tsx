@@ -137,7 +137,7 @@ export default function SolutionsDetailedList() {
                         </h3>
 
                         {/* Comparison Grid */}
-                        <div className="grid grid-cols-2 gap-8 mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                             <div className="reveal-text opacity-0 translate-y-10 space-y-4">
                                 <div className="flex items-center gap-2 text-gray-400 uppercase tracking-widest text-xs font-bold mb-4">
                                     <span className="w-2 h-2 rounded-full bg-gray-300" /> Avant

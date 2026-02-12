@@ -24,7 +24,7 @@ export default function MethodeCTA() {
                         <Link href="/contact" className="px-8 py-4 bg-white text-primary rounded-full font-bold uppercase tracking-wider text-sm hover:bg-secondary hover:text-white transition-all duration-300 shadow-xl hover:scale-105 text-center">
                             👉 Demandez votre diagnostic gratuit
                         </Link>
-                        <Link href="/contact" className="px-8 py-4 bg-transparent border border-white text-white rounded-full font-bold uppercase tracking-wider text-sm hover:bg-white/10 transition-all duration-300 text-center">
+                        <Link href="https://odoo.mslconseils.be/book/911999cf" target="_blank" className="px-8 py-4 bg-transparent border border-white text-white rounded-full font-bold uppercase tracking-wider text-sm hover:bg-white/10 transition-all duration-300 text-center">
                             👉 Parlez à un consultant expert
                         </Link>
                     </div>

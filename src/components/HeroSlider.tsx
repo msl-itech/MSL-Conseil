@@ -177,32 +177,33 @@ export default function HeroSlider() {
                     </div>
 
                     {/* Content Layer - Left Aligned for "Heia" style */}
-                    <div className="absolute inset-0 z-10 flex flex-col justify-center px-8 md:px-20 lg:px-32">
-                        <div ref={(el) => { if (el) textRefs.current[index] = el; }} className="max-w-3xl space-y-6">
+                    {/* Content Layer - Left Aligned for "Heia" style */}
+                    <div className="absolute inset-0 z-10 flex flex-col justify-center px-6 md:px-20 lg:px-32 pt-24 pb-52 md:pt-0 md:pb-0">
+                        <div ref={(el) => { if (el) textRefs.current[index] = el; }} className="max-w-3xl space-y-4 md:space-y-6">
 
                             {/* Title */}
-                            <h2 className={`text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] ${slide.color}`}>
+                            <h2 className={`text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] ${slide.color}`}>
                                 {slide.title}
                             </h2>
 
                             {/* Subtitle */}
-                            <p className="text-xl md:text-2xl font-light text-gray-800 max-w-2xl leading-relaxed">
+                            <p className="text-lg sm:text-xl md:text-2xl font-light text-gray-800 max-w-2xl leading-relaxed">
                                 {slide.subtitle}
                             </p>
 
                             {/* Location & Benefit */}
-                            <div className="flex flex-col gap-2 text-lg text-gray-700 font-medium opacity-80 box-decoration-slice">
+                            <div className="hidden sm:flex flex-col gap-2 text-lg text-gray-700 font-medium opacity-80 box-decoration-slice">
                                 <span>{slide.location}</span>
                                 <span className="italic font-normal">{slide.benefit}</span>
                             </div>
 
                             {/* CTAs */}
-                            <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                                <Link href={slide.ctaPrimaryLink} className="group relative overflow-hidden rounded-full bg-primary px-8 py-4 text-white transition-all hover:scale-105 hover:bg-[#013524] text-center">
+                            <div className="flex flex-col sm:flex-row gap-4 pt-2 md:pt-4">
+                                <Link href={slide.ctaPrimaryLink} className="group relative overflow-hidden rounded-full bg-primary px-6 py-3 md:px-8 md:py-4 text-white transition-all hover:scale-105 hover:bg-[#013524] text-center text-sm md:text-base">
                                     <span className="relative z-10 font-medium">{slide.ctaPrimary}</span>
                                 </Link>
 
-                                <Link href={slide.ctaSecondaryLink} className="group rounded-full border border-gray-800 px-8 py-4 text-gray-900 transition-all hover:bg-gray-900 hover:text-white text-center">
+                                <Link href={slide.ctaSecondaryLink} className="group rounded-full border border-gray-800 px-6 py-3 md:px-8 md:py-4 text-gray-900 transition-all hover:bg-gray-900 hover:text-white text-center text-sm md:text-base">
                                     <span className="font-medium">{slide.ctaSecondary}</span>
                                 </Link>
                             </div>
