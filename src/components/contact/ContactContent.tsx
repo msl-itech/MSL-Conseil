@@ -38,7 +38,6 @@ export default function ContactContent() {
         setStatus('loading');
 
         try {
-            // Construct description with HTML
             const descriptionParts = [
                 `<h3>Nouveau Lead Web - Formulaire Contact</h3>`,
                 `<p><strong>Nom:</strong> ${formData.nom}</p>`,

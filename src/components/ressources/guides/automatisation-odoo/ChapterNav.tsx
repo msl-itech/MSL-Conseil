@@ -42,6 +42,9 @@ export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
         };
 
         window.addEventListener("scroll", handleScroll);
+        // Initialize on mount
+        handleScroll();
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, [sections]);
 
@@ -121,7 +124,7 @@ export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
                 {/* Progress indicator */}
                 <div className="p-3 border-t border-gray-100">
                     <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
-                        <span>Progression</span>
+                        <span>Progressionn</span>
                         <span>{Math.round(((sections.findIndex(s => s.id === activeSection) + 1) / sections.length) * 100)}%</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
