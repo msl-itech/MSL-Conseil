@@ -257,15 +257,15 @@ export default function ComplementaryServices() {
               className="relative overflow-hidden group bg-white text-primary px-8 py-4 rounded-full font-bold uppercase tracking-wider text-xs inline-block"
             >
               <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                Demander votre diagnostic gratuit
+                Parler à un expert Odoo Finances
               </span>
               <div className="absolute inset-0 bg-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
             </a>
             <Link
-              href="/contact"
+              href="/diagnostic"
               className="text-white/70 hover:text-white border-b border-transparent hover:border-secondary transition-all text-sm uppercase tracking-wide pb-1"
             >
-              Parler à un expert Odoo Finances
+              Demander votre diagnostic gratuit
             </Link>
           </div>
         </div>
