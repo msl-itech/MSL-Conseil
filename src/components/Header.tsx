@@ -98,7 +98,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             {/* CTA Button */}
             <Link
-              href="/contact"
+              href="/diagnostic"
               className="hidden md:inline-flex px-6 py-2.5 bg-white text-primary text-xs font-bold uppercase tracking-widest rounded-full hover:bg-secondary hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(32,166,126,0.4)]"
             >
               Diagnostic Gratuit
@@ -159,7 +159,7 @@ export default function Header() {
           />
 
           <Link
-            href="/contact"
+            href="/diagnostic"
             onClick={toggleMenu}
             className={`text-lg uppercase tracking-widest text-secondary font-bold transition-all duration-500 delay-500 transform ${isMenuOpen
               ? "translate-y-0 opacity-100"

@@ -50,9 +50,9 @@ export default function AboutPage() {
                         <Link href="/methode" className="px-8 py-4 bg-primary text-white rounded-full font-bold uppercase tracking-wider text-xs hover:bg-secondary transition-colors duration-300 shadow-xl hover:scale-105 text-center">
                             Découvrir la méthode P.I.L.O.T.E.R.
                         </Link>
-                        <Link href="/contact" className="px-8 py-4 bg-white text-primary border border-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-primary/5 transition-colors duration-300 shadow-sm hover:scale-105 text-center">
+                        <a href="https://odoo.mslconseils.be/appointment/15" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-white text-primary border border-primary rounded-full font-bold uppercase tracking-wider text-xs hover:bg-primary/5 transition-colors duration-300 shadow-sm hover:scale-105 text-center">
                             Demander votre diagnostic gratuit
-                        </Link>
+                        </a>
                     </div>
                 </section>
             </main>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -82,27 +82,40 @@ export default function PiloterMethod() {
   };
 
   // Animate content when activeIndex changes with smooth transition
-  useGSAP(() => {
-    if (contentRef.current) {
-      gsap.fromTo(contentRef.current.children,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: "power2.out" }
-      );
-    }
-  }, { dependencies: [activeIndex], scope: container });
+  useGSAP(
+    () => {
+      if (contentRef.current) {
+        gsap.fromTo(
+          contentRef.current.children,
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
+        );
+      }
+    },
+    { dependencies: [activeIndex], scope: container },
+  );
 
   const activeData = PILOTER_DATA[activeIndex];
 
   return (
-    <section ref={container} className="relative w-full bg-white text-primary py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
-
+    <section
+      ref={container}
+      className="relative w-full bg-white text-primary py-24 px-6 md:px-12 lg:px-24 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[500px]">
-
         {/* Left Side - PILOTER Letters */}
         <div className="flex flex-col">
           {/* Counter */}
           <div className="mb-8 flex items-center gap-2 text-gray-400 text-sm font-mono">
-            <span className="text-secondary font-bold text-lg">0{activeIndex + 1}</span>
+            <span className="text-secondary font-bold text-lg">
+              0{activeIndex + 1}
+            </span>
             <span>/</span>
             <span>07</span>
           </div>
@@ -111,7 +124,7 @@ export default function PiloterMethod() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif mb-12">
             <span className="text-primary">Méthode MSL</span>
             <br />
-            <span className="text-secondary italic">"PILOTER"</span>
+            <span className="text-secondary italic">&quot;PILOTER&quot;</span>
           </h2>
 
           {/* Interactive Letters */}
@@ -123,9 +136,10 @@ export default function PiloterMethod() {
                 onClick={() => handleUserInteraction(index)}
                 className={`
                   relative text-5xl md:text-7xl lg:text-8xl font-bold transition-all duration-500 ease-out cursor-pointer
-                  ${activeIndex === index
-                    ? 'text-secondary scale-110'
-                    : 'text-gray-200 hover:text-gray-400 hover:scale-105'
+                  ${
+                    activeIndex === index
+                      ? "text-secondary scale-110"
+                      : "text-gray-200 hover:text-gray-400 hover:scale-105"
                   }
                 `}
               >
@@ -142,11 +156,12 @@ export default function PiloterMethod() {
 
         {/* Right Side - Content Card */}
         <div className="flex flex-col gap-6">
-
           {/* Main Content Box */}
           <div className="relative bg-gray-50 border border-gray-200 rounded-xl p-8 md:p-10 shadow-lg">
-            <div ref={contentRef} className="min-h-[200px] flex flex-col justify-center">
-
+            <div
+              ref={contentRef}
+              className="min-h-[200px] flex flex-col justify-center"
+            >
               {/* Letter Badge */}
               <div className="absolute -top-6 left-8 bg-secondary text-white text-3xl font-bold w-12 h-12 rounded-lg flex items-center justify-center shadow-md">
                 {activeData.letter}
@@ -170,12 +185,14 @@ export default function PiloterMethod() {
 
           {/* Secondary Box - "The Method" */}
           <div className="bg-primary/5 border border-primary/20 rounded-xl p-6">
-            <h4 className="text-xl font-medium text-primary mb-2">Notre promesse</h4>
+            <h4 className="text-xl font-medium text-primary mb-2">
+              Notre promesse
+            </h4>
             <p className="text-gray-500 text-sm">
-              Automatiser, sécuriser et visualiser. Chaque lettre de PILOTER représente un pilier de notre méthode éprouvée.
+              Automatiser, sécuriser et visualiser. Chaque lettre de PILOTER
+              représente un pilier de notre méthode éprouvée.
             </p>
           </div>
-
         </div>
       </div>
 
@@ -185,12 +202,15 @@ export default function PiloterMethod() {
           <button
             key={index}
             onClick={() => handleUserInteraction(index)}
-            className={`rounded-full transition-all duration-500 ease-out cursor-pointer ${activeIndex === index ? 'bg-secondary w-8 h-2' : 'bg-gray-300 hover:bg-gray-400 w-2 h-2'
-              }`}
+            className={`rounded-full transition-all duration-500 ease-out cursor-pointer ${
+              activeIndex === index
+                ? "bg-secondary w-8 h-2"
+                : "bg-gray-300 hover:bg-gray-400 w-2 h-2"
+            }`}
             aria-label={`Go to letter ${PILOTER_DATA[index].letter}`}
           />
         ))}
       </div>
-    </section >
+    </section>
   );
 }
