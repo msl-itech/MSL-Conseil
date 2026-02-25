@@ -39,6 +39,9 @@ export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
         };
 
         window.addEventListener("scroll", handleScroll);
+        // Initialize on mount
+        handleScroll();
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, [sections]);
 

@@ -89,8 +89,10 @@ MSL CONSEIL V2 - ARBORESCENCE DU SITE
 │    └─ YouTube → https://youtube.com/@... ✅                 │
 │  • Contact:                                                 │
 │    ├─ Email: contact@mslconseils.be ✅                     │
-│    ├─ Bureau: Bruxelles, Belgique                          │
-│    └─ Bureau: Marrakech, Maroc                             │
+│    ├─ Bureau: Rue de la Magnanerie 20 
+1180 UCCLE                          │
+│    └─ Bureau: Rue de la Magnanerie 20 
+1180 UCCLE                             │
 │  • Légal (temporaire → /contact):                           │
 │    ├─ Politique de confidentialité → /contact ⚠️           │
 │    └─ Mentions légales → /contact ⚠️                        │

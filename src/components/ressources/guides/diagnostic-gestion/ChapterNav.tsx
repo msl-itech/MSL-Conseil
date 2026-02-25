@@ -38,6 +38,9 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
         };
 
         window.addEventListener("scroll", handleScroll);
+        // Initialize on mount
+        handleScroll();
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, [chapters]);
 

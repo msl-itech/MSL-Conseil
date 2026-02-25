@@ -40,6 +40,9 @@ export default function ChapterNav() {
         };
 
         window.addEventListener("scroll", handleScroll);
+        // Initialize on mount
+        handleScroll();
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
