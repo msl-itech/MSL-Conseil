@@ -209,13 +209,13 @@ ${generateShareUrl()}
                 <div className="result-element bg-gradient-to-br from-primary/5 to-white rounded-2xl p-8 border-2 border-primary/20 mb-8">
                     <div className="flex items-start gap-3 mb-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
-                            recommendation.urgency === 'high' ? 'bg-red-100 text-red-700' :
-                            recommendation.urgency === 'medium' ? 'bg-orange-100 text-orange-700' :
+                            recommendation.urgency === 'immediate' ? 'bg-red-100 text-red-700' :
+                            recommendation.urgency === 'recommended' ? 'bg-orange-100 text-orange-700' :
                             'bg-blue-100 text-blue-700'
                         }`}>
-                            {recommendation.urgency === 'high' ? '🔥 Prioritaire' :
-                             recommendation.urgency === 'medium' ? '⚡ Important' :
-                             '💡 Recommandé'}
+                            {recommendation.urgency === 'immediate' ? '🔥 Priorité immédiate' :
+                             recommendation.urgency === 'recommended' ? '⚡ Recommandé' :
+                             '💡 Optionnel'}
                         </span>
                     </div>
 
