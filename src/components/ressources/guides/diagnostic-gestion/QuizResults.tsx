@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import { UserData } from "./UserForm";
 import { QUIZ_BLOCKS } from "./Quiz";
+import { getMaturityLevel, getRecommendation } from "@/lib/diagnosticRecommendations";
 
 interface QuizResultsProps {
     userData: UserData;
@@ -31,6 +32,20 @@ export default function QuizResults({ userData, answers, isSharedVisitor = false
     const scorePercent = Math.round((score / scoreMax) * 100);
 
     const maturity = MATURITY_LEVELS.find(m => score >= m.min && score <= m.max) || MATURITY_LEVELS[0];
+
+    // Get smart recommendation
+    const maturityLevel = getMaturityLevel(score, scoreMax, 'structuration');
+    const recommendation = getRecommendation('structuration', maturityLevel);
+
+    // Save results to localStorage for trajectoire page
+    useEffect(() => {
+        const resultData = {
+            totalScore: score,
+            userInfo: userData,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('structuration_result', JSON.stringify(resultData));
+    }, [score, userData]);
 
     // Get level label without emoji for URL
     const levelLabel = maturity.level.replace(/^[^\s]+\s/, ''); // Remove emoji prefix
@@ -172,6 +187,72 @@ Tu peux voir mon score et faire le tien ici (2 minutes) :
                     ))}
                 </div>
 
+                {/* Next Step Recommendation - THE SINGLE CLEAR ACTION */}
+                <div className="result-item bg-gradient-to-br from-secondary/10 to-white rounded-3xl p-8 md:p-10 border-2 border-secondary/30 shadow-xl mb-8">
+                    <div className="flex items-start gap-4">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            recommendation.urgency === 'immediate'
+                                ? 'bg-red-100'
+                                : 'bg-secondary/20'
+                        }`}>
+                            {recommendation.urgency === 'immediate' ? (
+                                <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            ) : (
+                                <svg className="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            )}
+                        </div>
+                        <div className="flex-1">
+                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 ${
+                                recommendation.urgency === 'immediate'
+                                    ? 'bg-red-100 text-red-700'
+                                    : 'bg-secondary/20 text-secondary'
+                            }`}>
+                                {recommendation.urgency === 'immediate' ? 'Priorité immédiate' : 'Prochaine étape recommandée'}
+                            </span>
+                            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-3">
+                                {recommendation.title}
+                            </h2>
+                            <p className="text-gray-700 text-lg mb-4">
+                                {recommendation.description}
+                            </p>
+                            <div className="bg-white/80 rounded-xl p-4 mb-6 border border-secondary/20">
+                                <p className="text-sm text-gray-600">
+                                    <strong className="text-primary">Pourquoi cette étape ?</strong><br />
+                                    {recommendation.reason}
+                                </p>
+                            </div>
+
+                            {recommendation.nextStep === 'audit-strategique' ? (
+                                <a
+                                    href={recommendation.ctaUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-xl font-bold text-center hover:bg-primary transition-colors shadow-lg hover:shadow-xl"
+                                >
+                                    {recommendation.ctaText}
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </a>
+                            ) : (
+                                <Link
+                                    href={recommendation.ctaUrl}
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-xl font-bold text-center hover:bg-primary transition-colors shadow-lg hover:shadow-xl"
+                                >
+                                    {recommendation.ctaText}
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
                 {/* Action plan */}
                 <div className="result-item bg-blue-50 rounded-2xl p-6 border border-blue-100 mb-8">
                     <h3 className="font-bold text-gray-900 mb-4">📝 Plan d&apos;action recommandé</h3>
@@ -211,8 +292,11 @@ Tu peux voir mon score et faire le tien ici (2 minutes) :
                 {/* CTAs */}
                 <div className="result-item bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 text-center mb-8">
                     <h3 className="text-xl font-bold text-white mb-4">Prêt à passer à l&apos;action ?</h3>
-                    <p className="text-white/70 mb-6">Téléchargez le guide complet ou prenez rendez-vous pour un audit personnalisé.</p>
+                    <p className="text-white/70 mb-6">Visualisez votre parcours complet ou prenez rendez-vous pour un audit personnalisé.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link href="/ressources/trajectoire" className="inline-flex items-center justify-center gap-2 bg-white text-primary font-bold px-6 py-3 rounded-xl transition-all hover:bg-white/90">
+                            🗺️ Voir ma trajectoire complète
+                        </Link>
                         <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-white font-semibold px-6 py-3 rounded-xl transition-all">
                             📞 Prendre rendez-vous
                         </Link>

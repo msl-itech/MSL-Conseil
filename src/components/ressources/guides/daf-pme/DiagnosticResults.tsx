@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { DiagnosticResult, QUESTIONS, AXES } from "./DiagnosticQuiz";
+import { getMaturityLevel, getRecommendation } from "@/lib/diagnosticRecommendations";
+import Link from "next/link";
 
 interface DiagnosticResultsProps {
     result: DiagnosticResult;
@@ -36,6 +38,10 @@ export default function DiagnosticResults({ result, onRestart, onBackToGuide }: 
     const level = getLevel(result.totalScore);
     const firstName = result.userInfo?.firstName || "Dirigeant";
     const companyName = result.userInfo?.company || "votre entreprise";
+
+    // Get smart recommendation
+    const maturityLevel = getMaturityLevel(result.totalScore, 48, 'daf');
+    const recommendation = getRecommendation('daf', maturityLevel);
 
     // Generate share URL with all needed parameters for viral sharing
     const shareUrl = typeof window !== 'undefined'
@@ -251,8 +257,80 @@ export default function DiagnosticResults({ result, onRestart, onBackToGuide }: 
                     </p>
                 </div>
 
+                {/* Next Step Recommendation - THE SINGLE CLEAR ACTION */}
+                <div className="bg-gradient-to-br from-secondary/10 to-white rounded-3xl p-8 md:p-10 border-2 border-secondary/30 shadow-xl mb-12">
+                    <div className="flex items-start gap-4 mb-6">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            recommendation.urgency === 'immediate'
+                                ? 'bg-red-100'
+                                : 'bg-secondary/20'
+                        }`}>
+                            {recommendation.urgency === 'immediate' ? (
+                                <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            ) : (
+                                <svg className="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            )}
+                        </div>
+                        <div className="flex-1">
+                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 ${
+                                recommendation.urgency === 'immediate'
+                                    ? 'bg-red-100 text-red-700'
+                                    : 'bg-secondary/20 text-secondary'
+                            }`}>
+                                {recommendation.urgency === 'immediate' ? 'Priorité immédiate' : 'Prochaine étape recommandée'}
+                            </span>
+                            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-3">
+                                {recommendation.title}
+                            </h2>
+                            <p className="text-gray-700 text-lg mb-4">
+                                {recommendation.description}
+                            </p>
+                            <div className="bg-white/80 rounded-xl p-4 mb-6 border border-secondary/20">
+                                <p className="text-sm text-gray-600">
+                                    <strong className="text-primary">Pourquoi cette étape ?</strong><br />
+                                    {recommendation.reason}
+                                </p>
+                            </div>
+
+                            {recommendation.nextStep === 'audit-strategique' ? (
+                                <a
+                                    href={recommendation.ctaUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-xl font-bold text-center hover:bg-primary transition-colors shadow-lg hover:shadow-xl"
+                                >
+                                    {recommendation.ctaText}
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </a>
+                            ) : (
+                                <Link
+                                    href={recommendation.ctaUrl}
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-xl font-bold text-center hover:bg-primary transition-colors shadow-lg hover:shadow-xl"
+                                >
+                                    {recommendation.ctaText}
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <Link
+                        href="/ressources/trajectoire"
+                        className="px-8 py-4 bg-primary text-white rounded-full font-bold uppercase tracking-wider text-sm hover:bg-secondary transition-colors shadow-xl text-center"
+                    >
+                        Voir ma trajectoire complète
+                    </Link>
                     <button
                         onClick={() => setShowSharePopup(true)}
                         className="px-8 py-4 bg-secondary text-primary rounded-full font-bold uppercase tracking-wider text-sm hover:bg-primary hover:text-white transition-colors"

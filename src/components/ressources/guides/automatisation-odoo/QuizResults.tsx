@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import { QUIZ_SECTIONS } from "./Quiz";
 import { UserData as UserInfo } from "./UserForm";
+import { getMaturityLevel, getRecommendation } from "@/lib/diagnosticRecommendations";
 
 // Odoo purple color
 const ODOO_PURPLE = "#714b67";
@@ -25,13 +26,6 @@ const getSectionLevel = (sectionScore: number, maxScore: number) => {
     if (percentage <= 66) return { level: "🟡 En cours de structuration", color: "yellow", desc: "Bonne base à consolider" };
     return { level: "🟢 Bien structuré", color: "green", desc: "Excellent niveau !" };
 };
-
-// Global maturity levels
-const MATURITY_LEVELS = [
-    { min: 0, max: 10, level: "Niveau Débutant", emoji: "🔴", color: "red", desc: "Structuration nécessaire", recommendation: "Vous avez besoin de poser les bases de l'automatisation et du pilotage. Commencez par les Chapitres 6 et 9." },
-    { min: 11, max: 20, level: "Niveau Intermédiaire", emoji: "🟡", color: "yellow", desc: "Bonne base à consolider", recommendation: "Vous êtes sur la bonne voie ! Renforcez votre analytique (Ch. 8) et la collaboration avec votre cabinet (Ch. 10)." },
-    { min: 21, max: 31, level: "Niveau Avancé", emoji: "🟢", color: "green", desc: "Architecture comptable performante", recommendation: "Bravo ! Vous avez un excellent niveau. Continuez à optimiser et anticipez la croissance (Ch. 11)." }
-];
 
 // Section diagnostic messages
 const SECTION_DIAGNOSTICS: Record<string, { low: string; mid: string; high: string }> = {
@@ -73,20 +67,27 @@ export default function QuizResults({ score, answers, userInfo, onRestartQuiz, i
     const [shareConfirmation, setShareConfirmation] = useState<string | null>(null);
     const [copied, setCopied] = useState(false);
 
-    const scoreMax = 31;
-    const maturity = MATURITY_LEVELS.find(m => score >= m.min && score <= m.max) || MATURITY_LEVELS[0];
+    const scoreMax = QUIZ_SECTIONS.reduce((acc, section) => acc + section.questions.length, 0);
+    const maturityLevel = getMaturityLevel(score, scoreMax, "automatisation");
+    const recommendation = getRecommendation("automatisation", maturityLevel);
+    const maturityMeta = {
+        fragile: { level: "Niveau fragile", emoji: "🔴", desc: "Structuration nécessaire" },
+        intermediaire: { level: "Niveau intermédiaire", emoji: "🟡", desc: "Bonne base à consolider" },
+        solide: { level: "Niveau solide", emoji: "🟢", desc: "Automatisation bien maîtrisée" },
+        avance: { level: "Niveau avancé", emoji: "🚀", desc: "Architecture comptable performante" },
+    }[maturityLevel];
 
     // Share URL with score and level info
     const shareUrl = typeof window !== 'undefined'
-        ? `${window.location.origin}/ressources/guides/automatisation-odoo?shared=true&score=${score}&level=${encodeURIComponent(maturity.level)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`
-        : `https://msl-conseil.com/ressources/guides/automatisation-odoo?shared=true&score=${score}&level=${encodeURIComponent(maturity.level)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`;
+        ? `${window.location.origin}/ressources/guides/automatisation-odoo?shared=true&score=${score}&level=${encodeURIComponent(maturityMeta.level)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`
+        : `https://msl-conseil.com/ressources/guides/automatisation-odoo?shared=true&score=${score}&level=${encodeURIComponent(maturityMeta.level)}&from=${encodeURIComponent(userInfo.firstName + ' ' + userInfo.lastName)}`;
 
     // Pre-filled messages for Guide 2 (different tone - more advanced)
     const whatsAppMessage = `Salut 👋
 
 Je viens de faire un diagnostic sur l'automatisation et le pilotage financier de ma PME.
 
-J'ai obtenu ${score}/${scoreMax} (${maturity.level}).
+J'ai obtenu ${score}/${scoreMax} (${maturityMeta.level}).
 
 J'aimerais bien avoir ton avis sur cette approche, ou te comparer.
 Tu peux voir mon score et faire le tien ici :
@@ -97,14 +98,14 @@ Tu peux voir mon score et faire le tien ici :
 
 Je travaille sur l'automatisation et le pilotage financier de mon entreprise.
 
-J'ai réalisé un diagnostic avancé et obtenu ${score}/${scoreMax} (${maturity.level}).
+J'ai réalisé un diagnostic avancé et obtenu ${score}/${scoreMax} (${maturityMeta.level}).
 
 Curieux d'avoir ton regard de dirigeant. Tu peux voir mon score et faire le tien ici :
 
 👉 ${shareUrl}`;
 
     const copyMessage = `Je travaille sur l'automatisation et le pilotage financier de ma PME.
-J'ai obtenu ${score}/${scoreMax} (${maturity.level}) au diagnostic.
+J'ai obtenu ${score}/${scoreMax} (${maturityMeta.level}) au diagnostic.
 
 Curieux d'avoir ton avis ou de te comparer.
 👉 ${shareUrl}`;
@@ -208,11 +209,12 @@ Curieux d'avoir ton avis ou de te comparer.
                             <span className="text-lg">/{scoreMax}</span>
                         </div>
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">{maturity.emoji} {maturity.level}</h2>
-                    <p className="text-gray-600 mb-4">{maturity.desc}</p>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">{maturityMeta.emoji} {maturityMeta.level}</h2>
+                    <p className="text-gray-600 mb-4">{maturityMeta.desc}</p>
                     <div className="bg-secondary/10 rounded-xl p-4 text-left border border-secondary/20">
                         <p className="text-sm text-gray-500 mb-1">📌 Recommandation principale :</p>
-                        <p className="font-medium text-gray-900">{maturity.recommendation}</p>
+                        <p className="font-medium text-gray-900">{recommendation.description}</p>
+                        <p className="text-sm text-gray-600 mt-2">{recommendation.reason}</p>
                     </div>
                 </div>
 
@@ -328,11 +330,22 @@ Curieux d'avoir ton avis ou de te comparer.
                 {/* CTAs */}
                 <div className="result-item rounded-2xl p-8 text-center mb-8" style={{ background: `linear-gradient(135deg, ${ODOO_PURPLE} 0%, #8e6180 100%)` }}>
                     <h3 className="text-xl font-bold text-white mb-4">🚀 Prêt à passer à l&apos;action ?</h3>
-                    <p className="text-white/70 mb-6">Téléchargez le guide complet ou prenez rendez-vous pour un audit personnalisé.</p>
+                    <p className="text-white/70 mb-6">Voici la prochaine étape recommandée selon votre niveau de maturité.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-white font-semibold px-6 py-3 rounded-xl transition-all">
-                            📞 Prendre rendez-vous
-                        </Link>
+                        {recommendation.nextStep === "audit-strategique" ? (
+                            <a
+                                href={recommendation.ctaUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-white font-semibold px-6 py-3 rounded-xl transition-all"
+                            >
+                                {recommendation.ctaText}
+                            </a>
+                        ) : (
+                            <Link href={recommendation.ctaUrl} className="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-white font-semibold px-6 py-3 rounded-xl transition-all">
+                                {recommendation.ctaText}
+                            </Link>
+                        )}
                         <Link href="/ressources" className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white font-medium px-6 py-3 rounded-xl transition-all">
                             📚 Voir nos autres guides
                         </Link>

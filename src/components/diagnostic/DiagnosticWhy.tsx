@@ -142,15 +142,26 @@ export default function DiagnosticWhy() {
 
         {/* CTA */}
         <div className="text-center pt-16">
-          <a
-            href="#diagnostics"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-secondary text-white rounded-2xl font-bold text-lg hover:bg-primary transition-all duration-300 shadow-xl hover:shadow-2xl"
-          >
-            Découvrir mon niveau maintenant
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#diagnostics"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-secondary text-white rounded-2xl font-bold text-lg hover:bg-primary transition-all duration-300 shadow-xl hover:shadow-2xl"
+            >
+              Découvrir mon niveau maintenant
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <a
+              href="/ressources/trajectoire"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-white text-primary border-2 border-primary rounded-2xl font-bold text-lg hover:bg-primary/5 transition-all duration-300"
+            >
+              Voir le parcours complet
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>

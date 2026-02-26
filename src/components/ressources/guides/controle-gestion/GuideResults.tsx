@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Link from "next/link";
+import { getMaturityLevel, getRecommendation } from "@/lib/diagnosticRecommendations";
 
 interface UserInfo {
     firstName: string;
@@ -151,6 +152,20 @@ export default function GuideResults({ score, userInfo, onRestartQuiz }: GuideRe
 
     const profile = getProfile(score);
     const percentage = getScorePercentage(score);
+
+    // Get smart recommendation
+    const maturityLevel = getMaturityLevel(score, 50, 'controle-fondamentaux');
+    const recommendation = getRecommendation('controle-fondamentaux', maturityLevel);
+
+    // Save results to localStorage for trajectoire page
+    useEffect(() => {
+        const result = {
+            totalScore: score,
+            userInfo,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('controle_fondamentaux_result', JSON.stringify(result));
+    }, [score, userInfo]);
 
     useGSAP(() => {
         const tl = gsap.timeline();
@@ -370,6 +385,72 @@ export default function GuideResults({ score, userInfo, onRestartQuiz }: GuideRe
                     </div>
                 </div>
 
+                {/* Next Step Recommendation - THE SINGLE CLEAR ACTION */}
+                <div className="result-section bg-gradient-to-br from-secondary/10 to-white rounded-3xl p-8 md:p-10 border-2 border-secondary/30 shadow-xl">
+                    <div className="flex items-start gap-4">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            recommendation.urgency === 'immediate'
+                                ? 'bg-red-100'
+                                : 'bg-secondary/20'
+                        }`}>
+                            {recommendation.urgency === 'immediate' ? (
+                                <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            ) : (
+                                <svg className="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            )}
+                        </div>
+                        <div className="flex-1">
+                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 ${
+                                recommendation.urgency === 'immediate'
+                                    ? 'bg-red-100 text-red-700'
+                                    : 'bg-secondary/20 text-secondary'
+                            }`}>
+                                {recommendation.urgency === 'immediate' ? 'Priorité immédiate' : 'Prochaine étape recommandée'}
+                            </span>
+                            <h2 className="text-2xl md:text-3xl font-serif text-gray-900 mb-3">
+                                {recommendation.title}
+                            </h2>
+                            <p className="text-gray-700 text-lg mb-4">
+                                {recommendation.description}
+                            </p>
+                            <div className="bg-white/80 rounded-xl p-4 mb-6 border border-secondary/20">
+                                <p className="text-sm text-gray-600">
+                                    <strong className="text-primary">Pourquoi cette étape ?</strong><br />
+                                    {recommendation.reason}
+                                </p>
+                            </div>
+
+                            {recommendation.nextStep === 'audit-strategique' ? (
+                                <a
+                                    href={recommendation.ctaUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-xl font-bold text-center hover:bg-primary transition-colors shadow-lg hover:shadow-xl"
+                                >
+                                    {recommendation.ctaText}
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </a>
+                            ) : (
+                                <Link
+                                    href={recommendation.ctaUrl}
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white rounded-xl font-bold text-center hover:bg-primary transition-colors shadow-lg hover:shadow-xl"
+                                >
+                                    {recommendation.ctaText}
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                    </svg>
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
                 {/* CTA Section */}
                 <div className="result-section bg-primary rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
                     {/* Decorative */}
@@ -385,6 +466,15 @@ export default function GuideResults({ score, userInfo, onRestartQuiz }: GuideRe
                             et à mettre en place les outils adaptés à votre entreprise.
                         </p>
                         <div className="flex flex-wrap justify-center gap-4">
+                            <Link
+                                href="/ressources/trajectoire"
+                                className="inline-flex items-center gap-3 bg-white text-primary font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg"
+                            >
+                                Voir ma trajectoire complète
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </Link>
                             <Link
                                 href="/contact"
                                 className="inline-flex items-center gap-3 bg-secondary hover:bg-secondary/90 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-secondary/25"

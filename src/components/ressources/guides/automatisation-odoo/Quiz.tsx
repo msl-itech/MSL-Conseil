@@ -434,6 +434,7 @@ export const QUIZ_SECTIONS: QuizSection[] = [
 
 export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
     const containerRef = useRef<HTMLDivElement>(null);
+    const isAdvancingRef = useRef(false);
     const [currentSection, setCurrentSection] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -445,6 +446,8 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
     const totalQuestions = QUIZ_SECTIONS.reduce((acc, s) => acc + s.questions.length, 0);
     const answeredCount = Object.keys(answers).length;
     const progress = Math.round((answeredCount / totalQuestions) * 100);
+    const currentQuestionNumber =
+        QUIZ_SECTIONS.slice(0, currentSection).reduce((acc, s) => acc + s.questions.length, 0) + currentQuestion + 1;
 
     // Calculate current section score
     const getSectionScore = (sectionId: string) => {
@@ -468,10 +471,16 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
     };
 
     const handleNext = () => {
-        if (selectedAnswer === null) return;
+        if (selectedAnswer === null || !question) return;
+        if (isAdvancingRef.current) return;
+        isAdvancingRef.current = true;
 
         // Include current answer in the final answers object
         const updatedAnswers = { ...answers, [question.id]: selectedAnswer };
+        const hasAnsweredAllQuestions = Object.keys(updatedAnswers).length >= totalQuestions;
+        const isOnLastQuestion =
+            currentSection === QUIZ_SECTIONS.length - 1 &&
+            currentQuestion === section.questions.length - 1;
 
         setShowFeedback(false);
         setSelectedAnswer(null);
@@ -481,11 +490,16 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
         } else if (currentSection < QUIZ_SECTIONS.length - 1) {
             setCurrentSection(prev => prev + 1);
             setCurrentQuestion(0);
-        } else {
+        } else if (isOnLastQuestion && hasAnsweredAllQuestions) {
             // Calculate total score with ALL answers including current one
             const totalScore = Object.values(updatedAnswers).reduce((acc, val) => acc + val, 0);
             onComplete(updatedAnswers, totalScore);
         }
+
+        // Prevent accidental double-click that can skip state transitions.
+        setTimeout(() => {
+            isAdvancingRef.current = false;
+        }, 0);
     };
 
     // Safety check
@@ -518,7 +532,7 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
                             </svg>
                             Retour
                         </button>
-                        <span className="text-sm font-bold" style={{ color: ODOO_PURPLE }}>{answeredCount + (showFeedback ? 1 : 0)}/{totalQuestions}</span>
+                        <span className="text-sm font-bold" style={{ color: ODOO_PURPLE }}>{answeredCount}/{totalQuestions}</span>
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div className="h-full transition-all duration-500 rounded-full" style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${ODOO_PURPLE} 0%, #8e6180 100%)` }} />
@@ -542,7 +556,7 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
                 <div className="quiz-question bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                     <div className="text-center mb-8">
                         <span className="inline-block text-white text-sm font-medium px-3 py-1 rounded-full mb-4" style={{ backgroundColor: ODOO_PURPLE }}>
-                            Question {answeredCount + 1}
+                            Question {currentQuestionNumber}
                         </span>
                         <h3 className="text-xl md:text-2xl font-bold text-gray-900">{question.text}</h3>
                     </div>

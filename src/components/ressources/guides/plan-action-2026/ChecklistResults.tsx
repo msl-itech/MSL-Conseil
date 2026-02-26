@@ -1,10 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { UserData } from "./ChecklistForm";
 import { ChecklistAnswers } from "./InteractiveChecklist";
+import { getMaturityLevel, getRecommendation } from "@/lib/diagnosticRecommendations";
+import Link from "next/link";
 
 interface ChecklistResultsProps {
     score: number;
@@ -36,6 +38,20 @@ export default function ChecklistResults({ score, maxScore, answers, userInfo, o
 
     const percentage = Math.round((score / maxScore) * 100);
     const level = getLevel(percentage);
+
+    // Get smart recommendation
+    const maturityLevel = getMaturityLevel(score, maxScore, 'plan-action-2026');
+    const recommendation = getRecommendation('plan-action-2026', maturityLevel);
+
+    // Save results to localStorage for trajectoire page
+    useEffect(() => {
+        const resultData = {
+            totalScore: score,
+            userInfo,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem('plan_action_2026_result', JSON.stringify(resultData));
+    }, [score, userInfo]);
 
     useGSAP(() => {
         gsap.fromTo(".result-element",
@@ -189,6 +205,55 @@ ${generateShareUrl()}
                     </div>
                 </div>
 
+                {/* Recommendation Section */}
+                <div className="result-element bg-gradient-to-br from-primary/5 to-white rounded-2xl p-8 border-2 border-primary/20 mb-8">
+                    <div className="flex items-start gap-3 mb-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
+                            recommendation.urgency === 'high' ? 'bg-red-100 text-red-700' :
+                            recommendation.urgency === 'medium' ? 'bg-orange-100 text-orange-700' :
+                            'bg-blue-100 text-blue-700'
+                        }`}>
+                            {recommendation.urgency === 'high' ? '🔥 Prioritaire' :
+                             recommendation.urgency === 'medium' ? '⚡ Important' :
+                             '💡 Recommandé'}
+                        </span>
+                    </div>
+
+                    <h3 className="text-2xl font-serif text-gray-900 mb-4">{recommendation.title}</h3>
+                    <p className="text-gray-700 mb-4 text-lg">{recommendation.description}</p>
+
+                    <div className="bg-white rounded-xl p-4 border border-primary/20 mb-6">
+                        <p className="text-sm text-gray-600">
+                            <span className="font-bold text-primary">Pourquoi cette recommandation ?</span><br />
+                            {recommendation.reason}
+                        </p>
+                    </div>
+
+                    {recommendation.nextStep === 'audit-strategique' ? (
+                        <a
+                            href={recommendation.ctaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg"
+                        >
+                            {recommendation.ctaText}
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    ) : (
+                        <Link
+                            href={recommendation.ctaUrl}
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg"
+                        >
+                            {recommendation.ctaText}
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </Link>
+                    )}
+                </div>
+
                 {/* Share CTA */}
                 <div className="result-element bg-linear-to-br from-secondary to-secondary/90 rounded-2xl p-8 text-white text-center mb-8">
                     <h3 className="text-xl font-bold mb-3">🎯 Invitez vos collaborateurs</h3>
@@ -224,19 +289,27 @@ ${generateShareUrl()}
                 </div>
 
                 {/* Actions */}
-                <div className="result-element flex flex-col sm:flex-row gap-4">
-                    <button
-                        onClick={onRestart}
-                        className="flex-1 py-4 px-6 rounded-xl border-2 border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-all"
+                <div className="result-element flex flex-col gap-4">
+                    <Link
+                        href="/ressources/trajectoire"
+                        className="w-full py-4 px-6 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-all text-center"
                     >
-                        Refaire le diagnostic
-                    </button>
-                    <a
-                        href="/contact"
-                        className="flex-1 py-4 px-6 rounded-xl bg-primary text-white font-semibold hover:bg-primary/90 transition-all text-center"
-                    >
-                        Demander un accompagnement
-                    </a>
+                        📍 Voir ma trajectoire complète
+                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button
+                            onClick={onRestart}
+                            className="flex-1 py-4 px-6 rounded-xl border-2 border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-all"
+                        >
+                            Refaire le diagnostic
+                        </button>
+                        <a
+                            href="/contact"
+                            className="flex-1 py-4 px-6 rounded-xl bg-secondary text-white font-semibold hover:bg-secondary/90 transition-all text-center"
+                        >
+                            Demander un accompagnement
+                        </a>
+                    </div>
                 </div>
             </div>
 

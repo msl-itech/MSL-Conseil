@@ -64,7 +64,7 @@ export default function ResourceHero() {
 
                 {/* Subtitle */}
                 <p ref={subRef} className="text-xl md:text-2xl text-white/70 max-w-2xl font-light leading-relaxed mb-10">
-                    Guides, articles et outils pratiques pour comprendre, sécuriser et automatiser votre gestion financière avec Odoo.
+                    Guides, articles et outils pratiques pour comprendre, sécuriser et automatiser votre gestion financière avec Odoo. <span className="text-secondary font-medium">Chaque diagnostic vous recommande votre prochaine étape.</span>
                 </p>
 
                 {/* CTAs */}
