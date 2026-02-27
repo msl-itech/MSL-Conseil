@@ -77,13 +77,13 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
                 ref={containerRef}
                 className={`fixed z-50 transition-transform duration-300 lg:translate-x-0
                     ${isOpen ? "translate-x-0" : "-translate-x-full"}
-                    left-0 bottom-0 top-0 w-72 bg-white shadow-xl lg:shadow-md
-                    lg:left-4 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:w-64 lg:rounded-2xl lg:max-h-[80vh] overflow-hidden`}
+                    left-0 bottom-0 top-0 w-64 bg-white shadow-xl lg:shadow-md
+                    lg:left-4 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:w-56 lg:rounded-2xl lg:max-h-[80vh] overflow-hidden`}
             >
-                <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-primary/5">
+                <div className="p-3 border-b border-gray-100 flex items-center justify-between bg-primary/5">
                     <div className="flex items-center gap-2">
                         <span className="text-lg">📘</span>
-                        <span className="font-bold text-sm text-gray-900">Navigation rapide</span>
+                        <span className="font-bold text-xs text-gray-900">Navigation rapide</span>
                     </div>
                     <button onClick={() => setIsOpen(false)} className="lg:hidden p-1 hover:bg-gray-100 rounded">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -98,7 +98,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
                             <button
                                 key={chapter.id}
                                 onClick={() => scrollToChapter(chapter.id)}
-                                className={`nav-item w-full text-left p-3 rounded-xl transition-all text-sm ${activeChapter === chapter.id
+                                className={`nav-item w-full text-left p-2 rounded-lg transition-all text-xs ${activeChapter === chapter.id
                                     ? "bg-primary text-white shadow-md"
                                     : "text-gray-700 hover:bg-gray-50"
                                     }`}
@@ -116,7 +116,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
                 </div>
 
                 {/* Progress indicator */}
-                <div className="p-3 border-t border-gray-100">
+                <div className="p-2 border-t border-gray-100">
                     <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
                         <span>Progression</span>
                         <span>{Math.round(((chapters.findIndex(c => c.id === activeChapter) + 1) / chapters.length) * 100)}%</span>
@@ -132,7 +132,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
                 </div>
 
                 {/* CTA Diagnostic */}
-                <div className="p-3 border-t border-gray-100">
+                <div className="p-2 border-t border-gray-100">
                     <button
                         onClick={() => {
                             const element = document.getElementById("diagnostic");
@@ -144,7 +144,7 @@ export default function ChapterNav({ chapters }: ChapterNavProps) {
                         className="w-full bg-secondary hover:bg-secondary/90 text-white font-semibold py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
                     >
                         <span>🧪</span>
-                        <span>Faire le diagnostic</span>
+                        <span>Diagnostic</span>
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>

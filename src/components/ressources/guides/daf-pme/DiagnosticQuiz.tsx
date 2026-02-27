@@ -5,7 +5,7 @@ import {
   formatQuizResultsToDescription,
   updateOdooLead,
 } from "@/lib/odoo-api";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 // Types
@@ -709,6 +709,7 @@ export default function DiagnosticQuiz({
   onComplete,
   onBack,
 }: DiagnosticQuizProps) {
+  const isAdvancingRef = useRef(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<DiagnosticAnswer[]>([]);
   const [showInterpretation, setShowInterpretation] = useState(false);
@@ -800,31 +801,33 @@ export default function DiagnosticQuiz({
   };
 
   const handleNext = async () => {
-    if (selectedAnswer === null) return;
+    if (selectedAnswer === null || isAdvancingRef.current) return;
+    isAdvancingRef.current = true;
 
-    const newAnswers = [
-      ...answers,
-      { questionId: question.id, answer: selectedAnswer as 0 | 1 | 2 },
-    ];
-    setAnswers(newAnswers);
+    try {
+      const newAnswers = [
+        ...answers,
+        { questionId: question.id, answer: selectedAnswer as 0 | 1 | 2 },
+      ];
+      setAnswers(newAnswers);
 
-    if (currentQuestion < QUESTIONS.length - 1) {
-      const nextQuestion = QUESTIONS[currentQuestion + 1];
-      const currentQuestionObj = QUESTIONS[currentQuestion];
+      if (currentQuestion < QUESTIONS.length - 1) {
+        const nextQuestion = QUESTIONS[currentQuestion + 1];
+        const currentQuestionObj = QUESTIONS[currentQuestion];
 
-      // Check if we're moving to a new axe
-      if (
-        nextQuestion &&
-        currentQuestionObj &&
-        nextQuestion.axe !== currentQuestionObj.axe
-      ) {
-        setShowAxeTransition(true);
-      }
+        // Check if we're moving to a new axe
+        if (
+          nextQuestion &&
+          currentQuestionObj &&
+          nextQuestion.axe !== currentQuestionObj.axe
+        ) {
+          setShowAxeTransition(true);
+        }
 
-      setCurrentQuestion((prev) => prev + 1);
-      setSelectedAnswer(null);
-      setShowInterpretation(false);
-    } else {
+        setCurrentQuestion((prev) => prev + 1);
+        setSelectedAnswer(null);
+        setShowInterpretation(false);
+      } else {
       // Calculate results
       const axe1 = newAnswers
         .filter((a) => QUESTIONS.find((q) => q.id === a.questionId)?.axe === 1)
@@ -918,10 +921,13 @@ export default function DiagnosticQuiz({
         });
       }
 
-      // Save to localStorage
-      localStorage.setItem("daf_diagnostic_result", JSON.stringify(result));
+        // Save to localStorage
+        localStorage.setItem("daf_diagnostic_result", JSON.stringify(result));
 
-      onComplete(result);
+        onComplete(result);
+      }
+    } finally {
+      isAdvancingRef.current = false;
     }
   };
 

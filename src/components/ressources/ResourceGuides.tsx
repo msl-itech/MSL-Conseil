@@ -84,6 +84,23 @@ export default function ResourceGuides() {
                 <div className="mb-16 text-center">
                     <h2 className="text-3xl md:text-4xl font-serif text-primary mb-4">Guides Pratiques</h2>
                     <p className="text-gray-500 max-w-2xl mx-auto">Des ressources actionnables pour maîtriser Odoo Finances.</p>
+                    
+                    {/* Recommendation Info Box */}
+                    <div className="mt-8 max-w-3xl mx-auto bg-gradient-to-br from-secondary/10 to-white rounded-2xl p-6 border border-secondary/20 shadow-sm">
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg className="w-5 h-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                            <div className="text-left">
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">Parcours progressif personnalisé</h3>
+                                <p className="text-gray-600 text-sm leading-relaxed">
+                                    Complétez un diagnostic et recevez une recommandation claire sur votre prochaine étape logique. Notre système analyse votre niveau de maturité financière et vous guide dans votre progression, étape par étape.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Featured Resources - Full Width */}

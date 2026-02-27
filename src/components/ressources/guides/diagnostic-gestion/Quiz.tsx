@@ -199,6 +199,7 @@ const QUIZ_BLOCKS = [
 
 export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
     const containerRef = useRef<HTMLDivElement>(null);
+    const isAdvancingRef = useRef(false);
     const [currentBlock, setCurrentBlock] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -210,6 +211,8 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
     const totalQuestions = QUIZ_BLOCKS.reduce((acc, b) => acc + b.questions.length, 0);
     const answeredCount = Object.keys(answers).length;
     const progress = Math.round((answeredCount / totalQuestions) * 100);
+    const currentQuestionNumber =
+        QUIZ_BLOCKS.slice(0, currentBlock).reduce((acc, b) => acc + b.questions.length, 0) + currentQuestion + 1;
 
     useGSAP(() => {
         if (question && !showFeedback) {
@@ -226,10 +229,16 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
     };
 
     const handleNext = () => {
-        if (selectedAnswer === null) return;
+        if (selectedAnswer === null || !question) return;
+        if (isAdvancingRef.current) return;
+        isAdvancingRef.current = true;
 
         // Include current answer in the final answers object
         const updatedAnswers = { ...answers, [question.id]: selectedAnswer };
+        const hasAnsweredAllQuestions = Object.keys(updatedAnswers).length >= totalQuestions;
+        const isOnLastQuestion =
+            currentBlock === QUIZ_BLOCKS.length - 1 &&
+            currentQuestion === block.questions.length - 1;
 
         setShowFeedback(false);
         setSelectedAnswer(null);
@@ -239,9 +248,14 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
         } else if (currentBlock < QUIZ_BLOCKS.length - 1) {
             setCurrentBlock(prev => prev + 1);
             setCurrentQuestion(0);
-        } else {
+        } else if (isOnLastQuestion && hasAnsweredAllQuestions) {
             onComplete(updatedAnswers);
         }
+
+        // Unlock on next tick to prevent accidental double-click skips.
+        setTimeout(() => {
+            isAdvancingRef.current = false;
+        }, 0);
     };
 
     const getOptions = (type: AnswerType) => {
@@ -293,7 +307,7 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                             Retour
                         </button>
-                        <span className="text-sm font-bold text-primary">{answeredCount + (showFeedback ? 1 : 0)}/{totalQuestions}</span>
+                        <span className="text-sm font-bold text-primary">{answeredCount}/{totalQuestions}</span>
                     </div>
                     <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-500 rounded-full" style={{ width: `${progress}%` }} />
@@ -316,7 +330,7 @@ export default function Quiz({ onComplete, onBack, userName }: QuizProps) {
             <div className="max-w-3xl mx-auto px-6 py-12">
                 <div className="quiz-question bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                     <div className="text-center mb-8">
-                        <span className="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full mb-4">Question {answeredCount + 1}</span>
+                        <span className="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full mb-4">Question {currentQuestionNumber}</span>
                         <h3 className="text-xl md:text-2xl font-bold text-gray-900">{question.text}</h3>
                     </div>
 

@@ -20,7 +20,7 @@ export const siteConfig = {
     ],
     author: 'MSL Conseils',
     contact: {
-        email: 'contact@msl-conseils.com',
+        email: 'contact@mslconseils.be',
         phone: '+32 2 883 05 51',
     },
     social: {

@@ -455,6 +455,7 @@ export default function GuideQuiz({ userName, onComplete, onBack }: GuideQuizPro
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [isAnimating, setIsAnimating] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const question = QUESTIONS[currentQuestion];
     const progress = ((currentQuestion + 1) / QUESTIONS.length) * 100;
@@ -531,13 +532,18 @@ export default function GuideQuiz({ userName, onComplete, onBack }: GuideQuizPro
     };
 
     const handleSubmit = () => {
-        if (selectedOption === null) return;
+        if (selectedOption === null || isSubmitting) return;
+        setIsSubmitting(true);
 
-        // Include current answer in the final calculation
-        const currentPoints = question.options[selectedOption].points;
-        const updatedAnswers = { ...answers, [question.id]: currentPoints };
-        const totalScore = Object.values(updatedAnswers).reduce((sum, points) => sum + points, 0);
-        onComplete(updatedAnswers, totalScore);
+        try {
+            // Include current answer in the final calculation
+            const currentPoints = question.options[selectedOption].points;
+            const updatedAnswers = { ...answers, [question.id]: currentPoints };
+            const totalScore = Object.values(updatedAnswers).reduce((sum, points) => sum + points, 0);
+            onComplete(updatedAnswers, totalScore);
+        } catch {
+            setIsSubmitting(false);
+        }
     };
 
     const isLastQuestion = currentQuestion === QUESTIONS.length - 1;
@@ -696,9 +702,9 @@ export default function GuideQuiz({ userName, onComplete, onBack }: GuideQuizPro
                             {isLastQuestion ? (
                                 <button
                                     onClick={handleSubmit}
-                                    disabled={selectedOption === null || isAnimating}
+                                    disabled={selectedOption === null || isAnimating || isSubmitting}
                                     className={`flex items-center gap-2 px-8 py-3 rounded-xl font-semibold transition-all
-                                        ${selectedOption !== null && !isAnimating
+                                        ${selectedOption !== null && !isAnimating && !isSubmitting
                                             ? "bg-secondary text-white hover:bg-secondary/90 shadow-lg shadow-secondary/25"
                                             : "bg-gray-200 text-gray-400 cursor-not-allowed"
                                         }`}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createOdooLead, updateOdooLead, formatQuizResultsToDescription } from "@/lib/odoo-api";
 import toast from "react-hot-toast";
 
@@ -292,6 +292,7 @@ interface DiagnosticQuizProps {
 }
 
 export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizProps) {
+    const isAdvancingRef = useRef(false);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState<DiagnosticAnswer[]>([]);
     const [showInterpretation, setShowInterpretation] = useState(false);
@@ -396,105 +397,110 @@ export default function DiagnosticQuiz({ onComplete, onBack }: DiagnosticQuizPro
     };
 
     const handleNext = async () => {
-        if (selectedAnswer === null) return;
+        if (selectedAnswer === null || isAdvancingRef.current) return;
+        isAdvancingRef.current = true;
 
-        const newAnswers = [...answers, { questionId: question.id, answer: selectedAnswer as 0 | 1 | 2 }];
-        setAnswers(newAnswers);
+        try {
+            const newAnswers = [...answers, { questionId: question.id, answer: selectedAnswer as 0 | 1 | 2 }];
+            setAnswers(newAnswers);
 
-        if (currentQuestion < QUESTIONS.length - 1) {
-            setCurrentQuestion(prev => prev + 1);
-            setSelectedAnswer(null);
-            setShowInterpretation(false);
-        } else {
-            const axe1 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 1).reduce((sum, a) => sum + a.answer, 0);
-            const axe2 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 2).reduce((sum, a) => sum + a.answer, 0);
-            const axe3 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 3).reduce((sum, a) => sum + a.answer, 0);
-            const axe4 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 4).reduce((sum, a) => sum + a.answer, 0);
-
-            const result: DiagnosticResult = {
-                totalScore: axe1 + axe2 + axe3 + axe4,
-                axeScores: { axe1, axe2, axe3, axe4 },
-                answers: newAnswers,
-                userInfo: userInfo,
-                date: new Date().toISOString(),
-                id: `auto_diag_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-            };
-
-            // Mettre à jour le lead avec les résultats du quiz
-            console.log("🔍 DEBUG - leadId:", leadId);
-            console.log("🔍 DEBUG - userInfo:", userInfo);
-            
-            if (leadId) {
-                const updatingToast = toast.loading("Envoi de vos résultats...");
-                
-                try {
-                    const maxScore = QUESTIONS.length * 2; // 2 points max par question
-                    const percentage = Math.round((result.totalScore / maxScore) * 100);
-                    
-                    // Convertir les réponses pour l'API
-                    const answersMap: Record<string, number> = {};
-                    const questionsMap: Record<string, string> = {};
-                    newAnswers.forEach(a => {
-                        const questionKey = `q${a.questionId}`;
-                        answersMap[questionKey] = a.answer;
-                        
-                        // Trouver la question correspondante pour obtenir son texte
-                        const question = QUESTIONS.find(q => q.id === a.questionId);
-                        if (question) {
-                            questionsMap[questionKey] = question.question;
-                        }
-                    });
-                    
-                    const userData = {
-                        firstName: userInfo.firstName,
-                        lastName: userInfo.lastName,
-                        email: userInfo.email,
-                        company: userInfo.company,
-                        vatNumber: userInfo.vatNumber,
-                        revenueLevel: userInfo.revenueLevel,
-                        sector: userInfo.sector,
-                        employees: userInfo.employees,
-                    };
-                    
-                    const updatedDescription = formatQuizResultsToDescription(
-                        userData,
-                        {
-                            answers: answersMap,
-                            totalScore: result.totalScore,
-                            maxScore,
-                            percentage,
-                            questions: questionsMap,
-                        },
-                        "Guide: Automatisation & Diagnostic"
-                    );
-                    
-                    console.log("📝 DEBUG - Description (premiers 200 chars):", updatedDescription.substring(0, 200));
-                    console.log("📊 DEBUG - Envoi à Odoo - leadId:", leadId);
-                    
-                    const updateResponse = await updateOdooLead(leadId, {
-                        description: updatedDescription
-                    });
-                    
-                    console.log("✅ Lead mis à jour avec succès:", updateResponse);
-                    toast.success("Vos résultats ont été enregistrés avec succès ! 🎉", {
-                        id: updatingToast,
-                    });
-                } catch (error) {
-                    console.error("Erreur lors de la mise à jour du lead:", error);
-                    toast.error("Erreur lors de l'envoi, mais vos résultats s'affichent", {
-                        id: updatingToast,
-                    });
-                    // On continue vers les résultats même si la mise à jour échoue
-                }
+            if (currentQuestion < QUESTIONS.length - 1) {
+                setCurrentQuestion(prev => prev + 1);
+                setSelectedAnswer(null);
+                setShowInterpretation(false);
             } else {
-                console.warn("⚠️ Aucun leadId trouvé - la mise à jour du lead n'a pas été effectuée");
-                toast.error("Impossible d'envoyer vos résultats (pas de leadId)", {
-                    duration: 2000,
-                });
-            }
+                const axe1 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 1).reduce((sum, a) => sum + a.answer, 0);
+                const axe2 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 2).reduce((sum, a) => sum + a.answer, 0);
+                const axe3 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 3).reduce((sum, a) => sum + a.answer, 0);
+                const axe4 = newAnswers.filter(a => QUESTIONS.find(q => q.id === a.questionId)?.axe === 4).reduce((sum, a) => sum + a.answer, 0);
 
-            localStorage.setItem('auto_diagnostic_result', JSON.stringify(result));
-            onComplete(result);
+                const result: DiagnosticResult = {
+                    totalScore: axe1 + axe2 + axe3 + axe4,
+                    axeScores: { axe1, axe2, axe3, axe4 },
+                    answers: newAnswers,
+                    userInfo: userInfo,
+                    date: new Date().toISOString(),
+                    id: `auto_diag_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+                };
+
+                // Mettre à jour le lead avec les résultats du quiz
+                console.log("🔍 DEBUG - leadId:", leadId);
+                console.log("🔍 DEBUG - userInfo:", userInfo);
+            
+                if (leadId) {
+                    const updatingToast = toast.loading("Envoi de vos résultats...");
+                
+                    try {
+                        const maxScore = QUESTIONS.length * 2; // 2 points max par question
+                        const percentage = Math.round((result.totalScore / maxScore) * 100);
+                    
+                        // Convertir les réponses pour l'API
+                        const answersMap: Record<string, number> = {};
+                        const questionsMap: Record<string, string> = {};
+                        newAnswers.forEach(a => {
+                            const questionKey = `q${a.questionId}`;
+                            answersMap[questionKey] = a.answer;
+                        
+                            // Trouver la question correspondante pour obtenir son texte
+                            const question = QUESTIONS.find(q => q.id === a.questionId);
+                            if (question) {
+                                questionsMap[questionKey] = question.question;
+                            }
+                        });
+                    
+                        const userData = {
+                            firstName: userInfo.firstName,
+                            lastName: userInfo.lastName,
+                            email: userInfo.email,
+                            company: userInfo.company,
+                            vatNumber: userInfo.vatNumber,
+                            revenueLevel: userInfo.revenueLevel,
+                            sector: userInfo.sector,
+                            employees: userInfo.employees,
+                        };
+                    
+                        const updatedDescription = formatQuizResultsToDescription(
+                            userData,
+                            {
+                                answers: answersMap,
+                                totalScore: result.totalScore,
+                                maxScore,
+                                percentage,
+                                questions: questionsMap,
+                            },
+                            "Guide: Automatisation & Diagnostic"
+                        );
+                    
+                        console.log("📝 DEBUG - Description (premiers 200 chars):", updatedDescription.substring(0, 200));
+                        console.log("📊 DEBUG - Envoi à Odoo - leadId:", leadId);
+                    
+                        const updateResponse = await updateOdooLead(leadId, {
+                            description: updatedDescription
+                        });
+                    
+                        console.log("✅ Lead mis à jour avec succès:", updateResponse);
+                        toast.success("Vos résultats ont été enregistrés avec succès ! 🎉", {
+                            id: updatingToast,
+                        });
+                    } catch (error) {
+                        console.error("Erreur lors de la mise à jour du lead:", error);
+                        toast.error("Erreur lors de l'envoi, mais vos résultats s'affichent", {
+                            id: updatingToast,
+                        });
+                        // On continue vers les résultats même si la mise à jour échoue
+                    }
+                } else {
+                    console.warn("⚠️ Aucun leadId trouvé - la mise à jour du lead n'a pas été effectuée");
+                    toast.error("Impossible d'envoyer vos résultats (pas de leadId)", {
+                        duration: 2000,
+                    });
+                }
+
+                localStorage.setItem('auto_diagnostic_result', JSON.stringify(result));
+                onComplete(result);
+            }
+        } finally {
+            isAdvancingRef.current = false;
         }
     };
 

@@ -4,7 +4,7 @@
 
 ### ⚙️ Fichier src/lib/seo.ts
 - [ ] URL du site mise à jour (remplacer `https://www.odoo-finances.pro`)
-- [ ] Email de contact ajouté (`contact@msl-conseils.com`)
+- [ ] Email de contact ajouté (`contact@mslconseils.be`)
 - [ ] Numéro de téléphone ajouté
 - [ ] Lien LinkedIn ajouté
 - [ ] Lien Twitter/X ajouté (optionnel)

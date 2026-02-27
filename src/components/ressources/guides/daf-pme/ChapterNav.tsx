@@ -89,16 +89,16 @@ export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
                 ref={containerRef}
                 className={`fixed z-50 transition-transform duration-300 lg:translate-x-0
                     ${isOpen ? "translate-x-0" : "-translate-x-full"}
-                    left-0 bottom-0 top-0 w-80 bg-white shadow-xl lg:shadow-md
-                    lg:left-4 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:w-72 lg:rounded-2xl lg:max-h-[85vh] overflow-hidden`}
+                    left-0 bottom-0 top-0 w-64 bg-white shadow-xl lg:shadow-md
+                    lg:left-4 lg:top-1/2 lg:-translate-y-1/2 lg:bottom-auto lg:w-56 lg:rounded-2xl lg:max-h-[80vh] overflow-hidden`}
             >
                 {/* Header */}
-                <div className="p-4 border-b border-gray-100 flex items-center justify-between" style={{ backgroundColor: `${MAIN_COLOR}10` }}>
+                <div className="p-3 border-b border-gray-100 flex items-center justify-between" style={{ backgroundColor: `${MAIN_COLOR}10` }}>
                     <div className="flex items-center gap-2">
-                        <svg className="w-5 h-5" style={{ color: MAIN_COLOR }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-4 h-4" style={{ color: MAIN_COLOR }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
-                        <span className="font-bold text-sm text-gray-900">Guide DAF PME</span>
+                        <span className="font-bold text-xs text-gray-900">Guide DAF PME</span>
                     </div>
                     <button onClick={() => setIsOpen(false)} className="lg:hidden p-1 hover:bg-gray-100 rounded">
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -108,20 +108,20 @@ export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
                 </div>
 
                 {/* Chapters list */}
-                <div className="p-3 overflow-y-auto max-h-[calc(85vh-180px)]">
+                <div className="p-2 overflow-y-auto max-h-[calc(80vh-160px)]">
                     <div className="space-y-1">
                         {chapters.map((chapter) => (
                             <button
                                 key={chapter.id}
                                 onClick={() => scrollToChapter(chapter.id)}
-                                className={`nav-item w-full text-left p-3 rounded-xl transition-all text-sm ${activeChapter === chapter.id
+                                className={`nav-item w-full text-left p-2 rounded-lg transition-all text-xs ${activeChapter === chapter.id
                                     ? "text-white shadow-md"
                                     : "text-gray-700 hover:bg-gray-50"
                                     }`}
                                 style={activeChapter === chapter.id ? { backgroundColor: MAIN_COLOR } : {}}
                             >
-                                <div className="flex items-center gap-3">
-                                    <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${activeChapter === chapter.id ? "bg-white/20 text-white" : "bg-gray-100 text-gray-500"
+                                <div className="flex items-center gap-2">
+                                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${activeChapter === chapter.id ? "bg-white/20 text-white" : "bg-gray-100 text-gray-500"
                                         }`}>
                                         {chapter.id}
                                     </span>
@@ -133,7 +133,7 @@ export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
                 </div>
 
                 {/* Diagnostic CTA */}
-                <div className="p-3 border-t border-gray-100">
+                <div className="p-2 border-t border-gray-100">
                     <button
                         onClick={() => {
                             if (onCtaClick) {
@@ -144,15 +144,15 @@ export default function ChapterNav({ sections, onCtaClick }: ChapterNavProps) {
                             }
                             setIsOpen(false);
                         }}
-                        className="w-full py-3 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
+                        className="w-full py-2.5 rounded-lg font-bold text-xs text-white transition-all hover:opacity-90"
                         style={{ backgroundColor: '#fe981a' }}
                     >
-                        🧭 Faire le diagnostic
+                        🧭 Diagnostic
                     </button>
                 </div>
 
                 {/* Progress indicator */}
-                <div className="p-3 border-t border-gray-100">
+                <div className="p-2 border-t border-gray-100">
                     <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
                         <span>Progression</span>
                         <span className="font-medium">{Math.round(((chapters.findIndex(s => s.id === activeChapter) + 1) / chapters.length) * 100)}%</span>

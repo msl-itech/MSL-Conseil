@@ -257,7 +257,7 @@ export default function ContactContent() {
               </a>
 
               <a
-                href="mailto:contact@msl-conseils.com"
+                href="mailto:contact@mslconseils.be"
                 className="flex items-center gap-6 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-secondary/30 transition-all group"
               >
                 <div className="w-12 h-12 rounded-full bg-orange-50 text-secondary flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
@@ -265,7 +265,7 @@ export default function ContactContent() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 group-hover:text-secondary transition-colors">
-                    contact@msl-conseils.com
+                    contact@mslconseils.be
                   </p>
                   <p className="text-sm text-gray-500">
                     Réponse garantie dans la journée
